@@ -6,14 +6,48 @@ import { Component } from "react";
 //import 'react-bootstrap';
 
 class Schedule extends Component{
+  constructor(props) {
+    super(props);
+    this.state = this.getInitialState();
+  }
+
+  formatDate = (date) => {
+    var d = new Date(date),
+        month = '' + (d.getMonth()),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return [year, month, day].join('-');
+}
+
+  getInitialState = () => {
+    var defaultDate = new Date(2021, 11, 17);
+    var defaultDateString = this.formatDate(defaultDate);
+
+    //debugger;
+    //var defaultDateString = "2021-11-01";
+    return {
+      date: defaultDateString
+    };
+  }
+
 render(){
+  //console.log(count)
+  //console.log("this.defaultDateString");
   return (
     <div class="container mt-3">
       <h1>Schedule a Pickup</h1>
       <form>
         <Form.Group>
           <Form.Label>Select Date to Schedule</Form.Label>
-          <Form.Control type="date"/>
+          <Form.Control
+            type="date"
+            //value={this.state.date}
+            value={this.state.date}
+          />
         </Form.Group>
       </form>
 
