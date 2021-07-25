@@ -16,6 +16,8 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+
+          Here is a sentence to use in order to test FlexSearch
         </a>
       </header>
     </div>

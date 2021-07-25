@@ -12,6 +12,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { NavigationBar } from './components/NavigationBar';
 
 function App() {
+
   return (
     <Fragment>
     <NavigationBar />
