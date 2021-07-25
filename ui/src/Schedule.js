@@ -10,8 +10,14 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 class Schedule extends Component{
   constructor(props) {
+    debugger;
     super(props);
     this.state = this.getInitialState();
+  }
+
+  componentDidUpdate = () => {
+    var test = "test";
+    debugger;
   }
 
   formatDate = (date) => {
@@ -33,6 +39,13 @@ class Schedule extends Component{
 
   onMatterGridCellFocused = () => {
 
+  }
+
+  onChangeDate = () => {
+    // var changedDate = new Date(2019, 10, 3);
+    // var changedDateString = this.formatDate(changedDate);
+     this.setState({date: document.getElementById("datePicker").value});
+    debugger;  
   }
 
   getInitialState = () => {
@@ -134,7 +147,9 @@ render(){
         <Form.Group>
           <Form.Label>Select Date to Schedule</Form.Label>
           <Form.Control
+            id="datePicker"
             type="date"
+            onChange = {this.onChangeDate}
             //value={this.state.date}
             value={this.state.date}
           />
