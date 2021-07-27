@@ -107,11 +107,9 @@ class Schedule extends Component{
           {make: "Porsche", model: "Boxter", price: 72000}
       ],
 
-
          rowModelType: "infinite",
          infiniteInitialRowCount: 1,
            context: {componentParent: this}
-
     };
   }
 
