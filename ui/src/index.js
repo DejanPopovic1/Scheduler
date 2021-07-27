@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&callback=initMap">
+</script>
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

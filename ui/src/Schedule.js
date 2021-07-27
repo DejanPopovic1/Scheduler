@@ -2,9 +2,10 @@ import { Form, FormGroup, Modal } from "react-bootstrap";
 import './Schedule.css';
 import { Row, Col, Button } from 'reactstrap';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react'
-import { Component } from "react";
+import { Component, useEffect } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import App from './storeResponse';
 
 class Schedule extends Component {
   constructor(props) {
@@ -55,8 +56,16 @@ class Schedule extends Component {
     };
   }
 
+
+
   clickAddSchedule = () => {
-      this.setState({isScheduleModalVisible: true});
+    this.setState({isScheduleModalVisible: true});
+
+      
+      // var map = new google.maps.Map(document.getElementById("map"), {
+      //   center: {lat: -34.397, lng: 150.644},
+      //   zoom: 8
+      // });
   }
 
   render() {
@@ -114,7 +123,14 @@ class Schedule extends Component {
 
         <Modal show={this.state.isScheduleModalVisible}>
                   test
-                    <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&q=senior+assisted+care+near+me&zoom=9" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                  <App></App>
+                  <div id="map">
+
+
+
+                  </div>
+
+                    {/* <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&q=senior+assisted+care+near+me&zoom=9" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe> */}
         </Modal>
                   
 
