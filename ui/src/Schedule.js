@@ -126,7 +126,6 @@ render(){
           />
         </Form.Group>
       </form>
-
       <Row>
         <Col sm="12">
           <div className="ag-theme-alpine"
