@@ -109,27 +109,9 @@ class Schedule extends Component{
 
 
          rowModelType: "infinite",
-    //     paginationPageSize: 11,
-    //     cacheBlockSize: 11,
-    //     cacheOverflowSize: 2,
-    //     maxConcurrentDatasourceRequests: 2,
          infiniteInitialRowCount: 1,
-    //     maxBlocksInCache: 2,
            context: {componentParent: this}
-    //     statusBar: {
-    //       statusPanels: [
-    //         {statusPanel: 'quickGlanceRenderer'},
-    //       ],
-    //     },
-    //     frameworkComponents: {
-    //       quickGlanceRenderer: _QuickGlanceRenderer,
-    //       watchListRenderer: _WatchListRenderer
-    //     },
-    //     getRowNodeId: function (item) {
-    //       return item.id;
-    //     }
-    //   }
-    // }
+
 
 
 
