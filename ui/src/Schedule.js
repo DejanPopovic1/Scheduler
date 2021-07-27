@@ -99,7 +99,6 @@ class Schedule extends Component{
     //     ],
            overlayLoadingTemplate: '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>',
          rowBuffer: 0,
-           
          rowData: [
           {make: "Toyota", model: "Celica", price: 35000},
           {make: "Ford", model: "Mondeo", price: 32000},
