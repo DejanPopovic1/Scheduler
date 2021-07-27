@@ -114,6 +114,7 @@ class Schedule extends Component {
 
         <Modal show={this.state.isScheduleModalVisible}>
                   test
+                    <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&q=senior+assisted+care+near+me&zoom=9" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
         </Modal>
                   
 
