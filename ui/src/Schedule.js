@@ -110,9 +110,6 @@ class Schedule extends Component{
     };
   }
 
-
-
-  
 render(){
   return (
     <div class="container mt-3">
@@ -129,21 +126,37 @@ render(){
           />
         </Form.Group>
       </form>
+      <div class="row">
+      <div class="col-sm-3">
+      <p><button class="btn btn-primary btn-block">Add Schedule</button></p>
+      <p><button class="btn btn-primary btn-block">Edit Shedule</button></p>
+      <p><button class="btn btn-primary btn-block">Delete Shedule</button></p>
+      </div>
+      </div>
+
       <Row>
         <Col sm="12">
           <div className="ag-theme-alpine"
                style={{
                  boxSizing: "border-box",
-                 height: "300px",
+                 height: "350px",
                  width: "100%"
                }}>
             <AgGridReact
+            style={{width: "100px"}}
+            //containerStyle={{height: "200px"}}
                rowData={[
-                {scheduledItem: "Desslivery to Michael"},
-                {scheduledItem: "Deliaavery to Michaels"},
-                {scheduledItem: "Delivery to Michaelss"}
+                {scheduledItem: "Delivery to Michael"},
+                {scheduledItem: "Delivery to John"},
+                {scheduledItem: "Delivery to Mary"},
+                {scheduledItem: "Delivery to Michael"},
+                {scheduledItem: "Delivery to John"},
+                {scheduledItem: "Delivery to Mary"},
+                {scheduledItem: "Delivery to Michael"},
+                {scheduledItem: "Delivery to John"},
+                {scheduledItem: "Delivery to Mary"}
             ]}>
-               <AgGridColumn field="scheduledItem"></AgGridColumn>
+               <AgGridColumn field="scheduledItem" width={1100}></AgGridColumn>
 
 
 
