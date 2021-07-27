@@ -112,12 +112,6 @@ class Schedule extends Component{
          infiniteInitialRowCount: 1,
            context: {componentParent: this}
 
-
-
-
-
-
-
     };
   }
 
