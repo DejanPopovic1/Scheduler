@@ -6,6 +6,7 @@ import { Component, useEffect } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import App from './storeResponse';
+import MainMap from './MainMap';
 
 class Schedule extends Component {
   constructor(props) {
@@ -124,7 +125,7 @@ class Schedule extends Component {
 
         <Modal show={this.state.isScheduleModalVisible}>
                   test
-                  <App></App>
+                  <MainMap></MainMap>
                   <div id="map">
 
 
