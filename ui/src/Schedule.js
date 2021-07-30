@@ -5,7 +5,6 @@ import { AgGridColumn, AgGridReact } from 'ag-grid-react'
 import { Component, useEffect } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import App from './storeResponse';
 import MainMap from './MainMap';
 
 class Schedule extends Component {
