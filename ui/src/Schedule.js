@@ -69,6 +69,16 @@ class Schedule extends Component {
       // });
   }
 
+  
+  closeModal = () => {
+    this.setState({isScheduleModalVisible: false});
+
+      
+      // var map = new google.maps.Map(document.getElementById("map"), {
+      //   center: {lat: -34.397, lng: 150.644},
+      //   zoom: 8
+      // });
+  }
 
   render() {
     return (
@@ -130,8 +140,8 @@ class Schedule extends Component {
 
 
           <div>
-            <Button className='m-1 btn' color="primary">Confirm Pickup Point</Button>
-            <Button className='m-1 btn-primary' color="primary">Cancel</Button>
+            <Button className='m-1 btn' color="primary" onClick = {this.closeModal}>Confirm Pickup Point</Button>
+            <Button className='m-1 btn-primary' color="primary" onClick = {this.closeModal}>Cancel</Button>
             <MainMap></MainMap>
           </div>
         </Modal>
