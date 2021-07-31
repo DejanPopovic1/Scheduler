@@ -37,7 +37,8 @@ export class MainMap extends Component {
     this.setState(previousState => {
       return {
         markers: [
-          ...previousState.markers,
+          //If we wanted to keep previous markers, we would keep the line below
+          //...previousState.markers,
           {
             title: "Pickup Point",
             name: "Pickup Point",
@@ -60,7 +61,6 @@ export class MainMap extends Component {
         return (
           <Map
             google={this.props.google}
-            
             containerStyle={this.containerStyle}
             className={"map"}
             zoom={14}
