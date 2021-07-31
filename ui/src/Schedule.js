@@ -6,6 +6,7 @@ import { Component, useEffect } from "react";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import MainMap from './MainMap';
+import './styles.css';
 
 class Schedule extends Component {
   constructor(props) {
@@ -121,15 +122,12 @@ class Schedule extends Component {
             </Col>
           </Row>
         </div>
-
-        <Modal show={this.state.isScheduleModalVisible}>
-                  test
+        
+        
+        <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
+                  
                   <MainMap></MainMap>
-                  <div id="map">
 
-
-
-                  </div>
 
                     {/* <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&q=senior+assisted+care+near+me&zoom=9" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe> */}
         </Modal>
