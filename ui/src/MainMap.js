@@ -25,7 +25,7 @@ export class MainMap extends Component {
     const { latLng } = coord;
     const lat = latLng.lat();
     const lng = latLng.lng();
-    debugger;
+    this.props.sendData(lat, lng);
 
     const containerStyle = {
       position: 'absolute',  

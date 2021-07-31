@@ -17,7 +17,6 @@ class Schedule extends Component {
 
   componentDidUpdate = () => {
     var test = "test";
-    debugger;
   }
 
   formatDate = (date) => {
@@ -57,7 +56,10 @@ class Schedule extends Component {
     };
   }
 
-
+  getData(lat, lng){
+    // do not forget to bind getData in constructor
+    console.log(lat, lng);
+  }
 
   clickAddSchedule = () => {
     this.setState({isScheduleModalVisible: true});
@@ -142,7 +144,7 @@ class Schedule extends Component {
           <div>
             <Button className='m-1 btn' color="primary" onClick = {this.closeModal}>Confirm Pickup Point</Button>
             <Button className='m-1 btn-primary' color="primary" onClick = {this.closeModal}>Cancel</Button>
-            <MainMap></MainMap>
+            <MainMap sendData={this.getData}></MainMap>
           </div>
         </Modal>
                   
