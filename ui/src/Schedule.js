@@ -125,11 +125,15 @@ class Schedule extends Component {
         
         
         <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
-                  
-                  <MainMap></MainMap>
+          <h1 className="text-center">Add Schedule</h1>
+          <h4 className="text-center"><i>Click on the map to select a pickup point</i></h4>
 
 
-                    {/* <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&q=senior+assisted+care+near+me&zoom=9" width="600" height="450" frameborder="0" allowfullscreen="allowfullscreen"></iframe> */}
+          <div>
+            <Button className='m-1 btn' color="primary">Confirm Pickup Point</Button>
+            <Button className='m-1 btn-primary' color="primary">Cancel</Button>
+            <MainMap></MainMap>
+          </div>
         </Modal>
                   
 
