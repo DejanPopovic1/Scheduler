@@ -13,6 +13,8 @@ class Schedule extends Component {
     debugger;
     super(props);
     this.state = this.getInitialState();
+    //If the line below is not included, then getData wont bind to the state variables
+    this.getData = this.getData.bind(this);
   }
 
   componentDidUpdate = () => {
@@ -52,13 +54,19 @@ class Schedule extends Component {
     var defaultDateString = this.formatDate(defaultDate);
     return {
       date: defaultDateString,
-      isScheduleModalVisible: false
+      isScheduleModalVisible: false,
+      lat: 0,
+      lng:0
     };
   }
 
-  getData(lat, lng){
+  getData(lati, lngi){
     // do not forget to bind getData in constructor
-    console.log(lat, lng);
+
+    this.setState({lat: lati});
+    this.setState({lng: lngi});
+    console.log(this.state.lat, this.state.lng);
+
   }
 
   clickAddSchedule = () => {
