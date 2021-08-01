@@ -43,10 +43,11 @@ class Schedule extends Component {
   }
 
   onChangeDate = () => {
-    // var changedDate = new Date(2019, 10, 3);
-    // var changedDateString = this.formatDate(changedDate);
     this.setState({ date: document.getElementById("datePicker").value });
-    debugger;
+  }
+
+  onChangeScheduleName = () => {
+    this.setState({ scheduleName: document.getElementById("scheduleName").value });
   }
 
   getInitialState = () => {
@@ -54,6 +55,7 @@ class Schedule extends Component {
     var defaultDateString = this.formatDate(defaultDate);
     return {
       date: defaultDateString,
+      scheduleName: "",
       isScheduleModalVisible: false,
       lat: 0,
       lng:0
@@ -102,14 +104,22 @@ class Schedule extends Component {
                 id="datePicker"
                 type="date"
                 onChange={this.onChangeDate}
-                //value={this.state.date}
                 value={this.state.date}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Schedule Name</Form.Label>
+              <Form.Control
+                id="scheduleName"
+                type="input"
+                onChange={this.onChangeScheduleName}
+                value={this.state.scheduleName}
               />
             </Form.Group>
           </form>
           <div class="row">
             <div class="col-sm-3">
-              <p><button class="btn btn-primary btn-block" onClick={this.clickAddSchedule}>Add Schedule</button></p>
+              <p><button class="btn btn-primary btn-block" onClick={this.clickAddSchedule}>Add Pickup Point</button></p>
               <p><button class="btn btn-primary btn-block">Edit Shedule</button></p>
               <p><button class="btn btn-primary btn-block">Delete Shedule</button></p>
             </div>
@@ -145,7 +155,7 @@ class Schedule extends Component {
         
         
         <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
-          <h1 className="text-center">Add Schedule</h1>
+          <h1 className="text-center">Add Pickup Point</h1>
           <h4 className="text-center"><i>Click on the map to select a pickup point</i></h4>
 
 
