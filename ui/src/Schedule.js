@@ -57,7 +57,13 @@ class Schedule extends Component {
       //Form Data
       date: defaultDateString,
       scheduleName: "",
-      scheduledItemsArray: [],
+      scheduledItemsArray: [
+        {scheduledItem: "Delivery to Michael"},
+        {scheduledItem: "Delivery to John"},
+        {scheduledItem: "Delivery to Mary"},
+        {scheduledItem: "Delivery to Zed"},
+        {scheduledItem: "Delivery to Craig"}
+      ],
       //Control Information
       isScheduleModalVisible: false,
       //Child Data Passed Back
@@ -84,7 +90,12 @@ class Schedule extends Component {
       //   zoom: 8
       // });
   }
-
+    
+  addToItemArray = () => {
+    var myObj = {scheduledItem: "Added item"};
+    var joined = this.state.scheduledItemsArray.concat(myObj);
+    this.setState({scheduledItemsArray : joined});
+  }
   
   closeModal = () => {
     this.setState({isScheduleModalVisible: false});
@@ -125,7 +136,7 @@ class Schedule extends Component {
             <div class="col-sm-3">
             <Form.Label>Add Pickup Point</Form.Label>
               <p><button class="btn btn-primary btn-block" onClick={this.clickAddSchedule}>Add Pickup Point</button></p>
-              <p><button class="btn btn-secondary btn-block">Add Shedule</button></p>
+              <p><button class="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Shedule</button></p>
               <p><button class="btn btn-secondary btn-block">Edit Shedule</button></p>
               <p><button class="btn btn-secondary btn-block">Delete Shedule</button></p>
             </div>
@@ -141,17 +152,7 @@ class Schedule extends Component {
                 <AgGridReact
                   style={{ width: "100px" }}
                   //containerStyle={{height: "200px"}}
-                  rowData={[
-                    { scheduledItem: "Delivery to Michael" },
-                    { scheduledItem: "Delivery to John" },
-                    { scheduledItem: "Delivery to Mary" },
-                    { scheduledItem: "Delivery to Michael" },
-                    { scheduledItem: "Delivery to John" },
-                    { scheduledItem: "Delivery to Mary" },
-                    { scheduledItem: "Delivery to Michael" },
-                    { scheduledItem: "Delivery to John" },
-                    { scheduledItem: "Delivery to Mary" }
-                  ]}>
+                  rowData={this.state.scheduledItemsArray}>
                   <AgGridColumn field="scheduledItem" width={1100}></AgGridColumn>
                 </AgGridReact>
               </div>
@@ -172,6 +173,7 @@ class Schedule extends Component {
           </div>
         </Modal>
                   
+
 
      
 
