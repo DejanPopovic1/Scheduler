@@ -54,11 +54,15 @@ class Schedule extends Component {
     var defaultDate = new Date();
     var defaultDateString = this.formatDate(defaultDate);
     return {
+      //Form Data
       date: defaultDateString,
       scheduleName: "",
+      scheduledItemsArray: [],
+      //Control Information
       isScheduleModalVisible: false,
+      //Child Data Passed Back
       lat: 0,
-      lng:0
+      lng:0,
     };
   }
 
@@ -119,9 +123,11 @@ class Schedule extends Component {
           </form>
           <div class="row">
             <div class="col-sm-3">
+            <Form.Label>Add Pickup Point</Form.Label>
               <p><button class="btn btn-primary btn-block" onClick={this.clickAddSchedule}>Add Pickup Point</button></p>
-              <p><button class="btn btn-primary btn-block">Edit Shedule</button></p>
-              <p><button class="btn btn-primary btn-block">Delete Shedule</button></p>
+              <p><button class="btn btn-secondary btn-block">Add Shedule</button></p>
+              <p><button class="btn btn-secondary btn-block">Edit Shedule</button></p>
+              <p><button class="btn btn-secondary btn-block">Delete Shedule</button></p>
             </div>
           </div>
           <Row>
