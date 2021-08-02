@@ -92,7 +92,8 @@ class Schedule extends Component {
   }
     
   addToItemArray = () => {
-    var myObj = {scheduledItem: "Added item"};
+    //this.setState({ scheduleName: document.getElementById("scheduleName").value });
+    var myObj = {scheduledItem: document.getElementById("scheduleName").value};
     var joined = this.state.scheduledItemsArray.concat(myObj);
     this.setState({scheduledItemsArray : joined});
   }
