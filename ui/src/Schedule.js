@@ -15,10 +15,13 @@ class Schedule extends Component {
     this.state = this.getInitialState();
     //If the line below is not included, then getData wont bind to the state variables
     this.getData = this.getData.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
   componentDidUpdate = () => {
     var test = "test";
+    var test2 = this.state.scheduledItemsArray;
+    debugger;
   }
 
   formatDate = (date) => {
@@ -58,11 +61,11 @@ class Schedule extends Component {
       date: defaultDateString,
       scheduleName: "",
       scheduledItemsArray: [
-        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Michael"},
-        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to John"},
-        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Mary"},
-        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Zed"},
-        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Craig"}
+        {scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Michaelz"},
+        {scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to John"},
+        {scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Mary"},
+        {scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Zed"},
+        {scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Craig"}
       ],
       //Control Information
       isScheduleModalVisible: false,
@@ -92,18 +95,23 @@ class Schedule extends Component {
   }
     
   addToItemArray = () => {
-    var inputDate = new Date();
-    var inputScheduleName = document.getElementById("scheduleName").value;
-    var inputLat= this.state.lat;
-    var inputLng = this.state.lng;
-    var newObject = {inputDate, inputScheduleName, inputLat, inputLng};
+    var scheduledDate = new Date();
+    var scheduledItem = document.getElementById("scheduleName").value;
+    var scheduledLat= this.state.lat;
+    var scheduledLng = this.state.lng;
+    var newObject = {scheduledDate, scheduledLat, scheduledLng, scheduledItem};
 
 
     ////this.setState({ scheduleName: document.getElementById("scheduleName").value });
-    //var myObj = {scheduledItem: document.getElementById("scheduleName").value};
-    var joined = this.state.scheduledItemsArray.concat(newObject);
-    this.setState({scheduledItemsArray : joined});
-    debugger;
+    var joinedObjList = this.state.scheduledItemsArray.concat(newObject);
+    this.setState({scheduledItemsArray : joinedObjList});
+
+
+    // var myObj = {scheduledItem: document.getElementById("scheduleName").value};
+    // var joined = this.state.scheduledItemsArray.concat(newObject);
+    // this.setState({scheduledItemsArray : joined});
+
+
   }
   
   closeModal = () => {
