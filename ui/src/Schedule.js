@@ -170,7 +170,12 @@ class Schedule extends Component {
                   style={{ width: "100px" }}
                   //containerStyle={{height: "200px"}}
                   rowData={this.state.scheduledItemsArray}>
-                  <AgGridColumn field="scheduledItem" width={1100}></AgGridColumn>
+                  <AgGridColumn field="scheduledDate" width={300}></AgGridColumn>
+                  <AgGridColumn field="scheduledItem" width={300}></AgGridColumn>
+                  <AgGridColumn field="scheduledLat" width={300}></AgGridColumn>
+                  <AgGridColumn field="scheduledLng" width={300}></AgGridColumn>
+
+
                 </AgGridReact>
               </div>
             </Col>
