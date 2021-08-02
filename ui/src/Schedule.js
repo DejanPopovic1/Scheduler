@@ -58,11 +58,11 @@ class Schedule extends Component {
       date: defaultDateString,
       scheduleName: "",
       scheduledItemsArray: [
-        {scheduledItem: "Delivery to Michael"},
-        {scheduledItem: "Delivery to John"},
-        {scheduledItem: "Delivery to Mary"},
-        {scheduledItem: "Delivery to Zed"},
-        {scheduledItem: "Delivery to Craig"}
+        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Michael"},
+        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to John"},
+        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Mary"},
+        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Zed"},
+        {scheduledDate: "", scheduledLat: "", scheduledLng: "", scheduledItem: "Delivery to Craig"}
       ],
       //Control Information
       isScheduleModalVisible: false,
@@ -81,7 +81,7 @@ class Schedule extends Component {
 
   }
 
-  clickAddSchedule = () => {
+  addPickupPoint = () => {
     this.setState({isScheduleModalVisible: true});
 
       
@@ -92,10 +92,18 @@ class Schedule extends Component {
   }
     
   addToItemArray = () => {
-    //this.setState({ scheduleName: document.getElementById("scheduleName").value });
-    var myObj = {scheduledItem: document.getElementById("scheduleName").value};
-    var joined = this.state.scheduledItemsArray.concat(myObj);
+    var inputDate = new Date();
+    var inputScheduleName = document.getElementById("scheduleName").value;
+    var inputLat= this.state.lat;
+    var inputLng = this.state.lng;
+    var newObject = {inputDate, inputScheduleName, inputLat, inputLng};
+
+
+    ////this.setState({ scheduleName: document.getElementById("scheduleName").value });
+    //var myObj = {scheduledItem: document.getElementById("scheduleName").value};
+    var joined = this.state.scheduledItemsArray.concat(newObject);
     this.setState({scheduledItemsArray : joined});
+    debugger;
   }
   
   closeModal = () => {
@@ -136,7 +144,7 @@ class Schedule extends Component {
           <div class="row">
             <div class="col-sm-3">
             <Form.Label>Add Pickup Point</Form.Label>
-              <p><button class="btn btn-primary btn-block" onClick={this.clickAddSchedule}>Add Pickup Point</button></p>
+              <p><button class="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add Pickup Point</button></p>
               <p><button class="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Shedule</button></p>
               <p><button class="btn btn-secondary btn-block">Edit Shedule</button></p>
               <p><button class="btn btn-secondary btn-block">Delete Shedule</button></p>
