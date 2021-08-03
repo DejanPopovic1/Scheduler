@@ -1,1 +1,3 @@
-ui/node_modules/
+packages/
+WebApplication3/bin/
+WebApplication3/ui/node_modules/
