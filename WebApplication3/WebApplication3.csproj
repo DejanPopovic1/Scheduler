@@ -137,7 +137,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include=".babelrc.JSON" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\dist\index.js" />
+    <Content Include="Scripts\dist\index.js.LICENSE.txt" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -148,27 +151,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="ui\public\favicon.ico" />
-    <Content Include="ui\public\index.html" />
-    <Content Include="ui\public\logo192.png" />
-    <Content Include="ui\public\logo512.png" />
-    <Content Include="ui\public\robots.txt" />
-    <Content Include="ui\src\App.css" />
-    <Content Include="ui\src\App.js" />
-    <Content Include="ui\src\App.test.js" />
-    <Content Include="ui\src\components\NavigationBar.js" />
-    <Content Include="ui\src\Contact.js" />
-    <Content Include="ui\src\Home.js" />
-    <Content Include="ui\src\index.css" />
-    <Content Include="ui\src\index.js" />
-    <Content Include="ui\src\logo.svg" />
-    <Content Include="ui\src\MainMap.js" />
-    <Content Include="ui\src\reportWebVitals.js" />
-    <Content Include="ui\src\Schedule.css" />
-    <Content Include="ui\src\Schedule.js" />
-    <Content Include="ui\src\setupTests.js" />
-    <Content Include="ui\src\storeResponse.js" />
-    <Content Include="ui\src\styles.css" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\config\webpack.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -183,8 +167,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="ui\public\manifest.json" />
-    <Content Include="ui\.vscode\launch.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
