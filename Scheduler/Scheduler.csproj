@@ -138,6 +138,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include=".babelrc.JSON" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\config\webpack.config.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -223,4 +225,7 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="NodeBuildRun" BeforeTargets="Build">
+	<Exec Command="npm run build" />
+  </Target>
 </Project>
