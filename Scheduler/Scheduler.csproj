@@ -152,7 +152,22 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\src\App.css" />
+    <Content Include="Scripts\src\App.js" />
+    <Content Include="Scripts\src\App.test.js" />
+    <Content Include="Scripts\src\components\NavigationBar.js" />
+    <Content Include="Scripts\src\Contact.js" />
+    <Content Include="Scripts\src\Home.js" />
+    <Content Include="Scripts\src\index.css" />
     <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\logo.svg" />
+    <Content Include="Scripts\src\MainMap.js" />
+    <Content Include="Scripts\src\reportWebVitals.js" />
+    <Content Include="Scripts\src\Schedule.css" />
+    <Content Include="Scripts\src\Schedule.js" />
+    <Content Include="Scripts\src\setupTests.js" />
+    <Content Include="Scripts\src\storeResponse.js" />
+    <Content Include="Scripts\src\styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -226,6 +241,6 @@
   <Target Name="AfterBuild">
   </Target> -->
   <Target Name="NodeBuildRun" BeforeTargets="Build">
-	<Exec Command="npm run build" />
+    <Exec Command="npm run build" />
   </Target>
 </Project>
