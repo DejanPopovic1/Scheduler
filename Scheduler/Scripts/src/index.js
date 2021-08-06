@@ -24,11 +24,27 @@
 ////// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 ////reportWebVitals();
 
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Dummy from './Dummy';
 
-const App = () => <div>Hello world!2</div>;
+ReactDOM.render(
+  <React.StrictMode>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" component={Dummy} exact />
+            </Switch>
+      {/*<App />*/}
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+
+//import React from 'react';
+//import ReactDOM from 'react-dom';
+
+//const Dummy2 = () => <div>Hello world!211228881999777</div>;
+
+//ReactDOM.render(<Dummy />, document.getElementById("root"));

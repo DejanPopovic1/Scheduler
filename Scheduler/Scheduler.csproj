@@ -157,6 +157,7 @@
     <Content Include="Scripts\src\App.test.js" />
     <Content Include="Scripts\src\components\NavigationBar.js" />
     <Content Include="Scripts\src\Contact.js" />
+    <Content Include="Scripts\src\Dummy.js" />
     <Content Include="Scripts\src\Home.js" />
     <Content Include="Scripts\src\index.css" />
     <Content Include="Scripts\src\index.js" />
