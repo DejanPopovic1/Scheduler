@@ -4,20 +4,20 @@
 ////import App from './App';
 ////import reportWebVitals from './reportWebVitals';
 
-////import { BrowserRouter, Route, Switch } from 'react-router-dom';
+//////import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-////<script async
-////    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&callback=initMap">
-////</script>
+//////<script async
+//////    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA&callback=initMap">
+//////</script>
 
-////ReactDOM.render(
-////  <React.StrictMode>
-////    <BrowserRouter>
-////      <App />
-////    </BrowserRouter>
-////  </React.StrictMode>,
-////  document.getElementById('root')
-////);
+//////ReactDOM.render(
+//////  <React.StrictMode>
+//////    <BrowserRouter>
+//////      <App />
+//////    </BrowserRouter>
+//////  </React.StrictMode>,
+//////  document.getElementById('root')
+//////);
 
 ////// If you want to start measuring performance in your app, pass a function
 ////// to log results (for example: reportWebVitals(console.log))
@@ -33,10 +33,10 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
         <BrowserRouter>
-            {/*<Switch>*/}
-            {/*    <Route path="/" component={Dummy} exact />*/}
-            {/*</Switch>*/}
-            <App />
+            <Switch>
+                <Route path="/" component={Dummy} exact />
+            </Switch>
+            {/*<App />*/}
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
@@ -45,6 +45,7 @@ ReactDOM.render(
 
 //import React from 'react';
 //import ReactDOM from 'react-dom';
+//import Dummy from './Dummy'
 
 //const Dummy2 = () => <div>Hello world!211228881999777</div>;
 
