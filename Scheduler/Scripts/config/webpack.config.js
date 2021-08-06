@@ -16,7 +16,12 @@ module.exports = {
                 },
                 test: /\.js$/,
                 exclude: /node_modules/ //excludes node_modules folder from being transpiled by babel. We do this because it's a waste of resources to do so.
-            }
+            },
+
+            { test: /\.svg$/, use: "svg-react-loader", exclude: /node_modules/ },
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
+
+
         ]
     }
 }

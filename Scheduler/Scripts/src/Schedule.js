@@ -1,3 +1,4 @@
+/// <reference path="../jquery.validate-vsdoc.js" />
 import { Form, FormGroup, Modal } from "react-bootstrap";
 import './Schedule.css';
 import { Row, Col, Button } from 'reactstrap';
