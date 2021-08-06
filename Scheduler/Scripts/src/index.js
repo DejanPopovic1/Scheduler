@@ -28,14 +28,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dummy from './Dummy';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
         <BrowserRouter>
-            <Switch>
-                <Route path="/" component={Dummy} exact />
-            </Switch>
-      {/*<App />*/}
+            {/*<Switch>*/}
+            {/*    <Route path="/" component={Dummy} exact />*/}
+            {/*</Switch>*/}
+            <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
