@@ -1,22 +1,30 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import logo from './logo.svg';
+import './App.css';
 
-import './custom.css'
+import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
+import Home from './Home';
+import Contact from './Contact';
+import Schedule from './Schedule';
+import React, {Fragment} from 'react';
 
-export default class App extends Component {
-  static displayName = App.name;
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+//import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavigationBar } from './components/NavigationBar';
 
-  render () {
+function App() {
+
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
+    <Fragment>
+    <NavigationBar />
+    <main>
+      <Switch>
+          <Route path="/" component={Home} exact/>
+          <Route path="/Contact" component={Contact} />
+          <Route path="/Schedule" component={Schedule} />
+      </Switch>
+    </main>
+    </Fragment>
+  );
 }
+
+export default App;
