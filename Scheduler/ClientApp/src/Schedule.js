@@ -27,7 +27,11 @@ class Schedule extends Component {
     var test = "test";
     var test2 = this.state.scheduledItemsArray;
     debugger;
-  }
+    }
+
+    componentDidMount = () => {
+        this.fetchAndSetState();
+    }
 
   formatDate = (date) => {
     var d = new Date(date),
@@ -63,6 +67,7 @@ class Schedule extends Component {
     var defaultDateString = this.formatDate(defaultDate);
     return {
       //Form Data
+      fetchedData: 0,
       date: defaultDateString,
       scheduleName: "",
       scheduledItemsArray: [
@@ -184,7 +189,8 @@ class Schedule extends Component {
                 </AgGridReact>
               </div>
             </Col>
-          </Row>
+                </Row>
+                {this.state.fetchedData}
         </div>
         
         
@@ -219,7 +225,13 @@ class Schedule extends Component {
         </ModalBoxRenderer> */}
       </div>
     );
-  }
+    }
+
+    async fetchAndSetState() {
+        const response = await fetch('my');
+        const data = await response.json();
+        this.setState({ fetchedData: data, loading: false });
+    }
 }
 
 export default Schedule;
