@@ -21,5 +21,15 @@ namespace Scheduler.Controllers
 
             return "Joe";
         }
+
+        [HttpPost]
+        public void Post(MyObj mo)
+        {
+            var test = mo;
+            System.Environment.Exit(-1);
+            return;
+        }
+
+
     }
 }

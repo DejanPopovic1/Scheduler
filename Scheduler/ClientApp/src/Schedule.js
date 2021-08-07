@@ -31,6 +31,7 @@ class Schedule extends Component {
 
     componentDidMount = () => {
         this.fetchAndSetState();
+        this.postData();
     }
 
   formatDate = (date) => {
@@ -137,7 +138,7 @@ class Schedule extends Component {
   render() {
     return (
       <div>
-        <div class="container mt-3 mb-3">
+        <div className="container mt-3 mb-3">
           <h1>Schedule a Pickup</h1>
           <form>
             <Form.Group>
@@ -159,13 +160,13 @@ class Schedule extends Component {
               />
             </Form.Group>
           </form>
-          <div class="row">
-            <div class="col-sm-3">
+          <div className="row">
+            <div className="col-sm-3">
             <Form.Label>Add Pickup Point</Form.Label>
-              <p><button class="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add Pickup Point</button></p>
-              <p><button class="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Shedule</button></p>
-              <p><button class="btn btn-secondary btn-block">Edit Shedule</button></p>
-              <p><button class="btn btn-secondary btn-block">Delete Shedule</button></p>
+              <p><button className="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add Pickup Point</button></p>
+              <p><button className="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Shedule</button></p>
+              <p><button className="btn btn-secondary btn-block">Edit Shedule</button></p>
+              <p><button className="btn btn-secondary btn-block">Delete Shedule</button></p>
             </div>
           </div>
           <Row>
@@ -238,6 +239,82 @@ class Schedule extends Component {
 
         debugger;
     }
+
+    postData() {
+
+        //let data = { element: "barium" };
+        //fetch("/post/data/here", {
+        //    method: "POST",
+        //    body: JSON.stringify(data)
+        //}).then(res => {
+        //    console.log("Request complete! response:", res);
+        //});
+        //debugger;
+
+        //let data = { Summary1: "barium", Summary2: "lithium", Summary3: "iron"};
+        //fetch("my", {
+        //    method: "POST",
+        //    body: JSON.stringify(data)
+        //}).then(res => {
+        //    console.log("Request complete! response:", res);
+        //});
+        //debugger;
+
+
+        //var test;
+        //fetch("/t/vjbev-1628358842/post", {
+        //    method: "POST",
+        //    headers: {
+        //        'Accept': 'application/json',
+        //        'Content-Type': 'application/json'
+        //    },
+        //    body: JSON.stringify({ a: 7, str: 'Some string: &=&' })
+        //    //make sure to serialize your JSON body
+
+        //})
+        //    .then((response) => {
+        //        debugger;
+        //        //do something awesome that makes the world a better place
+        //    });
+        var test;
+        fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                //'Content-Type': 'application/json'
+                //"Content-Type": "application/json; charset=UTF-8"
+                //"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                name: "dean1", login: "dean2"
+            })
+            //body: 'foo=bar&lorem=ipsum'
+        })
+            //.then(function (data) {
+            //    console.log('Request success: ', data);
+            //    test = data;
+
+            //})
+            //.catch(function (error) {
+            //    console.log('Request failure: ', error);
+            //});
+
+
+
+            .then(response => response.json())  // convert to json
+            .then(json => console.log(json))    //print data to console
+            .catch(err => console.log('Request Failed', err)); // Catch errors
+
+
+
+
+
+        debugger;
+
+    }
+
+
 }
 
 export default Schedule;
