@@ -67,7 +67,7 @@ class Schedule extends Component {
     var defaultDateString = this.formatDate(defaultDate);
     return {
       //Form Data
-      fetchedData: 0,
+        fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3"},
       date: defaultDateString,
       scheduleName: "",
       scheduledItemsArray: [
@@ -190,7 +190,7 @@ class Schedule extends Component {
               </div>
             </Col>
                 </Row>
-                {this.state.fetchedData}
+                {this.state.fetchedData.Summary1}
         </div>
         
         
@@ -229,8 +229,14 @@ class Schedule extends Component {
 
     async fetchAndSetState() {
         const response = await fetch('my');
-        const data = await response.json();
-        this.setState({ fetchedData: data, loading: false });
+        const data = await response.text();
+        //const data = await response.json();
+        //var testing = data;
+        //var obj = JSON.parse(data);
+        //var testing2 = testing.parse(data);
+        this.setState({ fetchedData: { Summary1: data } });
+
+        debugger;
     }
 }
 

@@ -12,9 +12,14 @@ namespace Scheduler.Controllers
     public class MyController : ControllerBase
     {
         [HttpGet]
-        public int Get()
+        public String Get()
         {
-            return 5;
+            //MyObj mo = new MyObj();
+            //mo.Summary1 = "yo mayne";
+            //mo.Summary2 = "hey bru";
+            //mo.Summary3 = "sup n'guy";
+
+            return "Joe";
         }
     }
 }
