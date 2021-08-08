@@ -237,67 +237,17 @@ class Schedule extends Component {
     }
 
     postData() {
-
-        //let data = { element: "barium" };
-        //fetch("/post/data/here", {
-        //    method: "POST",
-        //    body: JSON.stringify(data)
-        //}).then(res => {
-        //    console.log("Request complete! response:", res);
-        //});
-        //debugger;
-
-        //let data = { Summary1: "barium", Summary2: "lithium", Summary3: "iron"};
-        //fetch("my", {
-        //    method: "POST",
-        //    body: JSON.stringify(data)
-        //}).then(res => {
-        //    console.log("Request complete! response:", res);
-        //});
-        //debugger;
-
-
-        //var test;
-        //fetch("/t/vjbev-1628358842/post", {
-        //    method: "POST",
-        //    headers: {
-        //        'Accept': 'application/json',
-        //        'Content-Type': 'application/json'
-        //    },
-        //    body: JSON.stringify({ a: 7, str: 'Some string: &=&' })
-        //    //make sure to serialize your JSON body
-
-        //})
-        //    .then((response) => {
-        //        debugger;
-        //        //do something awesome that makes the world a better place
-        //    });
-        var test;
         fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
             method: 'POST',
             mode: 'no-cors',
             headers: {
-                //'Content-Type': 'application/json',
-                //"Content-Type": "application/json; charset=UTF-8"
-                //"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify({
                 name: "dean1", login: "dean2"
             })
-            //body: 'foo=bar&lorem=ipsum'
         })
-            //.then(function (data) {
-            //    console.log('Request success: ', data);
-
-            //})
-            //.catch(function (error) {
-            //    console.log('Request failure: ', error);
-            //});
-
-
-
-
             .then(
                 function (response) {
                     if (response.status !== 200) {
@@ -305,7 +255,6 @@ class Schedule extends Component {
                             response.status);
                         return;
                     }
-
                     // Examine the text in the response
                     response.json().then(function (data) {
                         console.log(data);
@@ -315,19 +264,7 @@ class Schedule extends Component {
             .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             });
-
-
-
-
-
-
-
-
-
-
     }
-
-
 }
 
 export default Schedule;
