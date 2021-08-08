@@ -15,7 +15,6 @@ import './styles.css';
 
 class Schedule extends Component {
   constructor(props) {
-    debugger;
     super(props);
     this.state = this.getInitialState();
     //If the line below is not included, then getData wont bind to the state variables
@@ -26,7 +25,6 @@ class Schedule extends Component {
   componentDidUpdate = () => {
     var test = "test";
     var test2 = this.state.scheduledItemsArray;
-    debugger;
     }
 
     componentDidMount = () => {
@@ -48,7 +46,6 @@ class Schedule extends Component {
 
   rowClicked = () => {
     let selectedRows = this.gridApi.getSelectedRows();
-    debugger;
   }
 
   onMatterGridCellFocused = () => {
@@ -237,10 +234,9 @@ class Schedule extends Component {
         //var testing2 = testing.parse(data);
         this.setState({ fetchedData: { Summary1: data } });
 
-        debugger;
     }
 
-    postData() {
+    async postData() {
 
         //let data = { element: "barium" };
         //fetch("/post/data/here", {
@@ -277,40 +273,52 @@ class Schedule extends Component {
         //        //do something awesome that makes the world a better place
         //    });
         var test;
-        fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
+        const response = await fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
             method: 'POST',
-            mode: 'cors',
+            mode: 'no-cors',
             headers: {
-                //'Content-Type': 'application/json'
+                //'Content-Type': 'application/json',
                 //"Content-Type": "application/json; charset=UTF-8"
                 //"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-                Accept: 'application/json'
+                Accept: 'application/json',
+
             },
             body: JSON.stringify({
                 name: "dean1", login: "dean2"
             })
             //body: 'foo=bar&lorem=ipsum'
         })
-            //.then(function (data) {
-            //    console.log('Request success: ', data);
-            //    test = data;
-
-            //})
-            //.catch(function (error) {
-            //    console.log('Request failure: ', error);
-            //});
-
-
-
-            .then(response => response.json())  // convert to json
-            .then(json => console.log(json))    //print data to console
-            .catch(err => console.log('Request Failed', err)); // Catch errors
 
 
 
 
 
-        debugger;
+
+            .then(function (data) {
+                console.log('Request success: ', data);
+
+            })
+            .catch(function (error) {
+                console.log('Request failure: ', error);
+            });
+
+
+
+
+
+
+
+
+
+
+        //const actualResponse = await response.json();
+
+        //this.setState({ fetchedData: { Summary1: actualResponse } });
+        //debugger;
+
+
+
+
 
     }
 
