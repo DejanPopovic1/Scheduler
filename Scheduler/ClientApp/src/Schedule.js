@@ -236,7 +236,7 @@ class Schedule extends Component {
 
     }
 
-    async postData() {
+    postData() {
 
         //let data = { element: "barium" };
         //fetch("/post/data/here", {
@@ -273,7 +273,7 @@ class Schedule extends Component {
         //        //do something awesome that makes the world a better place
         //    });
         var test;
-        const response = await fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
+        fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
             method: 'POST',
             mode: 'no-cors',
             headers: {
@@ -281,40 +281,45 @@ class Schedule extends Component {
                 //"Content-Type": "application/json; charset=UTF-8"
                 //"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                 Accept: 'application/json',
-
             },
             body: JSON.stringify({
                 name: "dean1", login: "dean2"
             })
             //body: 'foo=bar&lorem=ipsum'
         })
+            //.then(function (data) {
+            //    console.log('Request success: ', data);
+
+            //})
+            //.catch(function (error) {
+            //    console.log('Request failure: ', error);
+            //});
 
 
 
 
+            .then(
+                function (response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
 
-
-            .then(function (data) {
-                console.log('Request success: ', data);
-
-            })
-            .catch(function (error) {
-                console.log('Request failure: ', error);
+                    // Examine the text in the response
+                    response.json().then(function (data) {
+                        console.log(data);
+                    });
+                }
+            )
+            .catch(function (err) {
+                console.log('Fetch Error :-S', err);
             });
 
 
 
 
 
-
-
-
-
-
-        //const actualResponse = await response.json();
-
-        //this.setState({ fetchedData: { Summary1: actualResponse } });
-        //debugger;
 
 
 
