@@ -239,13 +239,12 @@ class Schedule extends Component {
     postData() {
         fetch("https://webhook.site/e9315855-2d9c-461f-804a-fb2c0316dff7", {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
             body: JSON.stringify({
-                name: "dean1", login: "dean2"
+                "MyVar": "Var"
             })
         })
             .then(
