@@ -29,7 +29,7 @@ class Schedule extends Component {
 
     componentDidMount = () => {
         this.fetchAndSetState();
-        this.postData();
+        this.postDataTest();
     }
 
   formatDate = (date) => {
@@ -120,7 +120,7 @@ class Schedule extends Component {
     // var joined = this.state.scheduledItemsArray.concat(newObject);
     // this.setState({scheduledItemsArray : joined});
 
-
+      this.postData();
   }
   
   closeModal = () => {
@@ -237,12 +237,22 @@ class Schedule extends Component {
 
     }
 
-    postData() {
-        fetch("asset/getlist", {
+    postDataTest() {
+        fetch("schedule/getlist", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             //body: JSON.stringify({ description: "Some text here" })
             body: '{"myvar" : "testsss", "myvartwo": "testtsssssss" }'
+        });
+    }
+
+    postData () {
+        fetch("schedule/postSchedule", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            //body: JSON.stringify({ description: "Some text here" })
+            body: JSON.stringify(5)
+            //body: '{"myvar" : "testsss", "myvartwo": "testtsssssss" }'
         });
     }
 }
