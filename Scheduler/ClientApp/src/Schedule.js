@@ -103,7 +103,8 @@ class Schedule extends Component {
   }
     
   addToItemArray = () => {
-    var scheduledDate = new Date();
+      var scheduledDate = new Date();
+      scheduledDate = document.getElementById("datePicker").value;
     var scheduledItem = document.getElementById("scheduleName").value;
     var scheduledLat= this.state.lat;
     var scheduledLng = this.state.lng;
