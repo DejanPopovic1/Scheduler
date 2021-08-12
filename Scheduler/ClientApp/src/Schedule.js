@@ -251,7 +251,7 @@ class Schedule extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             //body: JSON.stringify({ description: "Some text here" })
-            body: JSON.stringify(5)
+            body: JSON.stringify(this.state.scheduledItemsArray[0])
             //body: '{"myvar" : "testsss", "myvartwo": "testtsssssss" }'
         });
     }
