@@ -24,12 +24,12 @@ class Schedule extends Component {
 
   componentDidUpdate = () => {
     var test = "test";
-    var test2 = this.state.scheduledItemsArray;
+      var test2 = this.state.scheduledItemsArray;
+
     }
 
     componentDidMount = () => {
         this.fetchAndSetState();
-        this.postDataTest();
     }
 
   formatDate = (date) => {
@@ -113,14 +113,16 @@ class Schedule extends Component {
 
     ////this.setState({ scheduleName: document.getElementById("scheduleName").value });
     var joinedObjList = this.state.scheduledItemsArray.concat(newObject);
-    this.setState({scheduledItemsArray : joinedObjList});
+      this.setState({ scheduledItemsArray: joinedObjList }, function () {
+          this.postData();
+      });
 
 
     // var myObj = {scheduledItem: document.getElementById("scheduleName").value};
     // var joined = this.state.scheduledItemsArray.concat(newObject);
     // this.setState({scheduledItemsArray : joined});
 
-      this.postData();
+      //this.postData();
   }
   
   closeModal = () => {
@@ -246,7 +248,7 @@ class Schedule extends Component {
         });
     }
 
-    postData () {
+    postData = () => {
         fetch("schedule/postSchedule", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
