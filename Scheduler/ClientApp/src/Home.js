@@ -5,6 +5,17 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+    const menu = [
+        {
+            path: '/home/page1', // the url
+            name: 'Page1', // name that appear in Sidebar
+        },
+        {
+            path: '/home/page2',
+            name: 'Page2',
+        },
+    ];
+
   return (
     <div className="App">
       <header className="App-header">

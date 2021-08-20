@@ -26,16 +26,19 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dummy from './Dummy';
 import App from './App';
+import Login from './login';
+//import Routes from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
         <BrowserRouter>
-            {/*<Switch>*/}
-            {/*    <Route path="/" component={Dummy} exact />*/}
-            {/*</Switch>*/}
+            {/*<Routes>*/}
+            {/*    <Route path="/" component={App} exact />*/}
+            {/*    <Route path="/login" component={Login} />*/}
+            {/*</Routes>*/}
             <App />
     </BrowserRouter>
   </React.StrictMode>,
