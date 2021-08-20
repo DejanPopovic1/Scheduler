@@ -5,6 +5,7 @@ import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Contact from './Contact';
 import Schedule from './Schedule';
+import login from './login';
 import React, {Fragment} from 'react';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -20,7 +21,8 @@ function App() {
       <Switch>
           <Route path="/" component={Home} exact/>
           <Route path="/Contact" component={Contact} />
-          <Route path="/Schedule" component={Schedule} />
+                    <Route path="/Schedule" component={Schedule} />
+                    <Route path="/Login" component={login} />
       </Switch>
     </main>
     </Fragment>
