@@ -1,41 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Switch } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
+import RouteWithSubRoutes from './RouteWithSubRoutes';
 
-function App() {
-    const menu = [
-        {
-            path: '/home/page1', // the url
-            name: 'Page1', // name that appear in Sidebar
-        },
-        {
-            path: '/home/page2',
-            name: 'Page2',
-        },
-    ];
+import { NavigationBar } from './components/NavigationBar';
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-
-          Here is a sentence to use in order to test FlexSearch
-        </a>
-      </header>
-    </div>
+function Home({ routes }) {
+    return (
+        <>
+            <NavigationBar />
+                
+            <Switch>
+                {routes.map((route, i) => (
+                    <RouteWithSubRoutes key={i} {...route} />
+                ))}
+            </Switch>
+            Home page content
+        </>
   );
 }
 
-export default App;
+export default Home;

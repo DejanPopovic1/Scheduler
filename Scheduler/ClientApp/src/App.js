@@ -13,13 +13,13 @@ import RouteWithSubRoutes from './RouteWithSubRoutes';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavigationBar } from './components/NavigationBar';
+
 
 function App() {
 
     return (
-        <Fragment>
-            <NavigationBar />
+
+
 
             <BrowserRouter>
                 <Switch>
@@ -31,15 +31,7 @@ function App() {
                 </Switch>
             </BrowserRouter>
 
-            {/*</BrowserRouter>*/}
-            {/*<Switch>*/}
-            {/*   <Route path="/" component={Home} exact/>*/}
-            {/*   <Route path="/Contact" component={Contact} />*/}
-            {/*   <Route path="/Schedule" component={Schedule} />*/}
-            {/*</Switch>*/}
-            {/*</BrowserRouter>*/}
 
-        </Fragment>
     );
 }
 
