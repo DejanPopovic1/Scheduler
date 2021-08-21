@@ -23,7 +23,8 @@ function App() {
 
             <BrowserRouter>
                 <Switch>
-                    <Redirect exact from='/' to='/login' />
+                <Redirect exact from='/' to='/login' />
+
                     {routes.map((route, i) => (
                         <RouteWithSubRoutes key={i} {...route} />
                     ))}

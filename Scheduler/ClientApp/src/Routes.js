@@ -3,6 +3,7 @@ import Home from './Home';
 import Login from './login';
 import Schedule from './Schedule';
 import Contact from './Contact';
+import HomeContent from './HomeContent';
 
 const routes = [
 	{
@@ -20,6 +21,10 @@ const routes = [
 			{
 				path: '/home/contact',
 				component: Contact,
+			},
+			{
+				path: '/home/homecontent',
+				component: HomeContent,
 			},
 		],
 	},
