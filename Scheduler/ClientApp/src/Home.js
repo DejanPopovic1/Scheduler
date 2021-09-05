@@ -12,7 +12,7 @@ function Home({ routes }) {
     return (
         <>
             <NavigationBar />
-                
+               
             <Switch>
                 <Redirect exact from='/home' to='/home/homecontent' />
                 {routes.map((route, i) => (
