@@ -4,16 +4,10 @@ import './login.css';
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.myVar = testFunc.bind(this);
+        this.testFunc = testFunc.bind(this);
+        this.FormButton = FormButton.bind(this);
     }
 
-    postData = () => {
-        fetch("authenticate/login", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: "John", city: "New York" })
-        });
-    }
     render() {
         return (
             <div id="background">
@@ -34,21 +28,28 @@ const FormHeader = props => (
 
 const LoginForm = props => (
     <div>
-        <form action="/LoginIndex" method="post">
         <FormInput description="Username" placeholder="Enter your username" type="text" name="username" />
         <FormInput description="Password" placeholder="Enter your password" type="password" name="password"/>
-            <FormButton title="Log in"/>
-        </form>
+        <FormButton title="Log in"/>
     </div>
 );
 
-const FormButton = props => (
-    <div id="button" class="centeredRow">
-        <button id="colourfulButton">{props.title}</button>
-        <input id="colourfulButton" type="submit" value={props.title} />
-        <input id="colourfulButton" type="submit" value="TEST"  />
-    </div>
-);
+const FormButton = props => {
+    function postData() {
+        fetch("authenticate/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: "John", city: "New York" })
+        });
+    }
+    return (
+        <div id="button" class="centeredRow">
+            <button id="colourfulButton">{props.title}</button>
+            <input id="colourfulButton" type="submit" value={props.title} />
+            <input id="colourfulButton" type="submit" value="TEST" onClick={postData} />
+        </div>
+    );
+};
 
 const FormInput = props => (
     <div class="centeredRow">
