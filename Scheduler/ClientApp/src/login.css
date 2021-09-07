@@ -32,7 +32,7 @@ html {
     font-size: 2rem;
 }
 
-.row {
+.centeredRow {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +40,7 @@ html {
     max-width: 100%;
 }
 
-.row input {
+.centeredRow input {
     width: 80%;
     box-sizing: border-box;
     border: none;
@@ -51,29 +51,29 @@ html {
     transition: box-shadow 0.2s ease-in;
 }
 
-.row input:focus {
+.centeredRow input:focus {
     box-shadow: inset 0px -3px 0px 0px rgba(34,193,195,0.7);
     outline: none;
 }
 
-.row input::-webkit-input-placeholder {
+.centeredRow input::-webkit-input-placeholder {
     opacity: 1;
     transition: opacity 0.25s ease-out;
 }
 
-.row input:hover::-webkit-input-placeholder,
-.row input:focus::-webkit-input-placeholder {
+.centeredRow input:hover::-webkit-input-placeholder,
+.centeredRow input:focus::-webkit-input-placeholder {
     opacity: 0;
 }
 
-.row label {
+.centeredRow #colourfulLabel {
     align-self: start;
     padding-left: 4.5rem;
     padding-bottom: 0.5rem;
     color: rgba(187,187,187,0.9);
 }
 
-.row button {
+.centeredRow #colourfulButton {
     border-radius: 25px;
     width: 80%;
     height: 40px;
@@ -87,7 +87,7 @@ html {
     transition: opacity 0.25s ease-out;
 }
 
-.row button:hover {
+.centeredRow button:hover {
     opacity: 0.8;
 }
 

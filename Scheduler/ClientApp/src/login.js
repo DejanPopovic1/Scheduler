@@ -28,14 +28,14 @@ const LoginForm = props => (
 );
 
 const FormButton = props => (
-    <div id="button" class="row">
-        <button>{props.title}</button>
+    <div id="button" class="centeredRow">
+        <button id="colourfulButton">{props.title}</button>
     </div>
 );
 
 const FormInput = props => (
-    <div class="row">
-        <label>{props.description}</label>
+    <div class="centeredRow">
+        <label id="colourfulLabel">{props.description}</label>
         <input type={props.type} placeholder={props.placeholder} />
     </div>
 );
