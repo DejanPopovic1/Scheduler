@@ -39,14 +39,12 @@ const FormButton = props => {
         fetch("authenticate/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: "John", city: "New York" })
+            body: JSON.stringify({ username: document.getElementsByName("username")[0].value, password: document.getElementsByName("password")[0].value })
         });
     }
     return (
         <div id="button" class="centeredRow">
-            <button id="colourfulButton">{props.title}</button>
-            <input id="colourfulButton" type="submit" value={props.title} />
-            <input id="colourfulButton" type="submit" value="TEST" onClick={postData} />
+            <input id="colourfulButton" type="submit" value={props.title} onClick={postData} />
         </div>
     );
 };
