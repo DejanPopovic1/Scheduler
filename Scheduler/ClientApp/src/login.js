@@ -8,19 +8,29 @@ class Login extends React.Component {
         this.FormButton = FormButton.bind(this);
     }
 
+    handleLogin = (event) => {
+        event.preventDefault();
+        fetch("authenticate/login", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: event.target[0].value, password: event.target[1].value })
+        });
+    }
+
     render() {
         return (
             <div id="background">
                 <div id="loginform">
                     <FormHeader title="Login" />
-                    <LoginForm />
+                    <LoginForm handleLogin={this.handleLogin} />
                     <OtherMethods />
-
                 </div>
             </div>
         )
     }
 }
+
+
 
 const FormHeader = props => (
     <h2 id="headerTitle">{props.title}</h2>
@@ -28,23 +38,25 @@ const FormHeader = props => (
 
 const LoginForm = props => (
     <div>
-        <FormInput description="Username" placeholder="Enter your username" type="text" name="username" />
-        <FormInput description="Password" placeholder="Enter your password" type="password" name="password"/>
-        <FormButton title="Log in"/>
+        <form onSubmit={props.handleLogin}>
+                <FormInput description="Username" placeholder="Enter your username" type="text" name="username" />
+                <FormInput description="Password" placeholder="Enter your password" type="password" name="password" />
+                <FormButton title="Log in" />
+        </form>
     </div>
 );
 
 const FormButton = props => {
-    function postData() {
-        fetch("authenticate/login", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: document.getElementsByName("username")[0].value, password: document.getElementsByName("password")[0].value })
-        });
-    }
+    //function handleLogin(event) {
+    //    fetch("authenticate/login", {
+    //        method: 'POST',
+    //        headers: { 'Content-Type': 'application/json' },
+    //        body: JSON.stringify({ username: document.getElementsByName("username")[0].value, password: document.getElementsByName("password")[0].value })
+    //    });
+    //}
     return (
         <div id="button" class="centeredRow">
-            <input id="colourfulButton" type="submit" value={props.title} onClick={postData} />
+            <input id="colourfulButton" type="submit" value={props.title} />
         </div>
     );
 };
