@@ -30,8 +30,6 @@ class Login extends React.Component {
     }
 }
 
-
-
 const FormHeader = props => (
     <h2 id="headerTitle">{props.title}</h2>
 );
@@ -47,13 +45,6 @@ const LoginForm = props => (
 );
 
 const FormButton = props => {
-    //function handleLogin(event) {
-    //    fetch("authenticate/login", {
-    //        method: 'POST',
-    //        headers: { 'Content-Type': 'application/json' },
-    //        body: JSON.stringify({ username: document.getElementsByName("username")[0].value, password: document.getElementsByName("password")[0].value })
-    //    });
-    //}
     return (
         <div id="button" class="centeredRow">
             <input id="colourfulButton" type="submit" value={props.title} />
