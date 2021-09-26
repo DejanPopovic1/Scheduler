@@ -11,7 +11,7 @@ namespace Scheduler.Data
             public SchedulerEntities()
             { }
 
-            public SchedulerEntities(DbContextOptions options)
+            public SchedulerEntities(DbContextOptions<SchedulerEntities> options)
                 : base(options)
             { }
 

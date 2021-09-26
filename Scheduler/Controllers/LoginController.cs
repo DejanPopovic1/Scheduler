@@ -12,9 +12,17 @@ namespace Scheduler.Controllers
     [Route("authenticate")]
     public class LoginController : ControllerBase
     {
+        private readonly SchedulerEntities _dbContext;
+
+        public LoginController(SchedulerEntities dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpPost("login")]
         public int Login([FromBody] Example s)
         {
+            var test2 = _dbContext.Users.ToList();
             //System.Environment.Exit(-1);
             int test = 7;
             return 5;
