@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Scheduler.Models;
+using Scheduler.Data;
 
 namespace Scheduler.Controllers
 {
