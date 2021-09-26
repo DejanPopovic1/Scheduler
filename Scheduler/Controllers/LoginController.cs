@@ -22,8 +22,8 @@ namespace Scheduler.Controllers
         [HttpPost("login")]
         public int Login([FromBody] Example s)
         {
-            var test2 = _dbContext.Users.ToList();
-            //System.Environment.Exit(-1);
+            string hashedPassword = Cryptographic.CreateMD5Hash(s.password);
+            bool test2 = _dbContext.Users.Where(x => x.UserName == s.username && x.PasswordHash == hashedPassword).ToList().Any();
             int test = 7;
             return 5;
         }
