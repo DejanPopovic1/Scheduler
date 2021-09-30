@@ -1,6 +1,12 @@
 ﻿import React from 'react';
 import './login.css';
 
+function getToken() {
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.token
+}
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +35,8 @@ class Login extends React.Component {
         )
     }
 }
+
+
 
 const FormHeader = props => (
     <h2 id="headerTitle">{props.title}</h2>
