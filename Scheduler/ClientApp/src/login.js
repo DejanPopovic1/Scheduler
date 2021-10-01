@@ -12,6 +12,7 @@ class Login extends React.Component {
         super(props);
         this.testFunc = testFunc.bind(this);
         this.FormButton = FormButton.bind(this);
+        this.setToken = this.setToken.bind(this);
     }
 
     handleLogin = async (event) => {
@@ -23,7 +24,11 @@ class Login extends React.Component {
         })
         .then((resp) => resp.json())
             .then((data) => data);
-        debugger;
+        this.setToken(userId);
+    }
+
+    setToken(userToken) {
+        sessionStorage.setItem('token', JSON.stringify(userToken));
     }
 
     render() {
@@ -38,8 +43,6 @@ class Login extends React.Component {
         )
     }
 }
-
-
 
 const FormHeader = props => (
     <h2 id="headerTitle">{props.title}</h2>
@@ -97,6 +100,4 @@ const testFunc = () => (
     "test String"
 );
 
-
 export default Login
-
