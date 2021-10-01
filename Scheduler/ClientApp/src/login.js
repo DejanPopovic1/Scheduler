@@ -23,7 +23,7 @@ class Login extends React.Component {
             body: JSON.stringify({ username: event.target[0].value, password: event.target[1].value })
         })
         .then((resp) => resp.json())
-        .then(function (data) {window.alert(data)});
+        .then((data) => window.alert(data));
     }
 
     render() {
