@@ -29,14 +29,13 @@ namespace Scheduler.Controllers
             //HttpContext context = HttpContext.Current.Session["ShoppingCart"];
             string hashedPassword = Cryptographic.CreateMD5Hash(s.password);
             bool isCredentialsValid = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => x).ToList().Any();
+            int userId = 0;
             if (isCredentialsValid) 
             {
-                System.Environment.Exit(-1);
+                var user = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => new { id = x.Id }).ToList().First();
+                userId = Int32.Parse(user.id);
             }
-
-
-            int test = 7;
-            return 5;
+            return userId;
         }
 
         [HttpPost("postSchedule")]
