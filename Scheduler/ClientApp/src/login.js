@@ -14,16 +14,16 @@ class Login extends React.Component {
         this.FormButton = FormButton.bind(this);
     }
 
-    handleLogin = (event) => {
-        var userId;
+    handleLogin = async (event) => {
         event.preventDefault();
-        fetch("authenticate/login", {
+        var userId = await fetch("authenticate/login", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: event.target[0].value, password: event.target[1].value })
         })
         .then((resp) => resp.json())
-        .then((data) => window.alert(data));
+            .then((data) => data);
+        debugger;
     }
 
     render() {
