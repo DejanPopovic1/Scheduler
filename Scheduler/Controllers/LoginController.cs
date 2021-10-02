@@ -30,7 +30,7 @@ namespace Scheduler.Controllers
             string hashedPassword = Cryptographic.CreateMD5Hash(s.password);
             bool isCredentialsValid = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => x).ToList().Any();
             int userId = 0;
-            if (isCredentialsValid) 
+            if (isCredentialsValid)
             {
                 var user = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => new { id = x.Id }).ToList().First();
                 userId = Int32.Parse(user.id);

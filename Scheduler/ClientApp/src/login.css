@@ -7,6 +7,15 @@
     background: rgb(34,193,195);
     background: linear-gradient(135deg, rgb(51 119 131) 0%, rgba(253,187,45,1) 100%);
     font-family: "work sans";
+    min-height: 975px;
+    /*background: rgb(34,193,195);
+    background: linear-gradient(135deg, rgb(51 119 131) 0%, rgba(253,187,45,1) 100%);
+    font-family: "work sans";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;*/
 }
 
 html {
@@ -20,7 +29,8 @@ html {
 #loginform {
     max-width: 500px;
     min-width: 300px;
-    max-height: 700px;
+    min-height: 650px;
+    max-height: 500px;
     width: 30%;
     height: 60%;
     margin: 100px auto;

@@ -18,18 +18,18 @@ const Styles = styled.div`
 
 export const NavigationBar = () => (
 
-      <Navbar className="color-nav" color="light" expand="lg">
+    <Navbar className="color-nav" color="light" expand="lg">
         <Navbar.Brand href="/Home/Schedule">Schedule</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         {/* <Form className="form-center">
           <FormControl type="text" placeholder="Search" className="" />
         </Form> */}
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Nav.Item><Nav.Link href="/Home/Homecontent">Home</Nav.Link></Nav.Item> 
-            <Nav.Item><Nav.Link href="/Home/Contact">Contact</Nav.Link></Nav.Item>
-          </Nav>
+            <Nav className="ml-auto">
+                <Nav.Item><Nav.Link href="/Home/Homecontent">Home</Nav.Link></Nav.Item>
+                <Nav.Item><Nav.Link href="/Home/Contact">Contact</Nav.Link></Nav.Item>
+            </Nav>
         </Navbar.Collapse>
-      </Navbar>
+    </Navbar>
 
-  )
+)
