@@ -13,6 +13,10 @@ html {
     font-size: 100%;
 }
 
+.whiteSpace {
+    padding: 0px 0px 100px 0px;
+}
+
 #loginform {
     max-width: 500px;
     min-width: 300px;
@@ -22,6 +26,39 @@ html {
     margin: 100px auto;
     background-color: #FFFFFF;
     border-radius: 25px;
+}
+
+img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 1024px;
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+    /* Set up positioning */
+    position: fixed;
+    top: 0px;
+    left: 0;
+    z-index: -1;
+}
+
+.standardBackgroundColour {
+    max-width: 500px;
+    min-width: 300px;
+    max-height: 700px;
+    min-height: 700px;
+    width: 30%;
+    height: 60%;
+    margin: 100px auto;
+    background-color: #FFFFFF;
+    padding: 50px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0.9;
 }
 
 #headerTitle {
@@ -130,4 +167,9 @@ html {
     text-align: center;
     padding-top: 2rem;
     margin-top: 1.5rem;
+}
+
+.justify {
+    text-align: justify;
+    text-justify: inter-word;
 }
