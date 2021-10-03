@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import './login.css';
+import { Redirect } from 'react-router-dom'
 
 function getToken() {
     const tokenString = sessionStorage.getItem('token');
@@ -25,6 +26,12 @@ class Login extends React.Component {
         .then((resp) => resp.json())
             .then((data) => data);
         this.setToken(userId);
+        if (!getToken) {
+            ;
+        }
+        else {
+
+        }
     }
 
     setToken(userToken) {
