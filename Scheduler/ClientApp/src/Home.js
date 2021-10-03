@@ -17,9 +17,9 @@ function Home({ routes }) {
                 {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                 {/*))}*/}
 
-                <RouteWithSubRoutes key='0' path='/schedule' component={Schedule} />
-                <RouteWithSubRoutes key='1' path='/contact' component={Contact}/>
-                <RouteWithSubRoutes key='2' path='/home/' component={HomeContent}/>
+                <RouteWithSubRoutes path='/schedule' component={Schedule} />
+                <RouteWithSubRoutes path='/contact' component={Contact}/>
+                <RouteWithSubRoutes path='/home/' component={HomeContent}/>
 
 
 

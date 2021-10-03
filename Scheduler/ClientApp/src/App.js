@@ -39,8 +39,8 @@ function App() {
                     {/*{routes.map((route, i) => (*/}
                     {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                     {/*))}*/}
-                <RouteWithSubRoutes key='0' path='/login' component={login} />
-                <RouteWithSubRoutes key='1' path='/' component={Home} routes={homeRoutes}/>
+                <RouteWithSubRoutes path='/login' component={login} />
+                <RouteWithSubRoutes path='/' component={Home} routes={homeRoutes}/>
 
 
                     <Route component={NotFound} />
