@@ -7,7 +7,7 @@ import Schedule from './Schedule';
 import Contact from './Contact';
 import HomeContent from './HomeContent';
 
-function Home({ routes }) {
+function Home() {
     return (
         <>
             <NavigationBar/>

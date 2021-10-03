@@ -14,23 +14,7 @@ import HomeContent from './HomeContent';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 function App() {
-    //Below variables isnt needed if we uncomment the content below it
-    var homeRoutes = [
-        {
-            path: '/home/schedule',
-            component: Schedule,
-        },
-        {
-            path: '/home/contact',
-            component: Contact,
-        },
-        {
-            path: '/home/homecontent',
-            component: HomeContent,
-        },
-    ];
     return (
             <BrowserRouter>
                 <Switch>
@@ -40,7 +24,7 @@ function App() {
                     {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                     {/*))}*/}
                 <RouteWithSubRoutes path='/login' component={login} />
-                <RouteWithSubRoutes path='/' component={Home} routes={homeRoutes}/>
+                <RouteWithSubRoutes path='/' component={Home}/>
 
 
                     <Route component={NotFound} />
