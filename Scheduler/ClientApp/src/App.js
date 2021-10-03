@@ -10,29 +10,42 @@ import React, { Fragment } from 'react';
 import NotFound from './NotFound';
 import routes from './Routes';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
-
+import HomeContent from './HomeContent';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 function App() {
-
+    //Below variables isnt needed if we uncomment the content below it
+    var homeRoutes = [
+        {
+            path: '/home/schedule',
+            component: Schedule,
+        },
+        {
+            path: '/home/contact',
+            component: Contact,
+        },
+        {
+            path: '/home/homecontent',
+            component: HomeContent,
+        },
+    ];
     return (
-
-
-
             <BrowserRouter>
                 <Switch>
                 <Redirect exact from='/' to='/login' />
 
-                    {routes.map((route, i) => (
-                        <RouteWithSubRoutes key={i} {...route} />
-                    ))}
+                    {/*{routes.map((route, i) => (*/}
+                    {/*    <RouteWithSubRoutes key={i} {...route} />*/}
+                    {/*))}*/}
+                <RouteWithSubRoutes key='0' path='/login' component={login} />
+                <RouteWithSubRoutes key='1' path='/home' component={Home} routes={homeRoutes}/>
+
+
                     <Route component={NotFound} />
                 </Switch>
             </BrowserRouter>
-
-
     );
 }
 
