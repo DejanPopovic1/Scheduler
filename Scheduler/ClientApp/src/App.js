@@ -40,7 +40,7 @@ function App() {
                     {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                     {/*))}*/}
                 <RouteWithSubRoutes key='0' path='/login' component={login} />
-                <RouteWithSubRoutes key='1' path='/home' component={Home} routes={homeRoutes}/>
+                <RouteWithSubRoutes key='1' path='/' component={Home} routes={homeRoutes}/>
 
 
                     <Route component={NotFound} />

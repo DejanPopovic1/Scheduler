@@ -12,14 +12,14 @@ function Home({ routes }) {
         <>
             <NavigationBar/>
             <Switch>
-                <Redirect exact from='/home' to='/home/homecontent' />
+{/*                <Redirect exact from='/home' to='/home/homecontent' />*/}
                 {/*{routes.map((route, i) => (*/}
                 {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                 {/*))}*/}
 
-                <RouteWithSubRoutes key='0' path='/home/schedule' component={Schedule} />
-                <RouteWithSubRoutes key='1' path='/home/contact' component={Contact}/>
-                <RouteWithSubRoutes key='2' path='/home/homecontent' component={HomeContent}/>
+                <RouteWithSubRoutes key='0' path='/schedule' component={Schedule} />
+                <RouteWithSubRoutes key='1' path='/contact' component={Contact}/>
+                <RouteWithSubRoutes key='2' path='/home/' component={HomeContent}/>
 
 
 
