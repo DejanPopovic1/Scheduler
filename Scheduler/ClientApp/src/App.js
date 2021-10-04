@@ -8,7 +8,6 @@ import Schedule from './Schedule';
 import login from './login';
 import React, { Fragment } from 'react';
 import NotFound from './NotFound';
-import routes from './Routes';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
 import HomeContent from './HomeContent';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -16,20 +15,14 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (
-            <BrowserRouter>
-                <Switch>
+        <BrowserRouter>
+            <Switch>
                 <Redirect exact from='/' to='/login' />
-
-                    {/*{routes.map((route, i) => (*/}
-                    {/*    <RouteWithSubRoutes key={i} {...route} />*/}
-                    {/*))}*/}
                 <Route path='/login' component={login} />
-                <RouteWithSubRoutes path='/' component={Home}/>
-
-
-                    <Route component={NotFound} />
-                </Switch>
-            </BrowserRouter>
+                <RouteWithSubRoutes path='/' component={Home} />
+                <Route component={NotFound} />
+            </Switch>
+        </BrowserRouter>
     );
 }
 

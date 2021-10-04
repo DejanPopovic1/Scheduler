@@ -10,20 +10,11 @@ import HomeContent from './HomeContent';
 function Home() {
     return (
         <>
-            <NavigationBar/>
+            <NavigationBar />
             <Switch>
-{/*                <Redirect exact from='/home' to='/home/homecontent' />*/}
-                {/*{routes.map((route, i) => (*/}
-                {/*    <RouteWithSubRoutes key={i} {...route} />*/}
-                {/*))}*/}
-
                 <RouteWithSubRoutes path='/schedule' component={Schedule} />
-                <RouteWithSubRoutes path='/contact' component={Contact}/>
-                <RouteWithSubRoutes path='/home/' component={HomeContent}/>
-
-
-
-
+                <RouteWithSubRoutes path='/contact' component={Contact} />
+                <RouteWithSubRoutes path='/home/' component={HomeContent} />
             </Switch>
         </>
     );
