@@ -2,12 +2,12 @@
 import { Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
-const RouteWithSubRoutes = (route) => {
+const RouteWithSubRoutes = (props) => {
 	return (
 		<Route
-			path={route.path}
-			render={(props) => (
-				<route.component {...props}/>
+			path={props.path}
+			render={(props2) => (
+				<props.component {...props2}/>
 			)}
 		/>
 	);
