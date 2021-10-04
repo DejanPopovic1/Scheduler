@@ -23,7 +23,7 @@ function App() {
                     {/*{routes.map((route, i) => (*/}
                     {/*    <RouteWithSubRoutes key={i} {...route} />*/}
                     {/*))}*/}
-                <RouteWithSubRoutes path='/login' component={login} />
+                <Route path='/login' component={login} />
                 <RouteWithSubRoutes path='/' component={Home}/>
 
 
