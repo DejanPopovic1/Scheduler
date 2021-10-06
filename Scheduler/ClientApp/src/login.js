@@ -26,11 +26,13 @@ class Login extends React.Component {
         .then((resp) => resp.json())
             .then((data) => data);
         this.setToken(userId);
-        if (!getToken) {
-            ;
+        if (userId) {
+            this.props.history.push('/home');
         }
-        else {
-
+        else if(!userId) {
+            //TODO: Change the DOM to show the following just above the Log in button:
+            //"Username and/or password incorrect"
+            ;
         }
     }
 
