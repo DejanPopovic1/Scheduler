@@ -22,7 +22,7 @@ class Schedule extends Component {
         this.getData = this.getData.bind(this);
         this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
-
+//
     componentDidUpdate = () => {
         var test = "test";
         var test2 = this.state.scheduledItemsArray;
@@ -54,7 +54,13 @@ class Schedule extends Component {
     }
 
     onChangeDate = () => {
+        var tst = document.getElementById("datePicker").value;
+        debugger;
         this.setState({ date: document.getElementById("datePicker").value });
+    }
+
+    onChangeTime = () => {
+         this.setState({ time: document.getElementById("timePicker").value });
     }
 
     onChangeScheduleName = () => {
@@ -68,6 +74,7 @@ class Schedule extends Component {
             //Form Data
             fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3" },
             date: defaultDateString,
+            time: "00:00",
             scheduleName: "",
             scheduledItemsArray: [
                 { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Michaelz" },
@@ -101,6 +108,37 @@ class Schedule extends Component {
         //   center: {lat: -34.397, lng: 150.644},
         //   zoom: 8
         // });
+    }
+
+    handleAddSchedule = async () => {
+        //const {format} = require('date-fns');
+        //var dateTime = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS");
+        //var test = this.state;
+        var inputDate = new Date(this.state.date);
+        var inputTime = this.state.time;
+        //var date = this.state.date;
+        //var time = this.state.time;
+        var year = inputDate.getFullYear();
+        var month = inputDate.getMonth();
+        var date = inputDate.getDate();
+        var hour = inputTime.substring(0,2);
+        var minute = inputTime.substring(3, 5);
+        //var dateTime = new Date(year, month);
+        var inputDateTime = new Date(year, month, date, hour, minute);
+        debugger;
+        debugger;
+        var postData = {pickupDate: inputDateTime, scheduleName: 1, location: 1};
+        var response = await fetch("schedule/add", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(postData)
+        })
+        .then((resp) => resp.json())
+            .then((data) => data);
+
+
+
+
     }
 
     addToItemArray = () => {
@@ -156,7 +194,7 @@ class Schedule extends Component {
                             <Form.Control
                                 id="timePicker"
                                 type="time"
-                                onChange={this.onChangeDate}
+                                onChange={this.onChangeTime}
                                 value={this.state.time}
                             />
                         </Form.Group>
@@ -173,7 +211,8 @@ class Schedule extends Component {
                     <div className="row">
                         <div className="col-sm-3">
                             <p><button className="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add Pickup Point</button></p>
-                            <p><button className="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Shedule</button></p>
+                             {/* <p><button className="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Schedule</button></p>  */}
+                            <p><button className="btn btn-secondary btn-block" onClick={this.handleAddSchedule}>Add Schedule</button></p>
                             <p><button className="btn btn-secondary btn-block">Edit Shedule</button></p>
                             <p><button className="btn btn-secondary btn-block">Delete Shedule</button></p>
                         </div>

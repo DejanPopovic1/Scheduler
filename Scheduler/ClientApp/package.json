@@ -12,6 +12,7 @@
     "axios": "^0.21.4",
     "bootstrap": "^4.6.0",
     "css-loader": "^6.3.0",
+    "date-fns": "^2.25.0",
     "flexsearch": "^0.7.2",
     "google-map-react": "^2.1.10",
     "google-maps-react": "^2.0.6",
