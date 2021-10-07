@@ -18,6 +18,7 @@ namespace Scheduler.Controllers
         [HttpPost("add")]
         public IActionResult Login([FromBody] Schedule s)
         {
+            s.pickupDate.AddHours(2);
             return Ok();
         }
     }

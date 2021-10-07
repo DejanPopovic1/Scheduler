@@ -111,20 +111,17 @@ class Schedule extends Component {
     }
 
     handleAddSchedule = async () => {
-        //const {format} = require('date-fns');
-        //var dateTime = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS");
-        //var test = this.state;
+        const southAfricanTimeZoneOffset = 2;
         var inputDate = new Date(this.state.date);
         var inputTime = this.state.time;
-        //var date = this.state.date;
-        //var time = this.state.time;
         var year = inputDate.getFullYear();
         var month = inputDate.getMonth();
         var date = inputDate.getDate();
-        var hour = inputTime.substring(0,2);
+        var hour = parseInt(inputTime.substring(0,2)) + southAfricanTimeZoneOffset;
         var minute = inputTime.substring(3, 5);
         //var dateTime = new Date(year, month);
         var inputDateTime = new Date(year, month, date, hour, minute);
+        //convertTZ(inputDateTime, "Africa/Pretoria";
         debugger;
         debugger;
         var postData = {pickupDate: inputDateTime, scheduleName: 1, location: 1};
