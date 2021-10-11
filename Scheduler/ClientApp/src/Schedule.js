@@ -123,8 +123,10 @@ class Schedule extends Component {
         var inputDateTime = new Date(year, month, date, hour, minute);
         //convertTZ(inputDateTime, "Africa/Pretoria";
         debugger;
+        var test1 = this.state.lat;
+        var test2 = this.state.lon;
         debugger;
-        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: {lat: 22.1, lon: 48.4} };
+        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng } };
         var response = await fetch("schedule/add", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
