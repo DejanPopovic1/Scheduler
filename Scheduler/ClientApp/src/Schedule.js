@@ -124,7 +124,7 @@ class Schedule extends Component {
         //convertTZ(inputDateTime, "Africa/Pretoria";
         debugger;
         debugger;
-        var postData = {pickupDate: inputDateTime, scheduleName: 1, location: 1};
+        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: 1 };
         var response = await fetch("schedule/add", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

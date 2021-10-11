@@ -8,7 +8,7 @@ namespace Scheduler.Models
     public class Schedule
     {
         public DateTime pickupDate { get; set; }
-        public int scheduleName { get; set; }
+        public String scheduleName { get; set; }
         public int location { get; set; }
     }
 }
