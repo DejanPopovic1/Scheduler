@@ -20,6 +20,7 @@ namespace Scheduler.Controllers
         {
             s.pickupDate.AddHours(2);
             var test = s.scheduleName;
+            var test2 = s.location;
             return Ok();
         }
     }

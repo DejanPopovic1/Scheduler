@@ -9,6 +9,12 @@ namespace Scheduler.Models
     {
         public DateTime pickupDate { get; set; }
         public String scheduleName { get; set; }
-        public int location { get; set; }
+        public virtual Location location { get; set; }
+    }
+
+    public class Location
+    {
+        public double lat { get; set; }
+        public double lon { get; set; }
     }
 }
