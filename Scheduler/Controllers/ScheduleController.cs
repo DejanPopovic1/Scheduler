@@ -11,14 +11,18 @@ namespace Scheduler.Controllers
     {
         private readonly SchedulerEntities _dbContext;
         private readonly ScheduleRepository _scheduleRepo;
-        public ScheduleController(SchedulerEntities dbContext)
+        public ScheduleController(SchedulerEntities dbContext, ScheduleRepository scheduleRepository)
         {
             _dbContext = dbContext;
+            _scheduleRepo = scheduleRepository;
         }
 
         [HttpPost("add")]
-        public IActionResult add([FromBody] Models.Schedule s)
+        public IActionResult add([FromBody] ScheduleViewModel s)
         {
+            var test1 = 1;
+            _scheduleRepo.Add(_dbContext, s);
+
             s.pickupDate.AddHours(2);
             //_dbContext.Schedules.Add(s);
             //var test = s.scheduleName;

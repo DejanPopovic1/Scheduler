@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Scheduler.Models
 {
-    public class Schedule
+    public class ScheduleViewModel
     {
         public DateTime pickupDate { get; set; }
         public String scheduleName { get; set; }
