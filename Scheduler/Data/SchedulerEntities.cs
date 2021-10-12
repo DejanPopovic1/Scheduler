@@ -16,7 +16,7 @@ namespace Scheduler.Data
             { }
 
             public DbSet<User> Users { get; set; }
-            public DbSet<User> Schedules { get; set; } 
+            public DbSet<Schedule> Schedules { get; set; } 
         
     }
 }
