@@ -39,7 +39,7 @@ namespace Scheduler.Controllers
         }
 
         [HttpPost("postSchedule")]
-        public int postSchedule([FromBody] IEnumerable<Schedule> s)
+        public int postSchedule([FromBody] IEnumerable<Models.Schedule> s)
         {
             //System.Environment.Exit(-1);
             int test = 7;
