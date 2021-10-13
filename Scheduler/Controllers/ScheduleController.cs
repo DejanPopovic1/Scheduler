@@ -24,10 +24,10 @@ namespace Scheduler.Controllers
             Schedule ret = new Schedule()
             {
                 Id = "1",
-                PickupDateTime = new DateTime(2000, 1, 1),
-                ScheduleName = "Hello",
-                Latitude = 2.456F,
-                Longitude = 74.78F
+                PickupDateTime = s.pickupDate,
+                ScheduleName = s.scheduleName,
+                Latitude = (float)s.location.lat,
+                Longitude = (float)s.location.lon
             };
             _dbContext.Schedules.Add(ret);
             _dbContext.SaveChanges();
