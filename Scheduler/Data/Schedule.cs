@@ -9,7 +9,7 @@ namespace Scheduler.Data
     [Table("Schedule")]
     public class Schedule
     {
-        public String Id { get; set; }
+        public int Id { get; set; }
         public DateTime PickupDateTime { get; set; }
         public String ScheduleName { get; set; }
         public float Latitude { get; set; }

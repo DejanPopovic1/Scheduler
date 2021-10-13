@@ -23,7 +23,7 @@ namespace Scheduler.Controllers
         {
             Schedule ret = new Schedule()
             {
-                Id = "1",
+                //Id = 1,
                 PickupDateTime = s.pickupDate,
                 ScheduleName = s.scheduleName,
                 Latitude = (float)s.location.lat,

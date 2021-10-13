@@ -19,7 +19,7 @@ namespace Scheduler.Repository
         {
             Schedule ret = new Schedule()
             {
-                Id = "1",
+                Id = 1,
                 PickupDateTime = new DateTime(2000, 1, 1),
                 ScheduleName = "Hello",
                 Latitude = 2.456F,
