@@ -67,12 +67,28 @@ class Schedule extends Component {
         this.setState({ scheduleName: document.getElementById("scheduleName").value });
     }
 
+
+
+    grid_onReady = (params) => {
+
+        if (!params) return;
+        this.api = params;
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+        this.initDataSource();
+        params.api.sizeColumnsToFit();
+    }
+
+    initDataSource = () => {
+        this.fetchSchedule();
+    }
+
     getInitialState = () => {
         var defaultDate = new Date();
         var defaultDateString = this.formatDate(defaultDate);
         return {
             //Form Data
-            columnDefs: [{ headerName: "Scheduled Item", width: 200 }, { headerName: "Scheduled Date", width: 200 }, { headerName: "Scheduled Lat", width: 200 }, { headerName: "Scheduled Lon", width: 200 }, { headerName: "", width: 275, cellRenderer: "scheduleListActionRenderer"}],
+            columnDefs: [{ headerName: "Scheduled Item", width: 250 }, { headerName: "Scheduled Date", width: 250 }, { headerName: "Scheduled Lat", width: 250 }, { headerName: "Scheduled Lon", width: 250 }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
             fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3" },
             date: defaultDateString,
             time: "00:00",
@@ -95,13 +111,7 @@ class Schedule extends Component {
                         super(props);
                     }
 
-                    toggleRecipients = (e) => {
-                        //e.preventDefault();
-                        //const data = this.props.data;
-                        //this.props.context.componentParent.toggleRecipients(data.id);
-                    }
-
-                    sendReport_OnClick = (e) => {
+                    delete_OnClick = (e) => {
                         //e.preventDefault();
                         //const data = this.props.data;
                         //reportService.sendMilestoneReport([data.id]).then(() => {
@@ -111,10 +121,11 @@ class Schedule extends Component {
 
                     render() {
                         const data = this.props.data;
-                        return (<>
-                            <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.toggleRecipients}>Edit</Button>
-                            <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.sendReport_OnClick}>Delete</Button>
-                        </>);
+                        return (
+                            <>
+                                <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
+                            </>
+                        );
                     }
                 }
             }
@@ -140,6 +151,17 @@ class Schedule extends Component {
         // });
     }
 
+    fetchSchedule = async () => {
+        debugger;
+        var response = await fetch("schedule/getList", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then((resp) => resp.json())
+            .then((data) => data);
+    }
+
+    //This needs to be refactored out
     handleAddSchedule = async () => {
         const southAfricanTimeZoneOffset = 2;
         var inputDate = new Date(this.state.date);
@@ -242,8 +264,6 @@ class Schedule extends Component {
                             <p><button className="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add Pickup Point</button></p>
                              {/* <p><button className="btn btn-secondary btn-block" onClick={this.addToItemArray}>Add Schedule</button></p>  */}
                             <p><button className="btn btn-secondary btn-block" onClick={this.handleAddSchedule}>Add Schedule</button></p>
-                            <p><button className="btn btn-secondary btn-block">Edit Shedule</button></p>
-                            <p><button className="btn btn-secondary btn-block">Delete Shedule</button></p>
                         </div>
                     </div>
                     <Row>
@@ -260,7 +280,7 @@ class Schedule extends Component {
                                     //containerStyle={{height: "200px"}}
                                     rowData={this.state.scheduledItemsArray}
                                     frameworkComponents={this.state.frameworkComponents}
-
+                                    onGridReady={this.grid_onReady}
 
                                 />
                                     {/*<AgGridColumn field="scheduledDate" width={260}></AgGridColumn>*/}
@@ -332,6 +352,7 @@ class Schedule extends Component {
     }
 
     postData = () => {
+        debugger;
         fetch("schedule/postSchedule", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -40,5 +40,13 @@ namespace Scheduler.Controllers
             ////var test2 = s.location;
             return Ok();
         }
+
+        [HttpGet("getList")]
+        public IActionResult getList()
+        {
+
+
+            return Ok();
+        }
     }
 }
