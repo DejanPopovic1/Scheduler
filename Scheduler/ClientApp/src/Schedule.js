@@ -72,22 +72,52 @@ class Schedule extends Component {
         var defaultDateString = this.formatDate(defaultDate);
         return {
             //Form Data
+            columnDefs: [{ headerName: "Scheduled Item", width: 200 }, { headerName: "Scheduled Date", width: 200 }, { headerName: "Scheduled Lat", width: 200 }, { headerName: "Scheduled Lon", width: 200 }, { headerName: "", width: 275, cellRenderer: "scheduleListActionRenderer"}],
             fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3" },
             date: defaultDateString,
             time: "00:00",
             scheduleName: "",
             scheduledItemsArray: [
                 { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Michaelz" },
-                { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to John" },
-                { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Mary" },
-                { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Zed" },
-                { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Craig" }
+                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to John" },
+                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Mary" },
+                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Zed" },
+                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Craig" }
             ],
             //Control Information
             isScheduleModalVisible: false,
             //Child Data Passed Back
             lat: 0,
             lng: 0,
+            frameworkComponents: {
+                scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
+                    constructor(props) {
+                        super(props);
+                    }
+
+                    toggleRecipients = (e) => {
+                        //e.preventDefault();
+                        //const data = this.props.data;
+                        //this.props.context.componentParent.toggleRecipients(data.id);
+                    }
+
+                    sendReport_OnClick = (e) => {
+                        //e.preventDefault();
+                        //const data = this.props.data;
+                        //reportService.sendMilestoneReport([data.id]).then(() => {
+                        //    NotificationManager.info('Milestone Report Sent', 'Info');
+                        //});
+                    }
+
+                    render() {
+                        const data = this.props.data;
+                        return (<>
+                            <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.toggleRecipients}>Edit</Button>
+                            <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.sendReport_OnClick}>Delete</Button>
+                        </>);
+                    }
+                }
+            }
         };
     }
 
@@ -226,15 +256,21 @@ class Schedule extends Component {
                                 }}>
                                 <AgGridReact
                                     style={{ width: "100px" }}
+                                    columnDefs={this.state.columnDefs}
                                     //containerStyle={{height: "200px"}}
-                                    rowData={this.state.scheduledItemsArray}>
-                                    <AgGridColumn field="scheduledDate" width={300}></AgGridColumn>
-                                    <AgGridColumn field="scheduledItem" width={300}></AgGridColumn>
-                                    <AgGridColumn field="scheduledLat" width={300}></AgGridColumn>
-                                    <AgGridColumn field="scheduledLng" width={300}></AgGridColumn>
+                                    rowData={this.state.scheduledItemsArray}
+                                    frameworkComponents={this.state.frameworkComponents}
 
 
-                                </AgGridReact>
+                                />
+                                    {/*<AgGridColumn field="scheduledDate" width={260}></AgGridColumn>*/}
+                                    {/*<AgGridColumn field="scheduledItem" width={260}></AgGridColumn>*/}
+                                    {/*<AgGridColumn field="scheduledLat" width={260}></AgGridColumn>*/}
+                                    {/*<AgGridColumn field="scheduledLng" width={260}></AgGridColumn>*/}
+                                    {/*<AgGridColumn field="" width={260}></AgGridColumn>*/}
+
+
+                                {/*</AgGridReact>*/}
                             </div>
                         </Col>
                     </Row>
