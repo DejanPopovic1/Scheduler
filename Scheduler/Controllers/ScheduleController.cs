@@ -3,6 +3,7 @@ using Scheduler.Data;
 using Scheduler.Models;
 using Scheduler.Repository;
 using System;
+using System.Collections.Generic;
 
 namespace Scheduler.Controllers
 {
@@ -44,9 +45,54 @@ namespace Scheduler.Controllers
         [HttpGet("getList")]
         public IActionResult getList()
         {
-
-
-            return Ok();
+            ScheduleViewModel ret1 = new ScheduleViewModel()
+            {
+                pickupDate = new DateTime(2000, 1, 1),
+                scheduleName = "Testing 1 2 3",
+                location = new Location() {
+                    lat = 100,
+                    lon = 100
+                }
+            };
+            ScheduleViewModel ret2 = new ScheduleViewModel()
+            {
+                pickupDate = new DateTime(2000, 1, 1),
+                scheduleName = "Testing 1 2 3",
+                location = new Location()
+                {
+                    lat = 100,
+                    lon = 100
+                }
+            };
+            ScheduleViewModel ret3 = new ScheduleViewModel()
+            {
+                pickupDate = new DateTime(2000, 1, 1),
+                scheduleName = "Testing 1 2 3",
+                location = new Location()
+                {
+                    lat = 100,
+                    lon = 100
+                }
+            };
+            List<ScheduleViewModel> ret = new List<ScheduleViewModel>();
+            ret.Add(ret1);
+            ret.Add(ret2);
+            ret.Add(ret3);
+            return Ok(ret);
         }
     }
 }
+
+
+//public class ScheduleViewModel
+//{
+//    public DateTime pickupDate { get; set; }
+//    public String scheduleName { get; set; }
+//    public virtual Location location { get; set; }
+//}
+
+//public class Location
+//{
+//    public double lat { get; set; }
+//    public double lon { get; set; }
+//}
