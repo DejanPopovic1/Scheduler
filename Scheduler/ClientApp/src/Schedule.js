@@ -1,6 +1,3 @@
-// <reference path="../jquery.validate-vsdoc.js" />
-
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Form, FormGroup, Modal } from "react-bootstrap";
@@ -69,18 +66,78 @@ class Schedule extends Component {
 
 
 
-    grid_onReady = (params) => {
-
-        if (!params) return;
-        this.api = params;
+    grid_onReady = async (params) => {
+        //if (!params) return;
+        //this.api = params;
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
-        this.initDataSource();
-        params.api.sizeColumnsToFit();
+
+
+
+
+
+
+        const updateData = (data) => {
+            var dataSource = {
+                rowCount: null,
+                getRows: function (params) {
+                    console.log('asking for ' + params.startRow + ' to ' + params.endRow);
+                    setTimeout(function () {
+                        var rowsThisPage = data.slice(params.startRow, params.endRow);
+                        var lastRow = -1;
+                        if (data.length <= params.endRow) {
+                            lastRow = data.length;
+                        }
+                        params.successCallback(rowsThisPage, lastRow);
+                    }, 500);
+                },
+            };
+            params.api.setDatasource(dataSource);
+        };
+
+
+        var response = await fetch("schedule/getList", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then((resp) => resp.json())
+            .then((data) => data);
+        debugger;
+
+        //fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+        //    .then((resp) => resp.json())
+        //    .then((data) => updateData(data));
+
+
+
+
+
+
+
+
+
+
+
+        //this.initDataSource();
+        //params.api.sizeColumnsToFit();
     }
 
-    initDataSource = () => {
-        this.fetchSchedule();
+    initDataSource = async () => {
+        var dataSource = {
+            rowCount: null,
+            getRows: async function (params) {
+                var response = await this.fetchSchedule();
+                var rowsThisPage = response;
+                await params.successCallback(rowsThisPage, 10);
+            }
+        };
+        this.gridApi.setDatasource(dataSource);
+
+
+
+
+        //var returnedData = await this.fetchSchedule();
+        //debugger;
     }
 
     getInitialState = () => {
@@ -88,7 +145,40 @@ class Schedule extends Component {
         var defaultDateString = this.formatDate(defaultDate);
         return {
             //Form Data
-            columnDefs: [{ headerName: "Scheduled Item", width: 250 }, { headerName: "Scheduled Date", width: 250 }, { headerName: "Scheduled Lat", width: 250 }, { headerName: "Scheduled Lon", width: 250 }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
+            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "scheduleName" }, { headerName: "Scheduled Date", width: 250, field: "x" }, { headerName: "Scheduled Time", width: 250, field: "x" }, { headerName: "Scheduled Location", width: 250, field: "x" }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
+
+            //columnDefs: [
+            //    {
+            //        headerName: 'ID',
+            //        maxWidth: 100,
+            //        valueGetter: 'node.id',
+            //        cellRenderer: 'loadingRenderer',
+            //    },
+            //    {
+            //        field: 'scheduleName',
+            //        minWidth: 150,
+            //    },
+            //    { field: 'age' },
+            //    {
+            //        field: 'scheduleName',
+            //        minWidth: 150,
+            //    },
+            //    { field: 'year' },
+            //    {
+            //        field: 'date',
+            //        minWidth: 150,
+            //    },
+            //    {
+            //        field: 'sport',
+            //        minWidth: 150,
+            //    },
+            //    { field: 'gold' },
+            //    { field: 'silver' },
+            //    { field: 'bronze' },
+            //    { field: 'total' },
+            //],
+
+
             fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3" },
             date: defaultDateString,
             time: "00:00",
@@ -128,7 +218,41 @@ class Schedule extends Component {
                         );
                     }
                 }
-            }
+            },
+
+
+
+            //defaultColDef: {
+            //    flex: 1,
+            //    resizable: true,
+            //    minWidth: 100,
+            //},
+            //components: {
+            //    loadingRenderer: function (params) {
+            //        if (params.value !== undefined) {
+            //            return params.value;
+            //        } else {
+            //            return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+            //        }
+            //    },
+            //},
+            //rowBuffer: 0,
+            //rowSelection: 'multiple',
+            //rowModelType: 'infinite',
+            //paginationPageSize: 100,
+            //cacheOverflowSize: 2,
+            //maxConcurrentDatasourceRequests: 1,
+            //infiniteInitialRowCount: 1000,
+            //maxBlocksInCache: 10,
+
+
+
+
+
+
+
+
+
         };
     }
 
@@ -159,6 +283,8 @@ class Schedule extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => data);
+        debugger;
+        return response;
     }
 
     //This needs to be refactored out
@@ -277,17 +403,32 @@ class Schedule extends Component {
                                 <AgGridReact
                                     style={{ width: "100px" }}
                                     columnDefs={this.state.columnDefs}
-                                    //containerStyle={{height: "200px"}}
+                                    //containerStyle={{ height: "200px" }}
                                     rowData={this.state.scheduledItemsArray}
                                     frameworkComponents={this.state.frameworkComponents}
                                     onGridReady={this.grid_onReady}
 
+
+
+
+
                                 />
-                                    {/*<AgGridColumn field="scheduledDate" width={260}></AgGridColumn>*/}
-                                    {/*<AgGridColumn field="scheduledItem" width={260}></AgGridColumn>*/}
-                                    {/*<AgGridColumn field="scheduledLat" width={260}></AgGridColumn>*/}
-                                    {/*<AgGridColumn field="scheduledLng" width={260}></AgGridColumn>*/}
-                                    {/*<AgGridColumn field="" width={260}></AgGridColumn>*/}
+                                {/*columnDefs={this.state.columnDefs}*/}
+                                {/*defaultColDef={this.state.defaultColDef}*/}
+                                {/*components={this.state.components}*/}
+                                {/*rowBuffer={this.state.rowBuffer}*/}
+                                {/*rowSelection={this.state.rowSelection}*/}
+                                {/*rowModelType={this.state.rowModelType}*/}
+                                {/*paginationPageSize={this.state.paginationPageSize}*/}
+                                {/*cacheOverflowSize={this.state.cacheOverflowSize}*/}
+                                {/*maxConcurrentDatasourceRequests={*/}
+                                {/*    this.state.maxConcurrentDatasourceRequests*/}
+                                {/*}*/}
+                                {/*infiniteInitialRowCount={this.state.infiniteInitialRowCount}*/}
+                                {/*maxBlocksInCache={this.state.maxBlocksInCache}*/}
+                                {/*onGridReady={this.onGridReady}*/}
+
+
 
 
                                 {/*</AgGridReact>*/}
