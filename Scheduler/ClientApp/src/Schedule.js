@@ -66,78 +66,41 @@ class Schedule extends Component {
 
 
 
-    grid_onReady = async (params) => {
-        //if (!params) return;
-        //this.api = params;
+    grid_onReady = (params) => {
+        if (!params) return;
+        this.api = params;
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
-
-
-
-
-
-
-        const updateData = (data) => {
-            var dataSource = {
-                rowCount: null,
-                getRows: function (params) {
-                    console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-                    setTimeout(function () {
-                        var rowsThisPage = data.slice(params.startRow, params.endRow);
-                        var lastRow = -1;
-                        if (data.length <= params.endRow) {
-                            lastRow = data.length;
-                        }
-                        params.successCallback(rowsThisPage, lastRow);
-                    }, 500);
-                },
-            };
-            params.api.setDatasource(dataSource);
-        };
-
-
-        var response = await fetch("schedule/getList", {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-            .then((resp) => resp.json())
-            .then((data) => data);
+        this.initDataSource();
         debugger;
-
-        //fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-        //    .then((resp) => resp.json())
-        //    .then((data) => updateData(data));
-
-
-
-
-
-
-
-
-
-
-
-        //this.initDataSource();
-        //params.api.sizeColumnsToFit();
+        params.api.sizeColumnsToFit();
     }
 
-    initDataSource = async () => {
+    initDataSource = (searchString) => {
+
+
+
+
+
+        if (!searchString) searchString = '';
+        var that = this;
         var dataSource = {
             rowCount: null,
             getRows: async function (params) {
-                var response = await this.fetchSchedule();
-                var rowsThisPage = response;
-                await params.successCallback(rowsThisPage, 10);
+                var take = params.endRow - params.startRow;
+                var skip = params.startRow / take;
+                var response = await fetch("schedule/getList", {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                    .then((resp) => resp.json())
+                    .then((data) => data);
+                var rowsThisPage = response.items;
+                var lastRow = response.itemsCount;
+                await params.successCallback(rowsThisPage, lastRow);
             }
         };
         this.gridApi.setDatasource(dataSource);
-
-
-
-
-        //var returnedData = await this.fetchSchedule();
-        //debugger;
     }
 
     getInitialState = () => {
@@ -146,7 +109,7 @@ class Schedule extends Component {
         return {
             //Form Data
             columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "scheduleName" }, { headerName: "Scheduled Date", width: 250, field: "x" }, { headerName: "Scheduled Time", width: 250, field: "x" }, { headerName: "Scheduled Location", width: 250, field: "x" }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
-
+            
             //columnDefs: [
             //    {
             //        headerName: 'ID',
@@ -407,7 +370,7 @@ class Schedule extends Component {
                                     rowData={this.state.scheduledItemsArray}
                                     frameworkComponents={this.state.frameworkComponents}
                                     onGridReady={this.grid_onReady}
-
+                                    
 
 
 
