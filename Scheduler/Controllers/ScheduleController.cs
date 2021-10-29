@@ -45,42 +45,53 @@ namespace Scheduler.Controllers
         [HttpGet("getList")]
         public IActionResult getList()
         {
-            ScheduleViewModel ret1 = new ScheduleViewModel()
-            {
-                pickupDate = new DateTime(2000, 1, 1),
-                scheduleName = "Testing 1 2 3",
-                location = new Location() {
-                    lat = 100,
-                    lon = 100
-                }
-            };
-            ScheduleViewModel ret2 = new ScheduleViewModel()
-            {
-                pickupDate = new DateTime(2000, 1, 1),
-                scheduleName = "Testing 1 2 3",
-                location = new Location()
-                {
-                    lat = 100,
-                    lon = 100
-                }
-            };
-            ScheduleViewModel ret3 = new ScheduleViewModel()
-            {
-                pickupDate = new DateTime(2000, 1, 1),
-                scheduleName = "Testing 1 2 3",
-                location = new Location()
-                {
-                    lat = 100,
-                    lon = 100
-                }
-            };
-            List<ScheduleViewModel> ret = new List<ScheduleViewModel>();
-            ret.Add(ret1);
-            ret.Add(ret2);
-            ret.Add(ret3);
+            //ScheduleViewModel ret1 = new ScheduleViewModel()
+            //{
+            //    pickupDate = new DateTime(2000, 1, 1),
+            //    scheduleName = "Testing 1 2 3",
+            //    location = new Location() {
+            //        lat = 100,
+            //        lon = 100
+            //    }
+            //};
+            //ScheduleViewModel ret2 = new ScheduleViewModel()
+            //{
+            //    pickupDate = new DateTime(2000, 1, 1),
+            //    scheduleName = "Testing 1 2 3",
+            //    location = new Location()
+            //    {
+            //        lat = 100,
+            //        lon = 100
+            //    }
+            //};
+            //ScheduleViewModel ret3 = new ScheduleViewModel()
+            //{
+            //    pickupDate = new DateTime(2000, 1, 1),
+            //    scheduleName = "Testing 1 2 3",
+            //    location = new Location()
+            //    {
+            //        lat = 100,
+            //        lon = 100
+            //    }
+            //};
+            //List<ScheduleViewModel> ret = new List<ScheduleViewModel>();
+            //ret.Add(ret1);
+            //ret.Add(ret2);
+            //ret.Add(ret3);
+            TestViewModel test = new TestViewModel() { Param = "hello" };
+            List<TestViewModel> ret = new List<TestViewModel>();
+            ret.Add(test);
+            ret.Add(test);
             return Ok(ret);
         }
     }
+}
+
+
+public class TestViewModel
+{
+    public String Param { get; set; }
+
 }
 
 

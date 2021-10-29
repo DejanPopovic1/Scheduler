@@ -16,19 +16,17 @@ class Schedule extends Component {
         this.state = this.getInitialState();
         //If the line below is not included, then getData wont bind to the state variables
         //Bind creates a new function that will force the this inside the function to be the parameter passed to bind().
-        this.getData = this.getData.bind(this);
-        this.componentDidUpdate = this.componentDidUpdate.bind(this);
+        //this.getData = this.getData.bind(this);
+        //this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
 //
-    componentDidUpdate = () => {
-        var test = "test";
-        var test2 = this.state.scheduledItemsArray;
+    //componentDidUpdate = () => {
 
-    }
+    //}
 
-    componentDidMount = () => {
-        this.fetchAndSetState();
-    }
+    //componentDidMount = () => {
+
+    //}
 
     formatDate = (date) => {
         var d = new Date(date),
@@ -64,40 +62,27 @@ class Schedule extends Component {
         this.setState({ scheduleName: document.getElementById("scheduleName").value });
     }
 
+    grid_onReady = (x) => {
+        //var response = await fetch("schedule/getList", {
+        //    method: 'GET',
+        //    headers: { 'Content-Type': 'application/json' }
+        //})
+        //    .then((resp) => resp.json())
+        //    .then((data) => data);
+        //debugger;
+        this.gridApi = x.api;
 
 
-    grid_onReady = (params) => {
-        if (!params) return;
-        this.api = params;
-        this.gridApi = params.api;
-        this.gridColumnApi = params.columnApi;
-        this.initDataSource();
-        debugger;
-        params.api.sizeColumnsToFit();
-    }
-
-    initDataSource = (searchString) => {
-
-
-
-
-
-        if (!searchString) searchString = '';
-        var that = this;
         var dataSource = {
-            rowCount: null,
-            getRows: async function (params) {
-                var take = params.endRow - params.startRow;
-                var skip = params.startRow / take;
+            getRows: async function (x) {
                 var response = await fetch("schedule/getList", {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 })
                     .then((resp) => resp.json())
-                    .then((data) => data);
+                    .then((data) => (data));
                 var rowsThisPage = response.items;
-                var lastRow = response.itemsCount;
-                await params.successCallback(rowsThisPage, lastRow);
+                await x.successCallback(rowsThisPage, 5);
             }
         };
         this.gridApi.setDatasource(dataSource);
@@ -107,81 +92,43 @@ class Schedule extends Component {
         var defaultDate = new Date();
         var defaultDateString = this.formatDate(defaultDate);
         return {
+            getRowNodeId: function (item) {
+                return item.id;
+            },
             //Form Data
-            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "scheduleName" }, { headerName: "Scheduled Date", width: 250, field: "x" }, { headerName: "Scheduled Time", width: 250, field: "x" }, { headerName: "Scheduled Location", width: 250, field: "x" }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
-            
-            //columnDefs: [
-            //    {
-            //        headerName: 'ID',
-            //        maxWidth: 100,
-            //        valueGetter: 'node.id',
-            //        cellRenderer: 'loadingRenderer',
-            //    },
-            //    {
-            //        field: 'scheduleName',
-            //        minWidth: 150,
-            //    },
-            //    { field: 'age' },
-            //    {
-            //        field: 'scheduleName',
-            //        minWidth: 150,
-            //    },
-            //    { field: 'year' },
-            //    {
-            //        field: 'date',
-            //        minWidth: 150,
-            //    },
-            //    {
-            //        field: 'sport',
-            //        minWidth: 150,
-            //    },
-            //    { field: 'gold' },
-            //    { field: 'silver' },
-            //    { field: 'bronze' },
-            //    { field: 'total' },
-            //],
-
-
-            fetchedData: { Summary1: "hi1", Summary2: "hi2", Summary3: "hi3" },
+            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "param" }/*, { headerName: "Scheduled Date", width: 250, field: "pickupDate", valueFormatter: DateTimeFormat },*/ /*{ headerName: "Scheduled Time", width: 250, field: "pickupDate" }, { headerName: "Scheduled Location", width: 250, field: "x" },*/ /*{ headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}*/],
             date: defaultDateString,
             time: "00:00",
             scheduleName: "",
-            scheduledItemsArray: [
-                { scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Michaelz" },
-                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to John" },
-                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Mary" },
-                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Zed" },
-                //{ scheduledDate: new Date(), scheduledLat: 31.22, scheduledLng: 31.22, scheduledItem: "Delivery to Craig" }
-            ],
             //Control Information
             isScheduleModalVisible: false,
             //Child Data Passed Back
             lat: 0,
             lng: 0,
-            frameworkComponents: {
-                scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
-                    constructor(props) {
-                        super(props);
-                    }
+            //frameworkComponents: {
+            //    scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
+            //        constructor(props) {
+            //            super(props);
+            //        }
 
-                    delete_OnClick = (e) => {
-                        //e.preventDefault();
-                        //const data = this.props.data;
-                        //reportService.sendMilestoneReport([data.id]).then(() => {
-                        //    NotificationManager.info('Milestone Report Sent', 'Info');
-                        //});
-                    }
+            //        delete_OnClick = (e) => {
+            //            //e.preventDefault();
+            //            //const data = this.props.data;
+            //            //reportService.sendMilestoneReport([data.id]).then(() => {
+            //            //    NotificationManager.info('Milestone Report Sent', 'Info');
+            //            //});
+            //        }
 
-                    render() {
-                        const data = this.props.data;
-                        return (
-                            <>
-                                <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
-                            </>
-                        );
-                    }
-                }
-            },
+            //        render() {
+            //            const data = this.props.data;
+            //            return (
+            //                <>
+            //                    <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
+            //                </>
+            //            );
+            //        }
+            //    }
+            //},
 
 
 
@@ -364,41 +311,24 @@ class Schedule extends Component {
                                     width: "100%"
                                 }}>
                                 <AgGridReact
-                                    style={{ width: "100px" }}
+                                    //style={{ width: "100px" }}
                                     columnDefs={this.state.columnDefs}
-                                    //containerStyle={{ height: "200px" }}
-                                    rowData={this.state.scheduledItemsArray}
-                                    frameworkComponents={this.state.frameworkComponents}
                                     onGridReady={this.grid_onReady}
+                                    rowModelType="infinite"
+                                    gridAutoHeight={true}
+                                    pagination={true}
+                                    //frameworkComponents={this.state.frameworkComponents}
+
                                     
 
 
 
 
                                 />
-                                {/*columnDefs={this.state.columnDefs}*/}
-                                {/*defaultColDef={this.state.defaultColDef}*/}
-                                {/*components={this.state.components}*/}
-                                {/*rowBuffer={this.state.rowBuffer}*/}
-                                {/*rowSelection={this.state.rowSelection}*/}
-                                {/*rowModelType={this.state.rowModelType}*/}
-                                {/*paginationPageSize={this.state.paginationPageSize}*/}
-                                {/*cacheOverflowSize={this.state.cacheOverflowSize}*/}
-                                {/*maxConcurrentDatasourceRequests={*/}
-                                {/*    this.state.maxConcurrentDatasourceRequests*/}
-                                {/*}*/}
-                                {/*infiniteInitialRowCount={this.state.infiniteInitialRowCount}*/}
-                                {/*maxBlocksInCache={this.state.maxBlocksInCache}*/}
-                                {/*onGridReady={this.onGridReady}*/}
 
-
-
-
-                                {/*</AgGridReact>*/}
                             </div>
                         </Col>
                     </Row>
-                    {this.state.fetchedData.Summary1}
                 </div>
 
 
@@ -433,6 +363,15 @@ class Schedule extends Component {
         </ModalBoxRenderer> */}
             </div>
         );
+    }
+
+    grid_onSelectionChanged = () => {
+
+    }
+
+    grid_onColumnResized() {
+        if (!this.gridApi) return;
+        this.gridApi.resetRowHeights();
     }
 
     async fetchAndSetState() {
