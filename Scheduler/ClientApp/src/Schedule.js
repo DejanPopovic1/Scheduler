@@ -10,6 +10,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import MainMap from './MainMap';
 import './styles.css';
 
+
 class Schedule extends Component {
     constructor(props) {
         super(props);
@@ -62,6 +63,7 @@ class Schedule extends Component {
         this.setState({ scheduleName: document.getElementById("scheduleName").value });
     }
 
+    //https://www.ag-grid.com/react-data-grid/infinite-scrolling/
     grid_onReady = (x) => {
         //var response = await fetch("schedule/getList", {
         //    method: 'GET',
@@ -81,7 +83,7 @@ class Schedule extends Component {
                 })
                     .then((resp) => resp.json())
                     .then((data) => (data));
-                var rowsThisPage = response.items;
+                var rowsThisPage = response;
                 await x.successCallback(rowsThisPage, 5);
             }
         };
