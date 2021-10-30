@@ -211,6 +211,7 @@ class Schedule extends Component {
         var minute = inputTime.substring(3, 5);
         //var dateTime = new Date(year, month);
         var inputDateTime = new Date(year, month, date, hour, minute);
+        //inputDateTime = new Date(2000, 2, 2, 3, 3);
         //convertTZ(inputDateTime, "Africa/Pretoria";
         debugger;
         var test1 = this.state.lat;

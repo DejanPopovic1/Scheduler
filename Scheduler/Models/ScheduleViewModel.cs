@@ -6,18 +6,27 @@ using System.Threading.Tasks;
 
 namespace Scheduler.Models
 {
-    public class ScheduleViewModel
+    public partial class ScheduleViewModel
     {
         public DateTime pickupDate { get; set; }
         public String scheduleName { get; set; }
         public virtual Location location { get; set; }
+
+        public ScheduleViewModel()
+        {
+
+        }
+
         public ScheduleViewModel(Schedule s) 
         {
             scheduleName = s.ScheduleName;
             pickupDate = s.PickupDateTime;
-            location = new Location();
-            location.lat = s.Latitude;
-            location.lon = s.Longitude;
+            location = new Location() {
+                lat = s.Latitude,
+                lon = s.Longitude
+            };
+            //location.lat = s.Latitude;
+            //location.lon = s.Longitude;
         }
     }
 

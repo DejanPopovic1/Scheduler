@@ -28,8 +28,8 @@ namespace Scheduler.Controllers
                 //Id = 1,
                 PickupDateTime = s.pickupDate,
                 ScheduleName = s.scheduleName,
-                Latitude = (float)s.location.lat,
-                Longitude = (float)s.location.lon
+                Latitude = s.location.lat,
+                Longitude = s.location.lon
             };
             _dbContext.Schedules.Add(ret);
             _dbContext.SaveChanges();
