@@ -64,14 +64,14 @@ class Schedule extends Component {
     }
 
     //https://www.ag-grid.com/react-data-grid/infinite-scrolling/
-    grid_onReady = (x) => {
-        //var response = await fetch("schedule/getList", {
-        //    method: 'GET',
-        //    headers: { 'Content-Type': 'application/json' }
-        //})
-        //    .then((resp) => resp.json())
-        //    .then((data) => data);
-        //debugger;
+    grid_onReady = async (x) => {
+        var response = await fetch("schedule/getList", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then((resp) => resp.json())
+            .then((data) => data);
+        debugger;
         this.gridApi = x.api;
 
 
@@ -84,7 +84,7 @@ class Schedule extends Component {
                     .then((resp) => resp.json())
                     .then((data) => (data));
                 var rowsThisPage = response;
-                await x.successCallback(rowsThisPage, 5);
+                await x.successCallback(rowsThisPage, 50);
             }
         };
         this.gridApi.setDatasource(dataSource);
@@ -98,7 +98,7 @@ class Schedule extends Component {
                 return item.id;
             },
             //Form Data
-            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "param" }/*, { headerName: "Scheduled Date", width: 250, field: "pickupDate", valueFormatter: DateTimeFormat },*/ /*{ headerName: "Scheduled Time", width: 250, field: "pickupDate" }, { headerName: "Scheduled Location", width: 250, field: "x" },*/ /*{ headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}*/],
+            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "scheduleName" }, { headerName: "Scheduled Date & Time", width: 250, field: "pickupDate", valueFormatter: DateTimeFormat }, { headerName: "Scheduled Location Latitude", width: 250, field: "location.lat" }, { headerName: "Scheduled Location Longitude", width: 250, field: "location.lon" }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer"}],
             date: defaultDateString,
             time: "00:00",
             scheduleName: "",
@@ -406,6 +406,42 @@ class Schedule extends Component {
             //body: '{"myvar" : "testsss", "myvartwo": "testtsssssss" }'
         });
     }
+}
+
+export function DateTimeFormat(params) {
+    var date = new Date(Date.parse(params.value));
+    var fullYear = date.getFullYear();
+    var fullMonth = date.getMonth() + 1;
+    var fullDay = date.getDate();
+    var fullHour = date.getHours();
+    var fullMinute = date.getMinutes();
+    var fullSecond = date.getSeconds();
+
+    if (fullYear < 10) {
+        fullYear = "0" + fullYear;
+    };
+    if (fullMonth < 10) {
+        fullMonth = "0" + fullMonth;
+    };
+    if (fullDay < 10) {
+        fullDay = "0" + fullDay;
+    };
+    if (fullHour < 10) {
+        fullHour = "0" + fullHour;
+    };
+    if (fullMinute < 10) {
+        fullMinute = "0" + fullMinute;
+    };
+    if (fullSecond < 10) {
+        fullSecond = "0" + fullSecond;
+    };
+
+
+    var newDate = fullYear + "-" + fullMonth + "-" + fullDay + " " + fullHour + ":" + fullMinute + ":" + fullSecond;
+    if (params.value == null)
+        return '';
+    else
+        return newDate;
 }
 
 export default Schedule;

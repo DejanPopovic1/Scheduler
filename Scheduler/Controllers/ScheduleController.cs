@@ -4,6 +4,7 @@ using Scheduler.Models;
 using Scheduler.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scheduler.Controllers
 {
@@ -45,13 +46,17 @@ namespace Scheduler.Controllers
         [HttpGet("getList")]
         public IActionResult getList()
         {
+            var ret = _dbContext.Schedules.Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+            return Ok(ret);
+
             //ScheduleViewModel ret1 = new ScheduleViewModel()
             //{
             //    pickupDate = new DateTime(2000, 1, 1),
             //    scheduleName = "Testing 1 2 3",
-            //    location = new Location() {
+            //    location = new Location()
+            //    {
             //        lat = 100,
-            //        lon = 100
+            //        lon = 200
             //    }
             //};
             //ScheduleViewModel ret2 = new ScheduleViewModel()
@@ -61,7 +66,7 @@ namespace Scheduler.Controllers
             //    location = new Location()
             //    {
             //        lat = 100,
-            //        lon = 100
+            //        lon = 200
             //    }
             //};
             //ScheduleViewModel ret3 = new ScheduleViewModel()
@@ -71,39 +76,21 @@ namespace Scheduler.Controllers
             //    location = new Location()
             //    {
             //        lat = 100,
-            //        lon = 100
+            //        lon = 200
             //    }
             //};
             //List<ScheduleViewModel> ret = new List<ScheduleViewModel>();
             //ret.Add(ret1);
             //ret.Add(ret2);
             //ret.Add(ret3);
-            TestViewModel test = new TestViewModel() { Param = "hello" };
-            List<TestViewModel> ret = new List<TestViewModel>();
-            ret.Add(test);
-            ret.Add(test);
-            return Ok(ret);
+
+            //========================================================
+            //TestViewModel test = new TestViewModel() { Param = "hello" };
+            //List<TestViewModel> ret = new List<TestViewModel>();
+            //ret.Add(test);
+            //ret.Add(test);
+
+            //return Ok(ret);
         }
     }
 }
-
-
-public class TestViewModel
-{
-    public String Param { get; set; }
-
-}
-
-
-//public class ScheduleViewModel
-//{
-//    public DateTime pickupDate { get; set; }
-//    public String scheduleName { get; set; }
-//    public virtual Location location { get; set; }
-//}
-
-//public class Location
-//{
-//    public double lat { get; set; }
-//    public double lon { get; set; }
-//}
