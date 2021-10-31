@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { alignPropType } from 'react-bootstrap/esm/DropdownMenu';
 import './styles.css';
+import { APIKey_GoogleMaps } from './SecurityKeys';
 
 export class MainMap extends Component {
   constructor(props) {
@@ -80,7 +81,7 @@ export class MainMap extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyBmR1boQwfJds75LmvteHJ3SQ38rwc61IA"
+    apiKey: APIKey_GoogleMaps
 })(MainMap);
 
 // function getFullName(item) {

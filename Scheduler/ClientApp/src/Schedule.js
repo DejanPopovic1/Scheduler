@@ -17,7 +17,7 @@ class Schedule extends Component {
         this.state = this.getInitialState();
         //If the line below is not included, then getData wont bind to the state variables
         //Bind creates a new function that will force the this inside the function to be the parameter passed to bind().
-        //this.getData = this.getData.bind(this);
+        this.getData = this.getData.bind(this);
         //this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
 //
