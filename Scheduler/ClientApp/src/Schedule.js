@@ -224,12 +224,7 @@ class Schedule extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(postData)
         })
-        .then((resp) => resp.json())
-            .then((data) => data);
-
-
-
-
+        window.location.reload(false);
     }
 
     addToItemArray = () => {
