@@ -92,5 +92,14 @@ namespace Scheduler.Controllers
 
             //return Ok(ret);
         }
+
+        [HttpPost("deleteItem")]
+        public IActionResult deleteItem([FromBody] int i)
+        {
+            var singleRec = _dbContext.Schedules.FirstOrDefault(x => x.Id == i);
+            _dbContext.Schedules.Remove(singleRec);
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }
