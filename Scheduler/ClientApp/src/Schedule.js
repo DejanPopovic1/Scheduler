@@ -108,30 +108,31 @@ class Schedule extends Component {
             //Child Data Passed Back
             lat: 0,
             lng: 0,
-            //frameworkComponents: {
-            //    scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
-            //        constructor(props) {
-            //            super(props);
-            //        }
 
-            //        delete_OnClick = (e) => {
-            //            //e.preventDefault();
-            //            //const data = this.props.data;
-            //            //reportService.sendMilestoneReport([data.id]).then(() => {
-            //            //    NotificationManager.info('Milestone Report Sent', 'Info');
-            //            //});
-            //        }
+            frameworkComponents: {
+                scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
+                    constructor(props) {
+                        super(props);
+                    }
 
-            //        render() {
-            //            const data = this.props.data;
-            //            return (
-            //                <>
-            //                    <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
-            //                </>
-            //            );
-            //        }
-            //    }
-            //},
+                    delete_OnClick = (e) => {
+                        //e.preventDefault();
+                        //const data = this.props.data;
+                        //reportService.sendMilestoneReport([data.id]).then(() => {
+                        //    NotificationManager.info('Milestone Report Sent', 'Info');
+                        //});
+                    }
+
+                    render() {
+                        const data = this.props.data;
+                        return (
+                            <>
+                                <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
+                            </>
+                        );
+                    }
+                }
+            },
 
 
 
@@ -316,7 +317,7 @@ class Schedule extends Component {
                                     rowModelType="infinite"
                                     gridAutoHeight={true}
                                     pagination={true}
-                                    //frameworkComponents={this.state.frameworkComponents}
+                                    frameworkComponents={this.state.frameworkComponents}
 
                                     
 
