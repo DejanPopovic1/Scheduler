@@ -116,6 +116,7 @@ class Schedule extends Component {
                     }
 
                     delete_OnClick = (e) => {
+                        debugger;
                         //e.preventDefault();
                         //const data = this.props.data;
                         //reportService.sendMilestoneReport([data.id]).then(() => {
@@ -203,6 +204,17 @@ class Schedule extends Component {
 
     //This needs to be refactored out
     handleAddSchedule = async () => {
+        //======================================
+        debugger;
+        var test = "1";
+        var test2 = await fetch("schedule/deleteItem", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(test)
+        })
+            .then((resp) => resp.json())
+            .then((data) => data);
+        //======================================
         const southAfricanTimeZoneOffset = 2;
         var inputDate = new Date(this.state.date);
         var inputTime = this.state.time;
