@@ -108,20 +108,35 @@ class Schedule extends Component {
             //Child Data Passed Back
             lat: 0,
             lng: 0,
-
+            //getRowNodeId: function (item) {
+            //    var test = item.id;
+            //    debugger;
+            //    return item.id;
+            //},
             frameworkComponents: {
                 scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
                     constructor(props) {
                         super(props);
+                        this.deleteCell_OnClick = this.delete_OnClick.bind(this);
                     }
 
-                    delete_OnClick = (e) => {
+                    delete_OnClick = async (e) => {
+                        var test = e;
                         debugger;
-                        //e.preventDefault();
-                        //const data = this.props.data;
-                        //reportService.sendMilestoneReport([data.id]).then(() => {
-                        //    NotificationManager.info('Milestone Report Sent', 'Info');
-                        //});
+                        e.preventDefault();
+                        const data = this.props.data;
+
+
+                        debugger;
+                        var test = e.id;
+                        var test2 = await fetch("schedule/deleteItem", {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(test)
+                        })
+                            .then((resp) => resp.json())
+                            .then((data) => data);
+                        window.location.reload(false);
                     }
 
                     render() {
@@ -273,6 +288,15 @@ class Schedule extends Component {
         // });
     }
 
+    onSelectionChanged = (event) => {
+        var selectedRows = this.gridApi.getSelectedRows();
+        //var test2 = this.gridApi.getRowNode("5");
+        var test2 = this.state.getRowNodeId(selectedRows);
+        debugger;
+        //document.querySelector('#selectedRows').innerHTML =
+        //    selectedRows.length === 1 ? selectedRows[0].athlete : '';
+    };
+
     render() {
         return (
             <div>
@@ -330,7 +354,8 @@ class Schedule extends Component {
                                     gridAutoHeight={true}
                                     pagination={true}
                                     frameworkComponents={this.state.frameworkComponents}
-
+                                    rowSelection="single"
+                                    onSelectionChanged={this.onSelectionChanged.bind(this)}
                                     
 
 
