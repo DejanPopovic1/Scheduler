@@ -119,21 +119,13 @@ class Schedule extends Component {
                     }
 
                     delete_OnClick = async (e) => {
-                        var test = e;
                         e.preventDefault();
                         const clickedId = this.props.data.id;
-                        debugger;
-                        //var selectedRows = this.props.gridApi.getSelectedRows();
-
-                        debugger;
-                        var test = e.id;
-                        var test2 = await fetch("schedule/deleteItem", {
+                        await fetch("schedule/deleteItem", {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(clickedId)
                         })
-                            .then((resp) => resp.json())
-                            .then((data) => data);
                         window.location.reload(false);
                     }
 
@@ -216,15 +208,15 @@ class Schedule extends Component {
     //This needs to be refactored out
     handleAddSchedule = async () => {
         //======================================
-        var test = "1";
-        var test2 = await fetch("schedule/deleteItem", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(test)
-        })
-            .then((resp) => resp.json())
-            .then((data) => data);
-        //======================================
+        //var test = "1";
+        //var test2 = await fetch("schedule/deleteItem", {
+        //    method: 'POST',
+        //    headers: { 'Content-Type': 'application/json' },
+        //    body: JSON.stringify(test)
+        //})
+        //    .then((resp) => resp.json())
+        //    .then((data) => data);
+        ////======================================
         const southAfricanTimeZoneOffset = 2;
         var inputDate = new Date(this.state.date);
         var inputTime = this.state.time;
@@ -239,7 +231,7 @@ class Schedule extends Component {
         //convertTZ(inputDateTime, "Africa/Pretoria";
         var test1 = this.state.lat;
         var test2 = this.state.lon;
-        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng } };
+        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng }, Id: 3 };
         var response = await fetch("schedule/add", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -280,14 +272,6 @@ class Schedule extends Component {
         //   zoom: 8
         // });
     }
-
-    onSelectionChanged = (event) => {
-        var selectedRows = this.gridApi.getSelectedRows();
-        //var test2 = this.gridApi.getRowNode("5");
-        var test2 = this.state.getRowNodeId(selectedRows);
-        //document.querySelector('#selectedRows').innerHTML =
-        //    selectedRows.length === 1 ? selectedRows[0].athlete : '';
-    };
 
     render() {
         return (
@@ -347,7 +331,6 @@ class Schedule extends Component {
                                     pagination={true}
                                     frameworkComponents={this.state.frameworkComponents}
                                     rowSelection="single"
-                                    onSelectionChanged={this.onSelectionChanged.bind(this)}
                                     
 
 
@@ -392,10 +375,6 @@ class Schedule extends Component {
         </ModalBoxRenderer> */}
             </div>
         );
-    }
-
-    grid_onSelectionChanged = () => {
-
     }
 
     grid_onColumnResized() {
