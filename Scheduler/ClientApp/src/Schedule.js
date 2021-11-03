@@ -81,9 +81,8 @@ class Schedule extends Component {
                 })
                     .then((resp) => resp.json())
                     .then((data) => (data));
-                var rowsThisPage = response;
                 //await x.successCallback(rowsThisPage, 50);
-                await x.successCallback(rowsThisPage);
+                await x.successCallback(response, Object.keys(response).length);
             }
         };
         this.gridApi.setDatasource(dataSource);
