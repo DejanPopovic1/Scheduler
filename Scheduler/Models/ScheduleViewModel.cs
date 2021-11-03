@@ -8,6 +8,7 @@ namespace Scheduler.Models
 {
     public partial class ScheduleViewModel
     {
+        public int Id { get; set; } 
         public DateTime pickupDate { get; set; }
         public String scheduleName { get; set; }
         public virtual Location location { get; set; }
@@ -19,6 +20,7 @@ namespace Scheduler.Models
 
         public ScheduleViewModel(Schedule s) 
         {
+            Id = s.Id;
             scheduleName = s.ScheduleName;
             pickupDate = s.PickupDateTime;
             location = new Location() {

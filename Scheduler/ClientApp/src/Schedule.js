@@ -51,7 +51,6 @@ class Schedule extends Component {
 
     onChangeDate = () => {
         var tst = document.getElementById("datePicker").value;
-        debugger;
         this.setState({ date: document.getElementById("datePicker").value });
     }
 
@@ -71,7 +70,6 @@ class Schedule extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => data);
-        debugger;
         this.gridApi = x.api;
 
 
@@ -122,17 +120,17 @@ class Schedule extends Component {
 
                     delete_OnClick = async (e) => {
                         var test = e;
-                        debugger;
                         e.preventDefault();
-                        const data = this.props.data;
-
+                        const clickedId = this.props.data.id;
+                        debugger;
+                        //var selectedRows = this.props.gridApi.getSelectedRows();
 
                         debugger;
                         var test = e.id;
                         var test2 = await fetch("schedule/deleteItem", {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(test)
+                            body: JSON.stringify(clickedId)
                         })
                             .then((resp) => resp.json())
                             .then((data) => data);
@@ -206,21 +204,18 @@ class Schedule extends Component {
     }
 
     fetchSchedule = async () => {
-        debugger;
         var response = await fetch("schedule/getList", {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
             .then((resp) => resp.json())
             .then((data) => data);
-        debugger;
         return response;
     }
 
     //This needs to be refactored out
     handleAddSchedule = async () => {
         //======================================
-        debugger;
         var test = "1";
         var test2 = await fetch("schedule/deleteItem", {
             method: 'POST',
@@ -242,10 +237,8 @@ class Schedule extends Component {
         var inputDateTime = new Date(year, month, date, hour, minute);
         //inputDateTime = new Date(2000, 2, 2, 3, 3);
         //convertTZ(inputDateTime, "Africa/Pretoria";
-        debugger;
         var test1 = this.state.lat;
         var test2 = this.state.lon;
-        debugger;
         var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng } };
         var response = await fetch("schedule/add", {
             method: 'POST',
@@ -292,7 +285,6 @@ class Schedule extends Component {
         var selectedRows = this.gridApi.getSelectedRows();
         //var test2 = this.gridApi.getRowNode("5");
         var test2 = this.state.getRowNodeId(selectedRows);
-        debugger;
         //document.querySelector('#selectedRows').innerHTML =
         //    selectedRows.length === 1 ? selectedRows[0].athlete : '';
     };
@@ -432,7 +424,6 @@ class Schedule extends Component {
     }
 
     postData = () => {
-        debugger;
         fetch("schedule/postSchedule", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
