@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Scheduler.Data;
+using WebApi.Helpers;
+using WebApi.Services;
 
 namespace Scheduler
 {
@@ -33,7 +35,7 @@ namespace Scheduler
 
             services.AddDbContext<SchedulerEntities>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
-
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,10 +53,13 @@ namespace Scheduler
             }
 
             app.UseHttpsRedirection();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -62,6 +67,8 @@ namespace Scheduler
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
+
 
             app.UseSpa(spa =>
             {
