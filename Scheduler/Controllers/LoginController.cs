@@ -8,6 +8,7 @@ using Scheduler.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Web;
+using WebApi.Services;
 
 namespace Scheduler.Controllers
 {
@@ -16,10 +17,12 @@ namespace Scheduler.Controllers
     public class LoginController : ControllerBase
     {
         private readonly SchedulerEntities _dbContext;
+        private IUserService _userService;
 
-        public LoginController(SchedulerEntities dbContext)
+        public LoginController(SchedulerEntities dbContext, IUserService userService)
         {
             _dbContext = dbContext;
+            _userService = _userService;
         }
 
         [HttpPost("login")]
