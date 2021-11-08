@@ -26,8 +26,9 @@ namespace Scheduler.Controllers
         }
 
         [HttpPost("login")]
-        public int Login([FromBody] Example s)
+        public ExampleResponse Login([FromBody] Example s)
         {
+            ExampleResponse ret = new ExampleResponse(s, "testToken");
             //System.Web.HttpContext.Current.Session["name"] = "Any Name";
             //HttpContext context = HttpContext.Current.Session["ShoppingCart"];
             string hashedPassword = Cryptographic.CreateMD5Hash(s.password);
@@ -38,7 +39,8 @@ namespace Scheduler.Controllers
                 var user = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => new { id = x.Id }).ToList().First();
                 userId = Int32.Parse(user.id);
             }
-            return userId;
+            //return userId;
+            return ret;
         }
 
         [HttpPost("postSchedule")]

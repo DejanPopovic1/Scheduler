@@ -25,6 +25,7 @@ class Login extends React.Component {
         })
         .then((resp) => resp.json())
             .then((data) => data);
+        debugger;
         this.setToken(userId);
         if (userId) {
             this.props.history.push('/home');
