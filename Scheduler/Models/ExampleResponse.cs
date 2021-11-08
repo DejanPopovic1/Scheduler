@@ -9,13 +9,11 @@ namespace Scheduler.Models
     public class ExampleResponse
     {
         public string username { get; set; }
-        public string password { get; set; }
         public string Token { get; set; }
 
         public ExampleResponse(Example s, string token)
         {
             username = s.username;
-            password = s.password;
             Token = token;
         }
     }

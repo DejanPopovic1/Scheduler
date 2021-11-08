@@ -12,12 +12,13 @@ using WebApi.Models;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
+using Scheduler.Models;
 
 namespace WebApi.Services
 {
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        ExampleResponse Authenticate(Example model, int i);
         IEnumerable<User> GetAll();
         User GetById(int id);
     }
@@ -37,17 +38,20 @@ namespace WebApi.Services
             _appSettings = appSettings.Value;
         }
 
-        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        public ExampleResponse Authenticate(Example model, int i)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            //var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // return null if user not found
-            if (user == null) return null;
+            //// return null if user not found
+            //if (user == null) return null;
 
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
 
-            return new AuthenticateResponse(user, token);
+
+
+            var token = generateJwtToken(i);
+
+            return new ExampleResponse(model, token);
         }
 
         public IEnumerable<User> GetAll()
@@ -62,7 +66,7 @@ namespace WebApi.Services
 
         // helper methods
 
-        private string generateJwtToken(User user)
+        private string generateJwtToken(int i)
         {
             //Debugger.Launch();
             // generate token that is valid for 7 days
@@ -71,7 +75,7 @@ namespace WebApi.Services
             var key = Encoding.ASCII.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", i.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
