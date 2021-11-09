@@ -10,6 +10,8 @@ using WebApi.Services;
 
 namespace WebApi.Helpers
 {
+    //See:
+    //https://www.tutorialsteacher.com/core/how-to-add-custom-middleware-aspnet-core
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
