@@ -66,7 +66,7 @@ class Schedule extends Component {
     grid_onReady = async (x) => {
         var response = await fetch("schedule/getList", {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', "Authorization" : localStorage.getItem("token")  }
         })
             .then((resp) => resp.json())
             .then((data) => data);
@@ -77,7 +77,7 @@ class Schedule extends Component {
             getRows: async function (x) {
                 var response = await fetch("schedule/getList", {
                     method: 'GET',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  }
                 })
                     .then((resp) => resp.json())
                     .then((data) => (data));
@@ -122,7 +122,7 @@ class Schedule extends Component {
                         const clickedId = this.props.data.id;
                         await fetch("schedule/deleteItem", {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  },
                             body: JSON.stringify(clickedId)
                         })
                         window.location.reload(false);
@@ -197,7 +197,7 @@ class Schedule extends Component {
     fetchSchedule = async () => {
         var response = await fetch("schedule/getList", {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  }
         })
             .then((resp) => resp.json())
             .then((data) => data);
@@ -233,7 +233,7 @@ class Schedule extends Component {
         var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng }, Id: 3 };
         var response = await fetch("schedule/add", {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  },
             body: JSON.stringify(postData)
         })
         window.location.reload(false);
