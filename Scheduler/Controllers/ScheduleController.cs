@@ -21,7 +21,7 @@ namespace Scheduler.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult add([FromBody] ScheduleViewModel s)
+        public IActionResult add([FromBody] ScheduleViewModel s/*, [FromHeader] string authorization*/)
         {
             Schedule ret = new Schedule()
             {
