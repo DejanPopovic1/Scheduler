@@ -25,8 +25,12 @@ namespace WebApi.Helpers
 
         public async Task Invoke(HttpContext context, IUserService userService)
         {
+            string test = context.Request.Headers["Authorization"];
+            test = (test != null) ? test.Replace("\"", "") : test;
+            //string test1 = test.Replace("\"", "");
+            var test2 = context.Request.Headers["Authorization"].FirstOrDefault();
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
+            token = test;
             if (token != null)
                 attachUserToContext(context, userService, token);
 
@@ -38,7 +42,7 @@ namespace WebApi.Helpers
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var key = Encoding.ASCII.GetBytes("THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING");
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

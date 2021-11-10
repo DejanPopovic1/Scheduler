@@ -10,9 +10,11 @@ namespace Scheduler.Models
     {
         public string username { get; set; }
         public string Token { get; set; }
+        public string Id { get; set; }
 
-        public ExampleResponse(Example s, string token)
+        public ExampleResponse(Example s, string token, int i)
         {
+            Id = i.ToString();
             username = s.username;
             Token = token;
         }

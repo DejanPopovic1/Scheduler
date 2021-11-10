@@ -51,7 +51,7 @@ namespace WebApi.Services
 
             var token = generateJwtToken(i);
 
-            return new ExampleResponse(model, token);
+            return new ExampleResponse(model, token, i);
         }
 
         public IEnumerable<User> GetAll()
