@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Scheduler.Data;
 using Scheduler.Models;
 using Scheduler.Repository;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace Scheduler.Controllers
 {
+    [Authorize]
     [Route("schedule")]
     [ApiController]
     public class ScheduleController : ControllerBase

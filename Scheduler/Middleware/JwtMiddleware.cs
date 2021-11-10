@@ -58,6 +58,9 @@ namespace WebApi.Helpers
 
                 // attach user to context on successful jwt validation
                 context.Items["User"] = userService.GetById(userId);
+                var test0 = context;
+                int test = 6;
+
             }
             catch
             {
