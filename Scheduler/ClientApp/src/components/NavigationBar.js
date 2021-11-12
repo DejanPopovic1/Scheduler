@@ -6,7 +6,7 @@ import './NavBarStyle.css';
 export function NavigationBar() {
     const history = useHistory();
     function handleLogout() {
-        sessionStorage.clear();
+        localStorage.clear();
         history.push('/login');
     }
     return (
