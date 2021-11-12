@@ -64,6 +64,9 @@ class Schedule extends Component {
 
     //https://www.ag-grid.com/react-data-grid/infinite-scrolling/
     grid_onReady = async (x) => {
+        //Test token authorization by passing a garbage token
+        //To test, uncomment the line below and the next debugger
+        //localStorage.setItem('token', JSON.stringify("GarbageToken"));
         var response = await fetch("schedule/getList", {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', "Authorization" : localStorage.getItem("token")  }
@@ -71,7 +74,7 @@ class Schedule extends Component {
             .then((resp) => resp.json())
             .then((data) => data);
         this.gridApi = x.api;
-
+        //debugger;
 
         var dataSource = {
             getRows: async function (x) {
