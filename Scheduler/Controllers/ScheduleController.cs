@@ -33,6 +33,7 @@ namespace Scheduler.Controllers
                 Latitude = s.location.lat,
                 Longitude = s.location.lon
             };
+            ret.FK_schedule_user = _dbContext.Users.Where(x => x.Id == "2").First();
             _dbContext.Schedules.Add(ret);
             _dbContext.SaveChanges();
             //var test1 = 1;
