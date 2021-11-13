@@ -14,5 +14,6 @@ namespace Scheduler.Data
         public String ScheduleName { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public virtual User FK_schedule_user { get; set; }
     }
 }

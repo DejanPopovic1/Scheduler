@@ -13,5 +13,6 @@ namespace Scheduler.Data
         public String Id { get; set; }
         public String UserName { get; set; }
         public String PasswordHash { get; set; }
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }
