@@ -27,6 +27,7 @@ class Login extends React.Component {
             .then((data) => data);
         debugger;
         this.setToken(userId.token);
+        this.setUserId(userId.id);
         if (userId.token) {
             this.props.history.push('/home');
         }
@@ -39,6 +40,10 @@ class Login extends React.Component {
 
     setToken(userToken) {
         localStorage.setItem('token', JSON.stringify(userToken));
+    }
+
+    setUserId(userid) {
+        localStorage.setItem('userid', JSON.stringify(userid));
     }
 
     render() {
