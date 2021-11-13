@@ -25,6 +25,10 @@ namespace Scheduler.Controllers
         [HttpPost("add")]
         public IActionResult add([FromBody] ScheduleViewModel s/*, [FromHeader] string authorization*/)
         {
+            //ClaimsPrincipal currentUser = this.User;
+            //var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //ApplicationUser user = await _userManager.FindByNameAsync(currentUserName);
+
             Schedule ret = new Schedule()
             {
                 //Id = 1,
