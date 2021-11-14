@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi.Services;
@@ -58,6 +59,14 @@ namespace WebApi.Helpers
 
                 // attach user to context on successful jwt validation
                 context.Items["User"] = userService.GetById(userId);
+
+                var claim = new Claim(ClaimTypes.Name, userId.ToString());
+                var identity = new ClaimsIdentity(new[] { claim }, "BasicAuthentication"); // this uses basic auth
+                var principal = new ClaimsPrincipal(identity);
+                context.User = principal;
+
+
+
                 var test0 = context;
                 int test = 6;
 
