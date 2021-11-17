@@ -58,7 +58,10 @@ namespace WebApi.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+
+                //context.Items["User"] = userService.GetById(userId);
+                context.Items["UserID"] = userId;
+
 
                 var claim = new Claim(ClaimTypes.Name, userId.ToString());
                 var identity = new ClaimsIdentity(new[] { claim }, "BasicAuthentication"); // this uses basic auth
