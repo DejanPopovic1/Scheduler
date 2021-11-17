@@ -30,8 +30,9 @@ namespace Scheduler.Controllers
             //ApplicationUser user = await _userManager.FindByNameAsync(currentUserName);
 
             //int.Parse(this.User.Claims.First(i => i.Type == "id").Value);
-            var test = this.User.Claims;
-            var test2 = test.ToList().FirstOrDefault().Value;
+            //var test = this.User.Claims;
+            //var test2 = test.ToList().FirstOrDefault().Value;
+            var test3 = User.Claims.ToList().ElementAt(0).Value;
             Schedule ret = new Schedule()
             {
                 //Id = 1,
