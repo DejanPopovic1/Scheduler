@@ -57,7 +57,17 @@ namespace Scheduler.Controllers
         [HttpGet("getList")]
         public IActionResult getList()
         {
-            var ret = _dbContext.Schedules.Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+            //Refactor out the userID into controller base and then inherit it. This will avoid doing this following step for all controllers and all actions
+            var userId = User.Claims.ToList().ElementAt(0).Value;
+            List<ScheduleViewModel> ret;
+            if (userId == "4")
+            {
+                ret = _dbContext.Schedules.Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+            }
+            else
+            {
+                ret = _dbContext.Schedules.Where(x => (x.FK_schedule_user.Id == userId)).Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+            }
             return Ok(ret);
 
             //ScheduleViewModel ret1 = new ScheduleViewModel()
