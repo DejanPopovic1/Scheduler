@@ -32,7 +32,7 @@ namespace Scheduler.Controllers
             //int.Parse(this.User.Claims.First(i => i.Type == "id").Value);
             //var test = this.User.Claims;
             //var test2 = test.ToList().FirstOrDefault().Value;
-            var test3 = User.Claims.ToList().ElementAt(0).Value;
+            var userId = User.Claims.ToList().ElementAt(0).Value;
             Schedule ret = new Schedule()
             {
                 //Id = 1,
@@ -41,7 +41,7 @@ namespace Scheduler.Controllers
                 Latitude = s.location.lat,
                 Longitude = s.location.lon
             };
-            ret.FK_schedule_user = _dbContext.Users.Where(x => x.Id == "2").First();
+            ret.FK_schedule_user = _dbContext.Users.Where(x => x.Id == userId).First();
             _dbContext.Schedules.Add(ret);
             _dbContext.SaveChanges();
             //var test1 = 1;
