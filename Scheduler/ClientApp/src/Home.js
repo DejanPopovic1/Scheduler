@@ -6,6 +6,7 @@ import { NavigationBar } from './components/NavigationBar';
 import Schedule from './Schedule';
 import Contact from './Contact';
 import HomeContent from './HomeContent';
+import SchedulerTool from './SchedulerTool';
 
 function Home() {
     return (
@@ -15,6 +16,7 @@ function Home() {
                 <RouteWithSubRoutes path='/schedule' component={Schedule} />
                 <RouteWithSubRoutes path='/contact' component={Contact} />
                 <RouteWithSubRoutes path='/home/' component={HomeContent} />
+                <RouteWithSubRoutes path='/schedulertool/' component={SchedulerTool} />
             </Switch>
         </>
     );
