@@ -44,6 +44,7 @@ namespace Scheduler.Controllers
             {
                 var user = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => new { id = x.Id }).ToList().First();
                 userId = Int32.Parse(user.id);
+                string anothertest = "hello";
                 ret = _userService.Authenticate(s, userId);
                 return Ok(ret);
             }
