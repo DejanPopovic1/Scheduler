@@ -21,6 +21,7 @@
     "oidc-client": "^1.11.5",
     "react": "^16.14.0",
     "react-bootstrap": "^1.6.4",
+    "react-countup": "^6.1.0",
     "react-dom": "^16.14.0",
     "react-notifications": "^1.7.2",
     "react-redux": "^7.2.5",

@@ -29,6 +29,7 @@ import './styles.css';
 import Container from 'react-bootstrap/Container';
 import { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import CountUp from 'react-countup';
 
 const data = [
     {
@@ -340,7 +341,7 @@ class SchedulerTool extends PureComponent {
                             <Col>
                                 <div style={{ display: "inline-block" }}>
                                     <h1>
-                                        {numberOfSchedulingUsers}
+                                        <CountUp duration={0.5} end={ numberOfSchedulingUsers }/>
                                     </h1>
                                 </div>
                             </Col>
@@ -354,7 +355,7 @@ class SchedulerTool extends PureComponent {
                             <Col>
                                 <div style={{ display: "inline-block" }}>
                                     <h1>
-                                        {kmTotalTravelledNextDay}
+                                        <CountUp duration={0.5} end={kmTotalTravelledNextDay} delay={0.5} />
                                     </h1>
                                 </div>
                             </Col>
@@ -368,7 +369,7 @@ class SchedulerTool extends PureComponent {
                             <Col>
                                 <div style={{ display: "inline-block" }}>
                                     <h1>
-                                        {hoursTotalTravelledNextDay}
+                                        <CountUp duration={0.5} end={hoursTotalTravelledNextDay} delay={1}/>
                                     </h1>
                                 </div>
                             </Col>
