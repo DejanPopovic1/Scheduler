@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Scheduler.Models
 {
-    class Vertex<T>
+    public class Vertex<T>
     {
         List<Vertex<T>> neighbors;
         T value;

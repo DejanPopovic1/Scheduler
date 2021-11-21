@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+//See: https://codereview.stackexchange.com/questions/131583/generic-graph-implementation-in-c
 namespace Scheduler.Models
 {
-    class UndirectedGenericGraph<T>
+    public class UndirectedGenericGraph<T>
     {
         private List<Vertex<T>> vertices;
         int size;
