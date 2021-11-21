@@ -1,3 +1,5 @@
 Scheduler/bin/
 Scheduler/ClientApp/node_modules/
 Scheduler/ClientApp/src/SecurityKeys.js
+Scheduler/SchedulerTest/bin/
+Scheduler/SchedulerTest/obj/
