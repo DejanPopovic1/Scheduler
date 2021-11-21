@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Scheduler.Models
 {
-    public class Vertex<T>
+    public abstract class Vertex<T>
     {
         int colour;
         List<Vertex<T>> neighbors;
@@ -13,6 +13,11 @@ namespace Scheduler.Models
         public T Value { get { return value; } set { this.value = value; } }
         public bool IsVisited { get { return isVisited; } set { isVisited = value; } }
         public int NeighborsCount { get { return neighbors.Count; } }
+
+        public Vertex()
+        {
+
+        }
 
         public Vertex(T value)
         {
@@ -58,6 +63,8 @@ namespace Scheduler.Models
             }
             return allNeighbors.ToString();
         }
+
+        public abstract bool IsConnection(Vertex<T> otherVertex);
     }
 }
 

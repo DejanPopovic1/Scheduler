@@ -74,7 +74,38 @@ namespace Scheduler.Models
             }
         }
 
-        //
+        public void CreateEdgesUnoptimised()
+        {
+            foreach (Vertex<T> vertex1 in Vertices)
+            {
+                foreach (Vertex<T> vertex2 in Vertices)
+                {
+                    if (vertex1.IsConnection(vertex2))
+                    {
+                        vertex1.AddEdge(vertex2);
+                    }
+                }
+            }
+        }
+
+        //public void CreateEdges()
+        //{
+        //    List<Vertex<T>> VerticesCopy = vertices;
+        //    List<Vertex<T>> remainingVertices;
+        //    foreach (Vertex<T> vertex in VerticesCopy)
+        //    {
+        //        VerticesCopy.Remove(vertex);
+        //        remainingVertices = VerticesCopy;
+        //        foreach (Vertex<T> remainingVertex in remainingVertices)
+        //        {
+        //            remainingVertices.
+        //        }
+
+        //        VerticesCopy.Remove(vertex);
+        //    }
+        //}
+
+
         //public void ColourGraph()
         //{
         //    List<Vertex<T>> VerticesCopy = vertices;
@@ -84,7 +115,7 @@ namespace Scheduler.Models
         //        VerticesCopy.Remove(vertex);
         //        remainingVertices = VerticesCopy;
         //        foreach (Vertex<T> remainingVertex in remainingVertices)
-        //        { 
+        //        {
         //            remainingVertices.
         //        }
 

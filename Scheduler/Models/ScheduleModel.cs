@@ -2,16 +2,20 @@
 
 namespace Scheduler.Models
 {
-    public class ScheduleModel : Vertex<TimeSpan[]>
+    public class ScheduleModel : Vertex<ScheduleModel>
     {
-        public ScheduleModel(TimeSpan start, TimeSpan end) : base(new TimeSpan[]{start, end})
+        private TimeSpan[] schedule;
+        public ScheduleModel(TimeSpan start, TimeSpan end)
         {
-
+            schedule = new TimeSpan[2];
+            schedule[0] = start;
+            schedule[1] = end;
+            Value = this;
         }
 
         public bool isScheduleOverlap(ScheduleModel otherSchedule)
         {
-            if (isTimeWithinTimePeriod(Value[0], otherSchedule) || isTimeWithinTimePeriod(Value[1], otherSchedule))
+            if (isTimeWithinTimePeriod(schedule[0], otherSchedule) || isTimeWithinTimePeriod(schedule[1], otherSchedule))
             {
                 return true;
             }
@@ -20,11 +24,16 @@ namespace Scheduler.Models
 
         private bool isTimeWithinTimePeriod(TimeSpan time, ScheduleModel timePeriod)
         {
-            if (time > timePeriod.Value[0] && time < timePeriod.Value[1]) 
+            if (time > timePeriod.schedule[0] && time < timePeriod.schedule[1]) 
             {
                 return true;
             }
             return false;
+        }
+
+        public override bool IsConnection(Vertex<ScheduleModel> otherVertex)
+        {
+            return isScheduleOverlap(otherVertex.Value);
         }
     }
 }
