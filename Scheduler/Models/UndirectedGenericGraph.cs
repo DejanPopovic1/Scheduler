@@ -54,7 +54,6 @@ namespace Scheduler.Models
             }
         }
 
-
         public void BreadthFirstSearch(Vertex<T> root)
         {
             Queue<Vertex<T>> queue = new Queue<Vertex<T>>();
@@ -74,5 +73,22 @@ namespace Scheduler.Models
                 }
             }
         }
+
+        //public void ColourGraph()
+        //{
+        //    List<Vertex<T>> VerticesCopy = vertices;
+        //    List<Vertex<T>> remainingVertices;
+        //    foreach (Vertex<T> vertex in VerticesCopy)
+        //    {
+        //        VerticesCopy.Remove(vertex);
+        //        remainingVertices = VerticesCopy;
+        //        foreach (Vertex<T> remainingVertex in remainingVertices)
+        //        { 
+        //            remainingVertices.
+        //        }
+
+        //        VerticesCopy.Remove(vertex);
+        //    }
+        //}
     }
 }

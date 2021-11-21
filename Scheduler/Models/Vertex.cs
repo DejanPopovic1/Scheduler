@@ -5,6 +5,7 @@ namespace Scheduler.Models
 {
     public class Vertex<T>
     {
+        int colour;
         List<Vertex<T>> neighbors;
         T value;
         bool isVisited;
