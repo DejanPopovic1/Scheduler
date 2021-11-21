@@ -74,6 +74,7 @@ namespace Scheduler.Models
             }
         }
 
+        //
         //public void ColourGraph()
         //{
         //    List<Vertex<T>> VerticesCopy = vertices;
