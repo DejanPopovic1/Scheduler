@@ -6,9 +6,9 @@ namespace Scheduler.Models
 {
     public class UndirectedGenericGraph<T>
     {
-        private List<Vertex<T>> vertices;
+        private List<Vertex> vertices;
         int size;
-        public List<Vertex<T>> Vertices { get { return vertices; } }
+        public List<Vertex> Vertices { get { return vertices; } }
         public int Size { get { return vertices.Count; } }
 
         public UndirectedGenericGraph(int initialSize)
@@ -18,55 +18,55 @@ namespace Scheduler.Models
                 throw new ArgumentException("Number of vertices cannot be negative");
             }
             size = initialSize;
-            vertices = new List<Vertex<T>>(initialSize);
+            vertices = new List<Vertex>(initialSize);
         }
 
-        public UndirectedGenericGraph(List<Vertex<T>> initialNodes)
+        public UndirectedGenericGraph(List<Vertex> initialNodes)
         {
             vertices = initialNodes;
             size = vertices.Count;
         }
 
-        public void AddVertex(Vertex<T> vertex)
+        public void AddVertex(Vertex vertex)
         {
             vertices.Add(vertex);
         }
 
-        public void RemoveVertex(Vertex<T> vertex)
+        public void RemoveVertex(Vertex vertex)
         {
             vertices.Remove(vertex);
         }
-        public bool HasVertex(Vertex<T> vertex)
+        public bool HasVertex(Vertex vertex)
         {
             return vertices.Contains(vertex);
         }
 
-        public void DepthFirstSearch(Vertex<T> root)
+        public void DepthFirstSearch(Vertex root)
         {
             if (!root.IsVisited)
             {
-                Console.Write(root.Value + " ");
+                Console.Write(root.GetValue() + " ");
                 root.Visit();
-                foreach (Vertex<T> neighbor in root.Neighbors)
+                foreach (Vertex neighbor in root.Neighbors)
                 {
                     DepthFirstSearch(neighbor);
                 }
             }
         }
 
-        public void BreadthFirstSearch(Vertex<T> root)
+        public void BreadthFirstSearch(Vertex root)
         {
-            Queue<Vertex<T>> queue = new Queue<Vertex<T>>();
+            Queue<Vertex> queue = new Queue<Vertex>();
             root.Visit();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
-                Vertex<T> current = queue.Dequeue();
-                foreach (Vertex<T> neighbor in current.Neighbors)
+                Vertex current = queue.Dequeue();
+                foreach (Vertex neighbor in current.Neighbors)
                 {
                     if (!neighbor.IsVisited)
                     {
-                        Console.Write(neighbor.Value + " ");
+                        Console.Write(neighbor.GetValue() + " ");
                         neighbor.Visit();
                         queue.Enqueue(neighbor);
                     }
@@ -76,9 +76,9 @@ namespace Scheduler.Models
 
         public void CreateEdgesUnoptimised()
         {
-            foreach (Vertex<T> vertex1 in Vertices)
+            foreach (Vertex vertex1 in Vertices)
             {
-                foreach (Vertex<T> vertex2 in Vertices)
+                foreach (Vertex vertex2 in Vertices)
                 {
                     if (vertex1.IsConnection(vertex2))
                     {

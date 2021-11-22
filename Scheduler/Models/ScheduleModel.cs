@@ -2,7 +2,7 @@
 
 namespace Scheduler.Models
 {
-    public class ScheduleModel : Vertex<ScheduleModel>
+    public class ScheduleModel
     {
         private TimeSpan[] schedule;
         public ScheduleModel(TimeSpan start, TimeSpan end)
@@ -10,7 +10,6 @@ namespace Scheduler.Models
             schedule = new TimeSpan[2];
             schedule[0] = start;
             schedule[1] = end;
-            Value = this;
         }
 
         public bool isScheduleOverlap(ScheduleModel otherSchedule)
@@ -29,11 +28,6 @@ namespace Scheduler.Models
                 return true;
             }
             return false;
-        }
-
-        public override bool IsConnection(Vertex<ScheduleModel> otherVertex)
-        {
-            return isScheduleOverlap(otherVertex.Value);
         }
     }
 }
