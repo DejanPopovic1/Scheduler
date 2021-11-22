@@ -29,5 +29,10 @@ namespace Scheduler.Models
             }
             return false;
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0} - {1}", schedule[0], schedule[1]);
+        }
     }
 }
