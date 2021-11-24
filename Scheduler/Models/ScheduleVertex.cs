@@ -28,7 +28,7 @@ namespace Scheduler.Models
 
         public override bool IsConnection(Vertex otherVertex)
         {
-            if (scheduleModelValue.isScheduleOverlap(((ScheduleVertex)otherVertex).scheduleModelValue))
+            if (scheduleModelValue.IsScheduleOverlap(((ScheduleVertex)otherVertex).scheduleModelValue))
             {
                 return true;
             }

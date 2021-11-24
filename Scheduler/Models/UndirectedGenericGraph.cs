@@ -11,6 +11,19 @@ namespace Scheduler.Models
         public List<Vertex> Vertices { get { return vertices; } }
         public int Size { get { return vertices.Count; } }
 
+        public int NumberOfEdges {
+            get {
+                int result = 0;
+                foreach (var vertex in Vertices)
+                {
+                    Console.WriteLine(vertex.GetValue() + ": " + vertex.NeighborsCount);
+                    result += vertex.NeighborsCount;
+                }
+                result /= 2;
+                return result; 
+            } 
+        }
+
         public UndirectedGenericGraph(int initialSize)
         {
             if (size < 0)
@@ -87,6 +100,7 @@ namespace Scheduler.Models
                 }
             }
         }
+
 
         //public void CreateEdges()
         //{
