@@ -22,6 +22,11 @@ namespace Scheduler.Models
             return false;
         }
 
+        public override string ToString()
+        {
+            return String.Format("{0} - {1}", StartTime, EndTime);
+        }
+
         private bool IsTimeWithinOtherSchedule(TimeSpan time, ScheduleModel timePeriod)
         {
             if (time > timePeriod.StartTime && time < timePeriod.EndTime) 
@@ -38,11 +43,6 @@ namespace Scheduler.Models
                 return true;
             }
             return false;
-        }
-
-        public override string ToString()
-        {
-            return String.Format("{0} - {1}", StartTime, EndTime);
         }
     }
 }

@@ -11,17 +11,20 @@ namespace Scheduler.Models
         public List<Vertex> Neighbors { get { return neighbors; } set { neighbors = value; } }
         public bool IsVisited { get { return isVisited; } set { isVisited = value; } }
         public int NeighborsCount { get { return neighbors.Count; } }
+        public int Colour { get { return colour; } set { colour = value; } }
 
         public Vertex()
         {
             isVisited = false;
             neighbors = new List<Vertex>();
+            colour = 0;
         }
 
         public Vertex(List<Vertex> neighbors)
         {
             isVisited = false;
             this.neighbors = neighbors;
+            colour = 0;
         }
 
         public void Visit()
@@ -42,6 +45,15 @@ namespace Scheduler.Models
         public void RemoveEdge(Vertex vertex)
         {
             neighbors.Remove(vertex);
+        }
+
+        public bool IsColoured()
+        {
+            if (colour != 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public abstract override string ToString();

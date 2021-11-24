@@ -95,47 +95,36 @@ namespace Scheduler.Models
                 {
                     if (vertex1.IsConnection(vertex2) && vertex1 != vertex2)
                     {
-                        Console.WriteLine(vertex1.GetValue() + " <-----> " + vertex2.GetValue());
                         vertex1.AddEdge(vertex2);
                     }
                 }
             }
         }
 
+        public void ColourGraph()
+        {
+            foreach (var vertex in Vertices)
+            {
+                vertex.Colour = 0;
+                bool isAnyNeighbourSameColour = true;
+                while (isAnyNeighbourSameColour)
+                {
+                    vertex.Colour++;
+                    isAnyNeighbourSameColour = IsAnyVertexColour(vertex.Neighbors, vertex.Colour);
+                }
+            }
+        }
 
-        //public void CreateEdges()
-        //{
-        //    List<Vertex<T>> VerticesCopy = vertices;
-        //    List<Vertex<T>> remainingVertices;
-        //    foreach (Vertex<T> vertex in VerticesCopy)
-        //    {
-        //        VerticesCopy.Remove(vertex);
-        //        remainingVertices = VerticesCopy;
-        //        foreach (Vertex<T> remainingVertex in remainingVertices)
-        //        {
-        //            remainingVertices.
-        //        }
-
-        //        VerticesCopy.Remove(vertex);
-        //    }
-        //}
-
-
-        //public void ColourGraph()
-        //{
-        //    List<Vertex<T>> VerticesCopy = vertices;
-        //    List<Vertex<T>> remainingVertices;
-        //    foreach (Vertex<T> vertex in VerticesCopy)
-        //    {
-        //        VerticesCopy.Remove(vertex);
-        //        remainingVertices = VerticesCopy;
-        //        foreach (Vertex<T> remainingVertex in remainingVertices)
-        //        {
-        //            remainingVertices.
-        //        }
-
-        //        VerticesCopy.Remove(vertex);
-        //    }
-        //}
+        private bool IsAnyVertexColour(List<Vertex> vertices, int colour)
+        {
+            foreach (Vertex vertex in vertices)
+            {
+                if (vertex.Colour == colour)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
