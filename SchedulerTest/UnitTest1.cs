@@ -61,7 +61,7 @@ namespace SchedulerTest
         //}
 
         [Test]
-        public void Test1()
+        public void should_correctly_count_edges()
         {
             UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
             graph.CreateEdgesUnoptimised();

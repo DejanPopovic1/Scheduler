@@ -16,7 +16,7 @@ namespace Scheduler.Models
                 int result = 0;
                 foreach (var vertex in Vertices)
                 {
-                    Console.WriteLine(vertex.GetValue() + ": " + vertex.NeighborsCount);
+                    //Console.WriteLine(vertex.GetValue() + ": " + vertex.NeighborsCount);
                     result += vertex.NeighborsCount;
                 }
                 result /= 2;
@@ -93,8 +93,9 @@ namespace Scheduler.Models
             {
                 foreach (Vertex vertex2 in Vertices)
                 {
-                    if (vertex1.IsConnection(vertex2))
+                    if (vertex1.IsConnection(vertex2) && vertex1 != vertex2)
                     {
+                        Console.WriteLine(vertex1.GetValue() + " <-----> " + vertex2.GetValue());
                         vertex1.AddEdge(vertex2);
                     }
                 }
