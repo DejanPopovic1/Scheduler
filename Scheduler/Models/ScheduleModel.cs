@@ -4,23 +4,18 @@ namespace Scheduler.Models
 {
     public class ScheduleModel
     {
-        enum ScheduleTime
-        {
-            StartTime,
-            Endtime
-        }
+        private TimeSpan StartTime;
+        private TimeSpan EndTime;
 
-        private TimeSpan[] schedule;
         public ScheduleModel(TimeSpan start, TimeSpan end)
         {
-            schedule = new TimeSpan[2];
-            schedule[0] = start;
-            schedule[1] = end;
+            StartTime = start;
+            EndTime = end;
         }
 
         public bool IsScheduleOverlap(ScheduleModel otherSchedule)
         {
-            if (IsTimeWithinOtherSchedule(schedule[0], otherSchedule) || IsTimeWithinOtherSchedule(schedule[1], otherSchedule) || IsEclipsingOtherSchedule(otherSchedule))
+            if (IsTimeWithinOtherSchedule(StartTime, otherSchedule) || IsTimeWithinOtherSchedule(EndTime, otherSchedule) || IsEclipsingOtherSchedule(otherSchedule))
             {
                 return true;
             }
@@ -29,7 +24,7 @@ namespace Scheduler.Models
 
         private bool IsTimeWithinOtherSchedule(TimeSpan time, ScheduleModel timePeriod)
         {
-            if (time > timePeriod.schedule[0] && time < timePeriod.schedule[1]) 
+            if (time > timePeriod.StartTime && time < timePeriod.EndTime) 
             {
                 return true;
             }
@@ -38,7 +33,7 @@ namespace Scheduler.Models
 
         private bool IsEclipsingOtherSchedule(ScheduleModel timePeriod)
         {
-            if (schedule[0] <= timePeriod.schedule[0] && schedule[1] >= timePeriod.schedule[1])
+            if (StartTime <= timePeriod.StartTime && EndTime >= timePeriod.EndTime)
             {
                 return true;
             }
@@ -47,7 +42,7 @@ namespace Scheduler.Models
 
         public override string ToString()
         {
-            return String.Format("{0} - {1}", schedule[0], schedule[1]);
+            return String.Format("{0} - {1}", StartTime, EndTime);
         }
     }
 }
