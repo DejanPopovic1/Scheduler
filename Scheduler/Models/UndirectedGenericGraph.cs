@@ -58,7 +58,7 @@ namespace Scheduler.Models
         {
             if (!root.IsVisited)
             {
-                Console.Write(root.GetValue() + " ");
+                Console.Write(root.ToString() + " ");
                 root.Visit();
                 foreach (Vertex neighbor in root.Neighbors)
                 {
@@ -79,7 +79,7 @@ namespace Scheduler.Models
                 {
                     if (!neighbor.IsVisited)
                     {
-                        Console.Write(neighbor.GetValue() + " ");
+                        Console.Write(neighbor.ToString() + " ");
                         neighbor.Visit();
                         queue.Enqueue(neighbor);
                     }
@@ -125,6 +125,17 @@ namespace Scheduler.Models
                 }
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            List<string> result = new List<string>();
+            foreach (Vertex vertex in vertices)
+            {
+                string graphVertexToString = string.Format("{0}     |     {1}", vertex.ToString(), vertex.Colour);
+                result.Add(graphVertexToString);
+            }
+            return string.Join("\n", result);
         }
     }
 }

@@ -15,17 +15,6 @@ namespace Scheduler.Models
             scheduleModelValue = sm;
         }
 
-        public override string ToString()
-        {
-            StringBuilder allNeighbors = new StringBuilder("");
-            allNeighbors.Append(scheduleModelValue + ": ");
-            foreach (Vertex neighbor in Neighbors)
-            {
-                allNeighbors.Append(neighbor.GetValue() + "  ");
-            }
-            return allNeighbors.ToString();
-        }
-
         public override bool IsConnection(Vertex otherVertex)
         {
             if (scheduleModelValue.IsScheduleOverlap(((ScheduleVertex)otherVertex).scheduleModelValue))
@@ -35,7 +24,7 @@ namespace Scheduler.Models
             return false;
         }
 
-        public override string GetValue()
+        public override string ToString()
         {
             return scheduleModelValue.ToString();
         }

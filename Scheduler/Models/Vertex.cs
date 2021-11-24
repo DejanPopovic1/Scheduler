@@ -56,20 +56,7 @@ namespace Scheduler.Models
             return false;
         }
 
-        public abstract override string ToString();
-        //{
-        //    StringBuilder allNeighbors = new StringBuilder("");
-        //    allNeighbors.Append(value + ": ");
-        //    foreach (Vertex<T> neighbor in neighbors)
-        //    {
-        //        allNeighbors.Append(neighbor.value + "  ");
-        //    }
-        //    return allNeighbors.ToString();
-        //}
-
         public abstract bool IsConnection(Vertex otherVertex);
-
-        public abstract string GetValue();
     }
 }
 
