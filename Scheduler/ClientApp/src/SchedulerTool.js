@@ -79,7 +79,7 @@ const data = [
 class SchedulerTool extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = this.getInitialState();
+        this.state = this.getInitialState(props);
         this.getData = this.getData.bind(this);
     }
 
@@ -145,90 +145,34 @@ class SchedulerTool extends PureComponent {
         this.gridApi.setDatasource(dataSource);
     }
 
-    getInitialState = () => {
-        var defaultDate = new Date();
-        var defaultDateString = this.formatDate(defaultDate);
+    GetNumberOfSchedulingUsers = () =>{
+        return 5;
+    }
+
+    GetTotalKmTravelledForTheNextDay = () =>{
+        return 50000;
+    }
+
+    GetTotalHoursTravelledForTheNextDay = () =>{
+        return 10000;
+    }
+
+    GetGraphDataPoints = () =>{
+        return data;
+    }
+
+    GetAllSuperUserInformation = () =>{
+        return data;
+    }
+
+    getInitialState = (props) => {
         return {
-            getRowNodeId: function (item) {
-                return item.id;
-            },
-            //Form Data
-            columnDefs: [{ headerName: "Scheduled Item", width: 250, field: "scheduleName" }, { headerName: "Scheduled Date & Time", width: 250, field: "pickupDate", valueFormatter: DateTimeFormat }, { headerName: "Scheduled Location Latitude", width: 250, field: "location.lat" }, { headerName: "Scheduled Location Longitude", width: 250, field: "location.lon" }, { headerName: "", width: 130, cellRenderer: "scheduleListActionRenderer" }],
-            date: defaultDateString,
-            time: "00:00",
-            scheduleName: "",
-            //Control Information
-            isScheduleModalVisible: false,
-            //Child Data Passed Back
+            NumberOfSchedulingUsers: this.GetNumberOfSchedulingUsers(),
+            TotalKmTravelledForTheNextDay: this.GetTotalKmTravelledForTheNextDay(),
+            TotalHoursTravelledForTheNextDay: this.GetTotalHoursTravelledForTheNextDay(),
+            GraphDataPoints: this.GetGraphDataPoints(),
             lat: 0,
             lng: 0,
-            //getRowNodeId: function (item) {
-            //    var test = item.id;
-            //    debugger;
-            //    return item.id;
-            //},
-            frameworkComponents: {
-                scheduleListActionRenderer: class ScheduleListActionRenderer extends Component {
-                    constructor(props) {
-                        super(props);
-                        this.deleteCell_OnClick = this.delete_OnClick.bind(this);
-                    }
-
-                    delete_OnClick = async (e) => {
-                        e.preventDefault();
-                        const clickedId = this.props.data.id;
-                        await fetch("schedule/deleteItem", {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token") },
-                            body: JSON.stringify(clickedId)
-                        })
-                        window.location.reload(false);
-                    }
-
-                    render() {
-                        const data = this.props.data;
-                        return (
-                            <>
-                                <Button className="mr-2" outline color="primary" id="buttonSize" size="sm" onClick={this.delete_OnClick}>Delete</Button>
-                            </>
-                        );
-                    }
-                }
-            },
-
-
-
-            //defaultColDef: {
-            //    flex: 1,
-            //    resizable: true,
-            //    minWidth: 100,
-            //},
-            //components: {
-            //    loadingRenderer: function (params) {
-            //        if (params.value !== undefined) {
-            //            return params.value;
-            //        } else {
-            //            return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
-            //        }
-            //    },
-            //},
-            //rowBuffer: 0,
-            //rowSelection: 'multiple',
-            //rowModelType: 'infinite',
-            //paginationPageSize: 100,
-            //cacheOverflowSize: 2,
-            //maxConcurrentDatasourceRequests: 1,
-            //infiniteInitialRowCount: 1000,
-            //maxBlocksInCache: 10,
-
-
-
-
-
-
-
-
-
         };
     }
 
@@ -399,10 +343,10 @@ class SchedulerTool extends PureComponent {
                     </Container>
                 </div>
                 <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
-                    <h1 className="text-center">Add Pickup Point</h1>
-                    <h4 className="text-center"><i>Click on the map to select a pickup point</i></h4>
+                    <h1 className="text-center">Add Central Logistics Hub</h1>
+                    <h4 className="text-center"><i>Click on the map to select a central logistic hub</i></h4>
                     <div>
-                        <Button className='m-1 btn' color="primary" onClick={this.closeModal}>Confirm Pickup Point</Button>
+                        <Button className='m-1 btn' color="primary" onClick={this.closeModal}>Set Logistics Hub Location</Button>
                         <Button className='m-1 btn-primary' color="primary" onClick={this.closeModal}>Cancel</Button>
                         <MainMap sendData={this.getData}></MainMap>
                     </div>
