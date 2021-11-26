@@ -1,19 +1,4 @@
-﻿//import React from 'react';
-
-//function SchedulerTool() {
-//    debugger;
-//    return (
-//        <div>
-//            <h1>
-//                Scheduler Tool
-//            </h1>
-//        </div>
-//    );
-//}
-
-//export default SchedulerTool;
-
-import React from 'react'
+﻿import React from 'react'
 import ReactDOM from 'react-dom'
 import { Form, FormGroup, Modal } from "react-bootstrap";
 import './Schedule.css';
@@ -31,48 +16,58 @@ import { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import CountUp from 'react-countup';
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
 const data = [
     {
-        name: 'Page A',
+        date: 'March 2021',
         uv: 4000,
-        pv: 2400,
-        amt: 2400,
     },
     {
-        name: 'Page B',
+        date: 'April 2021',
         uv: 3000,
-        pv: 1398,
-        amt: 2210,
     },
     {
-        name: 'Page C',
+        date: 'May 2021',
         uv: 2000,
-        pv: 9800,
-        amt: 2290,
     },
     {
-        name: 'Page D',
+        date: 'June 2021',
         uv: 2780,
-        pv: 3908,
-        amt: 2000,
     },
     {
-        name: 'Page E',
+        date: 'July 2021',
         uv: 1890,
-        pv: 4800,
-        amt: 2181,
     },
     {
-        name: 'Page F',
+        date: 'August 2021',
         uv: 2390,
-        pv: 3800,
-        amt: 2500,
     },
     {
-        name: 'Page G',
+        date: 'September 2021',
         uv: 3490,
-        pv: 4300,
-        amt: 2100,
+    },
+    {
+        date: 'October 2021',
+        uv: 3490,
+    },
+    {
+        date: 'November 2021',
+        uv: 3490,
+    },
+    {
+        date: 'December 2021',
+        uv: 3490,
+    },
+    {
+        date: 'January 2022',
+        uv: 3490,
+    },
+    {
+        date: 'February 2022',
+        uv: 3490,
     },
 ];
 
@@ -80,7 +75,23 @@ class SchedulerTool extends PureComponent {
     constructor(props) {
         super(props);
         this.state = this.getInitialState();
-        this.getData = this.getData.bind(this);
+        debugger;
+    }
+
+    afterStateUpdate = () => {
+        debugger;
+    }
+
+    async componentDidMount() {
+        var response = await this.GetAllSuperUserInformation();
+        this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers});
+        this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
+        this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
+        this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
+    }
+
+    async componentDidUpdate() {
+        debugger;
     }
 
     formatDate = (date) => {
@@ -166,34 +177,96 @@ class SchedulerTool extends PureComponent {
             lat: this.state.lat,
             lon: this.state.lng
         }
-        //var location = 1;
-        //debugger;
         var response = await fetch("schedulerTool/ChangeCentralLocation", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  },
              body: JSON.stringify(testData)
-            //body: location
         })
     }
 
     GetAllSuperUserInformation = async() => {
-        debugger;
-        var response = await fetch("schedulerTool/getInfo", {
+        var result = await fetch("schedulerTool/getInfo", {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  }
         })
             .then((resp) => resp.json())
             .then((data) => data);
-        debugger;
+            debugger;
+            return result;
     }
 
+    GetRenderedDates = () => {
+        var renderedDatesArray = Array(12).fill(new Date());
+        function ForwardDate(value, index, array) {
+            var forwardDate = new Date(value.getFullYear(), value.getMonth() + index , value.getDate());
+            return monthNames[forwardDate.getMonth()] + " " + forwardDate.getFullYear();
+        };
+        renderedDatesArray = renderedDatesArray.map(ForwardDate);
+        return renderedDatesArray;
+    }
+
+
     getInitialState = () => {
-        this.GetAllSuperUserInformation();
+        var renderedDates = this.GetRenderedDates();
         return {
-            NumberOfSchedulingUsers: this.GetNumberOfSchedulingUsers(),
-            TotalKmTravelledForTheNextDay: this.GetTotalKmTravelledForTheNextDay(),
-            TotalHoursTravelledForTheNextDay: this.GetTotalHoursTravelledForTheNextDay(),
-            GraphDataPoints: this.GetGraphDataPoints(),
+            numberOfSchedulingUsers: 1,
+            totalKmTravelledForTheNextDay: 1,
+            totalHoursTravelledForTheNextDay: 1,
+            GraphDataPoints: 
+            [
+                {
+                    name: renderedDates[0],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[1],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[2],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[3],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[4],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[5],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[6],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[7],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[8],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[9],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[10],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[11],
+                    uv: 0,
+                },
+                {
+                    name: renderedDates[12],
+                    uv: 0,
+                },
+            ],
             lat: 0,
             lng: 0,
         };
@@ -291,9 +364,10 @@ class SchedulerTool extends PureComponent {
     }
 
     render() {
-        var numberOfSchedulingUsers = 4;
-        var kmTotalTravelledNextDay = 20000;
-        var hoursTotalTravelledNextDay = 342;
+        //debugger;
+        var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
+        var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
+        var hoursTotalTravelledNextDay = this.state.totalHoursTravelledForTheNextDay;
         return (
             <div>
                 <div className="container mt-3 mb-3">
@@ -354,7 +428,7 @@ class SchedulerTool extends PureComponent {
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
+                                <XAxis dataKey="date" />
                                 <YAxis />
                                 <Tooltip />
                                 <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
