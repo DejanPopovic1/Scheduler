@@ -163,8 +163,8 @@ class SchedulerTool extends PureComponent {
 
     AddChangeCentralHub = async() => {
         var testData = {
-            lat: 33.333,
-            lon: 22.222
+            lat: this.state.lat,
+            lon: this.state.lng
         }
         //var location = 1;
         //debugger;

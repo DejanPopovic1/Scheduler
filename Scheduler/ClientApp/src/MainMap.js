@@ -8,19 +8,10 @@ export class MainMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // markers: [
-      //   {
-      //     title: "The marker`s title will appear as a tooltip.",
-      //     name: "SOMA",
-      //     position: { lat: 37.778519, lng: -122.40564 }
-      //   }
-      // ]
       markers: []
     };
     this.onClick = this.onClick.bind(this);
   }
-
-
 
   onClick(t, map, coord) {
     const { latLng } = coord;
@@ -34,7 +25,6 @@ export class MainMap extends Component {
       height: '50%'
     }
 
-    //The three dots mean spread syntax. See spread syntax here: https://stackoverflow.com/questions/31048953/what-does-the-three-dots-notation-do-in-javascript/42486285#42486285
     this.setState(previousState => {
       return {
         markers: [
@@ -51,14 +41,6 @@ export class MainMap extends Component {
   }
 
     render() {
-      // const persons = [
-      //   {firstname : "Malcom", lastname: "Reynolds"},
-      //   {firstname : "Kaylee", lastname: "Frye"},
-      //   {firstname : "Jayne", lastname: "Cobb"}
-      // ];
-      // var test = persons.map(getFullName);
-      // The following is added in the return section {test}
-
         return (
           <Map
             google={this.props.google}
@@ -83,7 +65,3 @@ export class MainMap extends Component {
 export default GoogleApiWrapper({
     apiKey: APIKey_GoogleMaps
 })(MainMap);
-
-// function getFullName(item) {
-//   return [item.firstname,item.lastname].join(" ");
-//   }
