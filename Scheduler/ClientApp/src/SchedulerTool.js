@@ -79,7 +79,7 @@ const data = [
 class SchedulerTool extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = this.getInitialState(props);
+        this.state = this.getInitialState();
         this.getData = this.getData.bind(this);
     }
 
@@ -161,11 +161,34 @@ class SchedulerTool extends PureComponent {
         return data;
     }
 
-    GetAllSuperUserInformation = () =>{
-        return data;
+    AddChangeCentralHub = async() => {
+        var testData = {
+            lat: 33.333,
+            lon: 22.222
+        }
+        //var location = 1;
+        //debugger;
+        var response = await fetch("schedulerTool/ChangeCentralLocation", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  },
+             body: JSON.stringify(testData)
+            //body: location
+        })
     }
 
-    getInitialState = (props) => {
+    GetAllSuperUserInformation = async() => {
+        debugger;
+        var response = await fetch("schedulerTool/getInfo", {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token")  }
+        })
+            .then((resp) => resp.json())
+            .then((data) => data);
+        debugger;
+    }
+
+    getInitialState = () => {
+        this.GetAllSuperUserInformation();
         return {
             NumberOfSchedulingUsers: this.GetNumberOfSchedulingUsers(),
             TotalKmTravelledForTheNextDay: this.GetTotalKmTravelledForTheNextDay(),
@@ -346,7 +369,7 @@ class SchedulerTool extends PureComponent {
                     <h1 className="text-center">Add Central Logistics Hub</h1>
                     <h4 className="text-center"><i>Click on the map to select a central logistic hub</i></h4>
                     <div>
-                        <Button className='m-1 btn' color="primary" onClick={this.closeModal}>Set Logistics Hub Location</Button>
+                        <Button className='m-1 btn' color="primary" onClick={this.AddChangeCentralHub}>Set Logistics Hub Location</Button>
                         <Button className='m-1 btn-primary' color="primary" onClick={this.closeModal}>Cancel</Button>
                         <MainMap sendData={this.getData}></MainMap>
                     </div>

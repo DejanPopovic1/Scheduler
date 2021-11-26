@@ -47,21 +47,19 @@ namespace Scheduler.Controllers
                     lon = 23.214
                 }
             };
-            return Ok();
+            return Ok(result);
         }
 
-        [HttpPost("setAndChangeCentralLocation")]
-        public IActionResult ChangeCentralLocation([FromBody] Location location)
+        [HttpPost("ChangeCentralLocation")]
+        public IActionResult ChangeCentralLocation([FromBody] Location passedLocation)
         {
-            location.lat = 22.244;
-            location.lon = 19.344;
             var userId = User.Claims.ToList().ElementAt(0).Value;
             CentralHub itemToUpdate = _dbContext.CentralHubs.SingleOrDefault(x => x.UserID == Int32.Parse(userId));
             if (itemToUpdate != null)
             {
                 itemToUpdate.UserID = Int32.Parse(userId);
-                itemToUpdate.Latitude = location.lat;
-                itemToUpdate.Longitude = location.lon;
+                itemToUpdate.Latitude = passedLocation.lat;
+                itemToUpdate.Longitude = passedLocation.lon;
             }
             else
             {
