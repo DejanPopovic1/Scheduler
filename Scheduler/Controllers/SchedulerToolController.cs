@@ -34,11 +34,47 @@ namespace Scheduler.Controllers
                         },
                         new DataPoint(){
                             Date = new DateTime(2022, 6, 1),
-                            NumberOfResources = 5,
+                            NumberOfResources = 7,
                         },
                         new DataPoint(){
                             Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 5,
+                            NumberOfResources = 6,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 2,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 4,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 4,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 8,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 9,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 1,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 1,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 2,
+                        },
+                            new DataPoint(){
+                            Date = new DateTime(2022, 7, 25),
+                            NumberOfResources = 2,
                         },
                 },
                 HubLocation = new Coordinates() { 
