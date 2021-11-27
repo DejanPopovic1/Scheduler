@@ -26,8 +26,8 @@ namespace Scheduler.Controllers
                 NumberOfSchedulingUsers = 4,
                 TotalKmTravelledForTheNextDay = 10000,
                 TotalHoursTravelledForTheNextDay = 2100,
-                GraphDataPoints = new DataPoints() {
-                    DataPointsList = new List<DataPoint>() {
+                GraphDataPoints = new List<DataPoint>()
+                {
                         new DataPoint(){
                             Date = new DateTime(2022, 5, 5),
                             NumberOfResources = 5,
@@ -40,7 +40,6 @@ namespace Scheduler.Controllers
                             Date = new DateTime(2022, 7, 25),
                             NumberOfResources = 5,
                         },
-                    }
                 },
                 HubLocation = new Coordinates() { 
                     lat = 22.788,

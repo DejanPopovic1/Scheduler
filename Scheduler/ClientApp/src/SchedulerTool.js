@@ -20,57 +20,6 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-const data = [
-    {
-        date: 'March 2021',
-        uv: 4000,
-    },
-    {
-        date: 'April 2021',
-        uv: 3000,
-    },
-    {
-        date: 'May 2021',
-        uv: 2000,
-    },
-    {
-        date: 'June 2021',
-        uv: 2780,
-    },
-    {
-        date: 'July 2021',
-        uv: 1890,
-    },
-    {
-        date: 'August 2021',
-        uv: 2390,
-    },
-    {
-        date: 'September 2021',
-        uv: 3490,
-    },
-    {
-        date: 'October 2021',
-        uv: 3490,
-    },
-    {
-        date: 'November 2021',
-        uv: 3490,
-    },
-    {
-        date: 'December 2021',
-        uv: 3490,
-    },
-    {
-        date: 'January 2022',
-        uv: 3490,
-    },
-    {
-        date: 'February 2022',
-        uv: 3490,
-    },
-];
-
 class SchedulerTool extends PureComponent {
     constructor(props) {
         super(props);
@@ -79,15 +28,79 @@ class SchedulerTool extends PureComponent {
     }
 
     afterStateUpdate = () => {
+        var test = this.state;
         debugger;
     }
 
     async componentDidMount() {
         var response = await this.GetAllSuperUserInformation();
+        var test = response.graphDataPoints;
+        debugger;
         this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers});
         this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
         this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
-        this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
+        this.setState({graphDataPoints : response.graphDataPoints}
+            // {graphDataPoints: 
+            //     [
+            //         {
+            //             name: renderedDates[0],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[1],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[2],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[3],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[4],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[5],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[6],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[7],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[8],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[9],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[10],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[11],
+            //             uv: 0,
+            //         },
+            //         {
+            //             name: renderedDates[12],
+            //             uv: 0,
+            //         },
+            //     ]
+            // }
+        ,  () => this.afterStateUpdate()
+        
+        
+            );
+        debugger;
     }
 
     async componentDidUpdate() {
@@ -168,9 +181,6 @@ class SchedulerTool extends PureComponent {
         return 10000;
     }
 
-    GetGraphDataPoints = () =>{
-        return data;
-    }
 
     AddChangeCentralHub = async() => {
         var testData = {
@@ -212,7 +222,7 @@ class SchedulerTool extends PureComponent {
             numberOfSchedulingUsers: 1,
             totalKmTravelledForTheNextDay: 1,
             totalHoursTravelledForTheNextDay: 1,
-            GraphDataPoints: 
+            graphDataPoints: 
             [
                 {
                     name: renderedDates[0],
@@ -364,6 +374,59 @@ class SchedulerTool extends PureComponent {
     }
 
     render() {
+        var data = [
+            {
+                // date: 'March 2021',
+                // uv: 4000,
+                date: this.state.graphDataPoints[0].date,
+                uv: this.state.graphDataPoints[0].numberOfResources
+            },
+            {
+                date: 'April 2021',
+                uv: 7,
+            },
+            {
+                date: 'May 2021',
+                uv: 7,
+            },
+            {
+                date: 'June 2021',
+                uv: 7,
+            },
+            {
+                date: 'July 2021',
+                uv: 8,
+            },
+            {
+                date: 'August 2021',
+                uv: 9,
+            },
+            {
+                date: 'September 2021',
+                uv: 2,
+            },
+            {
+                date: 'October 2021',
+                uv: 2,
+            },
+            {
+                date: 'November 2021',
+                uv: 2,
+            },
+            {
+                date: 'December 2021',
+                uv: 3,
+            },
+            {
+                date: 'January 2022',
+                uv: 2,
+            },
+            {
+                date: 'February 2022',
+                uv: 4,
+            },
+        ];
+
         //debugger;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
@@ -420,6 +483,7 @@ class SchedulerTool extends PureComponent {
                                 width={800}
                                 height={400}
                                 data={data}
+                                //data={this.state.graphDataPoints}
                                 margin={{
                                     top: 10,
                                     right: 10,

@@ -9,7 +9,10 @@ namespace Scheduler.Models
         public int NumberOfSchedulingUsers { get; set; }
         public int TotalKmTravelledForTheNextDay { get; set; }
         public int TotalHoursTravelledForTheNextDay { get; set; }
-        public DataPoints GraphDataPoints { get; set; }
+        //public DataPoints GraphDataPoints { get; set; }
+
+        public List<DataPoint> GraphDataPoints { get; set; }
+
         public Coordinates HubLocation { get; set; }
 
         public SchedulerToolViewModel()
@@ -24,10 +27,10 @@ namespace Scheduler.Models
         public double lon { get; set; }
     }
 
-    public class DataPoints
-    {
-        public List<DataPoint> DataPointsList { get; set; }
-    }
+    //public class DataPoints
+    //{
+    //    public List<DataPoint> DataPointsList { get; set; }
+    //}
 
     public class DataPoint
     {
