@@ -21,6 +21,9 @@ namespace Scheduler.Controllers
         [HttpGet("getInfo")]
         public IActionResult GetInfo()
         {
+            //List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
+
+
             SchedulerToolViewModel result = new SchedulerToolViewModel()
             {
                 NumberOfSchedulingUsers = 4,
@@ -77,7 +80,8 @@ namespace Scheduler.Controllers
                             NumberOfResources = 2,
                         },
                 },
-                HubLocation = new Coordinates() { 
+                HubLocation = new Coordinates()
+                {
                     lat = 22.788,
                     lon = 23.214
                 }
