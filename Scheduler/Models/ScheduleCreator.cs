@@ -45,7 +45,7 @@ namespace Scheduler.Models
         //private const string URL = "https://webhook.site/7dfb72bc-475e-4f19-bb8b-e94bb23eb6d1";
         //private static string urlParameters = "?api_key=123";
         private const string URL = "https://maps.googleapis.com/maps/api/distancematrix/json";
-        private static string urlParameters = "?destinations=40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
+        private static string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
 
         public ScheduleCreator()
         { 
@@ -82,8 +82,8 @@ namespace Scheduler.Models
                 //}
 
 
-                var test = dataObjects.destination_addresses;
-                Console.WriteLine("{0}", dataObjects.destination_addresses);
+                var test = dataObjects.rows;
+                Console.WriteLine("{0}", dataObjects.rows);
             }
             else
             {
