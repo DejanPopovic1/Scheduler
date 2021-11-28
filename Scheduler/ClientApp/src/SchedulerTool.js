@@ -234,6 +234,7 @@ class SchedulerTool extends PureComponent {
                 <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
                     <h1 className="text-center">Add Central Logistics Hub</h1>
                     <h4 className="text-center"><i>Click on the map to select a central logistic hub</i></h4>
+                    <div>Note: The pin provided will 'snap' to the nearest road in the map</div>
                     <div>
                         <Button className='m-1 btn' color="primary" onClick={this.AddChangeCentralHub}>Set Logistics Hub Location</Button>
                         <Button className='m-1 btn-primary' color="primary" onClick={this.closeModal}>Cancel</Button>

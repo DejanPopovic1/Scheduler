@@ -349,7 +349,7 @@ class Schedule extends Component {
                 <Modal show={this.state.isScheduleModalVisible} contentClassName="custom-modal-style">
                     <h1 className="text-center">Add Pickup Point</h1>
                     <h4 className="text-center"><i>Click on the map to select a pickup point</i></h4>
-
+                    <div>Note: The pin provided will 'snap' to the nearest road in the map</div>
 
                     <div>
                         <Button className='m-1 btn' color="primary" onClick={this.closeModal}>Confirm Pickup Point</Button>
