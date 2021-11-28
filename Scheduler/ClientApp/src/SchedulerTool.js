@@ -21,6 +21,7 @@ class SchedulerTool extends PureComponent {
     constructor(props) {
         super(props);
         this.state = this.getInitialState();
+        this.getData = this.getData.bind(this);
         debugger;
     }
 
