@@ -27,6 +27,7 @@ namespace SchedulerTest
                 new Schedule(){ PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//9
                 new Schedule(){ PickupDateTime = new DateTime(2021, 12, 5, 15, 0, 0) },//10
                 new Schedule(){ PickupDateTime = new DateTime(2021, 12, 9, 15, 0, 0) },//11
+                //=====Up to and including 9
                 new Schedule(){ PickupDateTime = new DateTime(2021, 12, 10, 15, 0, 0) },//12
                 new Schedule(){ PickupDateTime = new DateTime(2021, 12, 11, 15, 0, 0) },//13
                 new Schedule(){ PickupDateTime = new DateTime(2022, 1, 28, 15, 0, 0) },//14
@@ -66,7 +67,9 @@ namespace SchedulerTest
             var expected9 = new List<Schedule>();
             var expected10 = new List<Schedule>();
             var expected11 = new List<Schedule>();
-            var expected12 = new List<Schedule>();
+            var expected12 = new List<Schedule>() {
+                schedules[11],
+            };
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[0], expected1);
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[1], expected2);
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[2], expected3);
@@ -75,6 +78,9 @@ namespace SchedulerTest
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[5], expected6);
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[6], expected7);
             Assert.AreEqual(schedulesSplitter.ForecastedSchedules[7], expected8);
+            Assert.AreEqual(schedulesSplitter.ForecastedSchedules[8], expected9);
+            Assert.AreEqual(schedulesSplitter.ForecastedSchedules[9], expected10);
+            Assert.AreEqual(schedulesSplitter.ForecastedSchedules[10], expected11);
         }
     }
 }
