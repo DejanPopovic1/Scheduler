@@ -22,6 +22,19 @@ namespace Scheduler.Controllers
         public IActionResult GetInfo()
         {
             //List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
+            //SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
+            //var schedulesForNextNDays = schedulesSplitter.ForecastedSchedules;
+            //foreach (List<Schedule> schedulesForDay in schedulesForNextNDays)
+            //{
+            //    foreach (Schedule schedule in schedulesForDay)
+            //    { 
+
+
+            //    }
+            //}
+
+
+
 
 
             SchedulerToolViewModel result = new SchedulerToolViewModel()
