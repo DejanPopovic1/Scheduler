@@ -53,7 +53,7 @@ namespace Scheduler.Models
     // https://developers.google.com/maps/documentation/distance-matrix/overview?hl=en_US                         |
     //------------------------------------------------------------------------------------------------------------+
 
-    public class ScheduleCreator
+    public class DistanceMatrixCreator
     {
         private const string URL = "https://maps.googleapis.com/maps/api/distancematrix/json";
         private const string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
@@ -61,7 +61,7 @@ namespace Scheduler.Models
         private const string pipeDelimiter = "%7C";
 
 
-        public ScheduleCreator()
+        public DistanceMatrixCreator()
         { 
         
         }
