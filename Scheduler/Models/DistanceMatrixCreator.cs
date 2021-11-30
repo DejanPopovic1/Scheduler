@@ -42,6 +42,10 @@ namespace Scheduler.Models
 
         public DistanceMatrix(List<Location> originLocations, List<Location> destinationLocations, TimeSpan[,] distanceMatrixValues)
         {
+            if (originLocations.Count != distanceMatrixValues.GetLength(0) || destinationLocations.Count != distanceMatrixValues.GetLength(1))
+            {
+                throw new Exception("Origin Locations, Destination Locations and Distance Matrix Sizes Do Not Match");
+            }
             OriginAddresses = originLocations;
             DestinationAddresses = destinationLocations;
             DistanceMatrixValues = distanceMatrixValues;
@@ -56,7 +60,7 @@ namespace Scheduler.Models
     public class DistanceMatrixCreator
     {
         private const string URL = "https://maps.googleapis.com/maps/api/distancematrix/json";
-        private const string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
+        private const string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998%7C41.6655101%2C-74.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
         private const string commaDelimiter = "%2C";
         private const string pipeDelimiter = "%7C";
 
@@ -109,10 +113,19 @@ namespace Scheduler.Models
             TimeSpan[,] result = new TimeSpan[originAddresses.Count, destinationAddresses.Count];
             string urlParameters = CreateURLParameterString(originAddresses, destinationAddresses, APIKey);
             DataObject APIResponseObject = LoadAPIResponseInDataObject(urlParameters);
-            
-
+            var test = APIResponseObject;
+            int i = 0, j = 0;
+            foreach (var row in APIResponseObject.rows)
+            {
+                foreach (var element in row.elements)
+                {
+                    var secondsFromOriginToDestination = Int32.Parse(element.duration.value);
+                    result[i, j] = new TimeSpan(0, 0, secondsFromOriginToDestination);
+                    j++;
+                }
+                i++;
+            }
             return result;
-            
         }
 
         private static DataObject LoadAPIResponseInDataObject(string URLParameters)
