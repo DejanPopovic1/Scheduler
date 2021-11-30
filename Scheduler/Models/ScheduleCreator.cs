@@ -32,6 +32,22 @@ namespace Scheduler.Models
         public string value { get; set; }
     }
 
+    //=========================================
+
+    public class DistanceMatrix
+    {
+        List<Location> OriginAddresses { get; set; }
+        List<Location> DestinationAddresses { get; set; }
+        TimeSpan[,] DistanceMatrixValues { get; set; }
+
+        public DistanceMatrix(List<Location> originLocations, List<Location> destinationLocations, TimeSpan[,] distanceMatrixValues)
+        {
+            OriginAddresses = originLocations;
+            DestinationAddresses = destinationLocations;
+            DistanceMatrixValues = distanceMatrixValues;
+        }
+    }
+
     //+-----------------------------------------------------------------------------------------------------------+
     // Google Distance Matrix API Documentation:                                                                  |
     // https://developers.google.com/maps/documentation/distance-matrix/overview?hl=en_US                         |
@@ -79,16 +95,27 @@ namespace Scheduler.Models
             }
             return ret;
         }
+        //===================================
 
-        public static TimeSpan[,] GenerateDistanceMatrix(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
+        public static DistanceMatrix GenerateDistanceMatrix(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
         {
+            TimeSpan[,] distanceMatrixValues = GenerateDistanceMatrixValues(originAddresses, destinationAddresses, APIKey);
+            DistanceMatrix result = new DistanceMatrix(originAddresses, destinationAddresses, distanceMatrixValues);
+            return result;
+        }
 
+        private static TimeSpan[,] GenerateDistanceMatrixValues(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
+        {
             TimeSpan[,] result = new TimeSpan[originAddresses.Count, destinationAddresses.Count];
+            string urlParameters = CreateURLParameterString(originAddresses, destinationAddresses, APIKey);
+            DataObject APIResponseObject = LoadAPIResponseInDataObject(urlParameters);
+            
+
             return result;
             
         }
 
-        private DataObject LoadAPIResponseInDataObject(string URLParameters)
+        private static DataObject LoadAPIResponseInDataObject(string URLParameters)
         {
             DataObject result;
             TimeSpan ret = new TimeSpan();
