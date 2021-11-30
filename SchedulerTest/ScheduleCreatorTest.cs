@@ -3,6 +3,8 @@ using Scheduler.Models;
 using System.Collections.Generic;
 using System;
 using Scheduler.Data;
+using System.Threading;
+using System.Globalization;
 
 namespace SchedulerTest
 {
@@ -12,7 +14,7 @@ namespace SchedulerTest
         [SetUp]
         public void Setup()
         {
-
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
         }
 
         ////?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko
@@ -41,19 +43,33 @@ namespace SchedulerTest
         {
             string APIKey = "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
 
+            //List<Location> origins = new List<Location>()
+            //{
+            //    new Location(13.1111, 2.222222),
+            //    new Location(12.1111, 2.222222),
+            //    new Location(17.1111, 2.222222)
+            //};
+
+            //List<Location> destinations = new List<Location>()
+            //{
+            //    new Location(21.1111, 4.442222),
+            //    new Location(31.1111, 2.552222),
+            //    new Location(41.1111, 6.222222)
+            //};
+
             List<Location> origins = new List<Location>()
             {
-                new Location(13.1111, 2.222222222),
-                new Location(12.1111, 2.222222222),
-                new Location(17.1111, 2.222222222)
+                new Location(40.6655101, -73.89188969999998),
+                new Location(41.6655101, -74.89188969999998)
             };
 
             List<Location> destinations = new List<Location>()
             {
-                new Location(21.1111, 4.442222222),
-                new Location(31.1111, 2.552222222),
-                new Location(41.1111, 6.222222222)
+                new Location(40.598566, -73.7527626),
+                new Location(41.598566, -73.7527626)
             };
+
+            var test = origins[0].lat.ToString();
 
             DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(origins, destinations, APIKey);
 

@@ -114,9 +114,10 @@ namespace Scheduler.Models
             string urlParameters = CreateURLParameterString(originAddresses, destinationAddresses, APIKey);
             DataObject APIResponseObject = LoadAPIResponseInDataObject(urlParameters);
             var test = APIResponseObject;
-            int i = 0, j = 0;
+            int i = 0;
             foreach (var row in APIResponseObject.rows)
             {
+                int j = 0;
                 foreach (var element in row.elements)
                 {
                     var secondsFromOriginToDestination = Int32.Parse(element.duration.value);
@@ -150,15 +151,13 @@ namespace Scheduler.Models
 
         private static string CreateURLParameterString(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
         {
-            string destinations = "0";
-            string origins = "1";
-            string URLParameters = String.Format("?destinations={0}&origins={1}&key={2}", destinations, origins, APIKey);
             List<string> originAddressesGoogleAPIFormat = new List<string>();
             List<string> destinationAddressesGoogleAPIFormat = new List<string>();
             foreach (Location originAddress in originAddresses)
             {
                 originAddressesGoogleAPIFormat.Add(ToGoogleAPILocation(originAddress));
             }
+            var test = originAddressesGoogleAPIFormat;
             foreach (Location destinationAddress in destinationAddresses)
             {
                 destinationAddressesGoogleAPIFormat.Add(ToGoogleAPILocation(destinationAddress));

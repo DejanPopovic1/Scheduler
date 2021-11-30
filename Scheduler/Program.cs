@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Globalization;
 
 namespace Scheduler
 {
@@ -13,6 +15,7 @@ namespace Scheduler
     {
         public static void Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             CreateHostBuilder(args).Build().Run();
         }
 
