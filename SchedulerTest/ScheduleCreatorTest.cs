@@ -59,12 +59,14 @@ namespace SchedulerTest
 
             List<Location> origins = new List<Location>()
             {
+                new Location(45.6655101, -75.89188969999998),
                 new Location(40.6655101, -73.89188969999998),
                 new Location(41.6655101, -74.89188969999998)
             };
 
             List<Location> destinations = new List<Location>()
             {
+                new Location(46.6655101, -76.89188969999998),
                 new Location(40.598566, -73.7527626),
                 new Location(41.598566, -73.7527626)
             };
