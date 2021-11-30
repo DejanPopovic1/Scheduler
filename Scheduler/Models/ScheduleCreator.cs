@@ -1,6 +1,7 @@
 ﻿using Scheduler.Data;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -39,7 +40,7 @@ namespace Scheduler.Models
     public class ScheduleCreator
     {
         private const string URL = "https://maps.googleapis.com/maps/api/distancematrix/json";
-        private static string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
+        private const string urlParameters = "?destinations=40.598566%2C-73.7527626%7C40.598566%2C-73.7527626&origins=40.6655101%2C-73.89188969999998&key=AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko";
         private const string commaDelimiter = "%2C";
         private const string pipeDelimiter = "%7C";
 
@@ -85,6 +86,26 @@ namespace Scheduler.Models
             TimeSpan[,] result = new TimeSpan[originAddresses.Count, destinationAddresses.Count];
             return result;
             
+        }
+
+        private DataObject LoadAPIResponseInDataObject(string URLParameters)
+        {
+            DataObject result;
+            TimeSpan ret = new TimeSpan();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("text/json"));
+            HttpResponseMessage response = client.GetAsync(URLParameters).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                result = response.Content.ReadAsAsync<DataObject>().Result;
+            }
+            else
+            {
+                throw new Exception("Status code unsuccesfull");
+            }
+            return result;
         }
 
         private static string CreateURLParameterString(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
