@@ -61,7 +61,7 @@ namespace Scheduler.Controllers
                 UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
                 graph.CreateEdgesUnoptimised();
                 graph.ColourGraph();
-
+                var r = graph.ColouringNumber;
             }
                 return Ok(schedulesForNextNDays);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()
