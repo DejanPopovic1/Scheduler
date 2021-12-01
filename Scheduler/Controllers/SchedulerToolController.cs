@@ -23,69 +23,47 @@ namespace Scheduler.Controllers
         [HttpGet("getInfo")]
         public IActionResult GetInfo()
         {
-
-            List<Schedule>[] result = new List<Schedule>[12];
-            DateTime startDate = new DateTime(2021, 11, 28); //Remember to change to todays date once done testing
-
-            //Get List of booking Times
-            List<DateTime> bookingStartDateTimes = _dbContext.Schedules.Select(x => x.PickupDateTime).ToList();
-            List<TimeSpan> bookingStartTimes = new List<TimeSpan>();
-            foreach (DateTime bookingStartDateTime in bookingStartDateTimes)
-            {
-                TimeSpan bookingStartTime = bookingStartDateTime.TimeOfDay;
-                bookingStartTimes.Add(bookingStartTime);
-            }
-            //
-
-            //Get List of booking locations
-            List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude}).ToList();
-            //
-
-            //OriginLocations
+            List<ScheduleModel>[] result = new List<ScheduleModel>[12];
+            //DistanceMatrix that actually gets used
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
-
-
+            List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
             DistanceMatrix dailyDistanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
-
+            List<TimeSpan> bookingTravelTimes = dailyDistanceMatrix[1];
             //Split DB bookings into day matrix and iterate through it
             List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
             SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
-            List<Schedule>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedules;
-
-            foreach (List<Schedule> schedulesForDay in schedulesForNextNDays)
+            List<int>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedulesIds;
+            for (int i = 0; i < schedulesForNextNDays.Length; i++)
             {
                 //Get List of booking Times
-                List<DateTime> i_bookingStartDateTimes = schedulesForDay.Select(x => x.PickupDateTime).ToList();
-                List<TimeSpan> i_bookingStartTimes = new List<TimeSpan>();
+                List<DateTime> bookingStartDateTimes = _dbContext.Schedules.Where(x => schedulesForNextNDays[i].Contains(x.Id)).Select(x => x.PickupDateTime).ToList();
+                List<TimeSpan> bookingStartTimes = new List<TimeSpan>();
                 foreach (DateTime bookingStartDateTime in bookingStartDateTimes)
                 {
                     TimeSpan bookingStartTime = bookingStartDateTime.TimeOfDay;
                     bookingStartTimes.Add(bookingStartTime);
                 }
-                //Get List of booking locations
-                List<Location> i_bookingLocations = schedulesForDay.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
+                //
+                List<ScheduleModel> daysSchedules = new List<ScheduleModel>();
+                foreach (var bookingStartTime in bookingStartTimes)
+                {
+                    var bookingEndTime = bookingStartTime + bookingTravelTimes[i];
+                    daysSchedules.Add(new ScheduleModel(bookingStartTime, bookingEndTime));
+                }
+                //===========================
 
+                List<Vertex> scheduleVertices = new List<Vertex>();
+                foreach (ScheduleModel daySchedule in daysSchedules)
+                {
+                    scheduleVertices.Add(new ScheduleVertex(daySchedule));
+                }
 
+                UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
+                graph.CreateEdgesUnoptimised();
+                graph.ColourGraph();
 
-
-
-
-                //List<Location> destinationLocations = schedulesForDay.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
-                //List<TimeSpan> bookingPickupTimes = schedulesForDay.Select(x => x.PickupDateTime);
-                //DistanceMatrix dailyDistanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, destinationLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
-                //List<TimeSpan> travelTimes = dailyDistanceMatrix[1];
-                //List<ScheduleModel> dailySchedules;
-                //foreach (Schedule schedule in schedulesForDay) 
-                //{
-                //                = new List<ScheduleModel>();
-                //    dailySchedules
-                //}
             }
-
-            return Ok(schedulesForNextNDays);
-
-
-
+                return Ok(schedulesForNextNDays);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()
             //{
             //    NumberOfSchedulingUsers = 4,
