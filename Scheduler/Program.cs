@@ -15,7 +15,6 @@ namespace Scheduler
     {
         public static void Main(string[] args)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             CreateHostBuilder(args).Build().Run();
         }
 

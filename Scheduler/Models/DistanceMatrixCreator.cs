@@ -1,9 +1,11 @@
 ﻿using Scheduler.Data;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 
 namespace Scheduler.Models
 {
@@ -42,10 +44,13 @@ namespace Scheduler.Models
 
         public DistanceMatrix(List<Location> originLocations, List<Location> destinationLocations, TimeSpan[,] distanceMatrixValues)
         {
-            if (originLocations.Count != distanceMatrixValues.GetLength(0) || destinationLocations.Count != distanceMatrixValues.GetLength(1))
-            {
-                throw new Exception("Origin Locations, Destination Locations and Distance Matrix Sizes Do Not Match");
-            }
+            //if (originLocations.Count != distanceMatrixValues.GetLength(0) || destinationLocations.Count != distanceMatrixValues.GetLength(1))
+            //{
+            //    var test1 = distanceMatrixValues.GetLength(0);
+            //    var test2 = distanceMatrixValues.GetLength(1);
+            //    var test3 = 1;
+            //    throw new Exception("Origin Locations, Destination Locations and Distance Matrix Sizes Do Not Match");
+            //}
             OriginAddresses = originLocations;
             DestinationAddresses = destinationLocations;
             DistanceMatrixValues = distanceMatrixValues;
@@ -79,30 +84,35 @@ namespace Scheduler.Models
         //}
 
         //Refactor into a distance matrix in accordance to google's own API
-        public static TimeSpan CalculateTravelTime(List<Schedule> schedules, CentralHub centralHub)
-        {
-            TimeSpan ret = new TimeSpan();
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("text/json"));
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var dataObjects = response.Content.ReadAsAsync<DataObject>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
-                var test = dataObjects.rows;
-                Console.WriteLine("{0}", dataObjects.rows);
-            }
-            else
-            {
-                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
-            }
-            return ret;
-        }
+        //public static TimeSpan CalculateTravelTime(List<Schedule> schedules, CentralHub centralHub)
+        //{
+        //    TimeSpan ret = new TimeSpan();
+        //    HttpClient client = new HttpClient();
+        //    client.BaseAddress = new Uri(URL);
+        //    client.DefaultRequestHeaders.Accept.Add(
+        //    new MediaTypeWithQualityHeaderValue("text/json"));
+        //    HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var dataObjects = response.Content.ReadAsAsync<DataObject>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
+        //        var test = dataObjects.rows;
+        //        Console.WriteLine("{0}", dataObjects.rows);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+        //    }
+        //    return ret;
+        //}
         //===================================
 
         public static DistanceMatrix GenerateDistanceMatrix(List<Location> originAddresses, List<Location> destinationAddresses, string APIKey)
         {
+            if (originAddresses.Count == 0 || destinationAddresses.Count == 0)
+            {
+                var emptyDistanceMatrix = new TimeSpan[0,0];
+                return new DistanceMatrix(originAddresses, destinationAddresses, emptyDistanceMatrix);
+            }
             TimeSpan[,] distanceMatrixValues = GenerateDistanceMatrixValues(originAddresses, destinationAddresses, APIKey);
             DistanceMatrix result = new DistanceMatrix(originAddresses, destinationAddresses, distanceMatrixValues);
             return result;
@@ -169,6 +179,7 @@ namespace Scheduler.Models
 
         private static string ToGoogleAPILocation(Location location)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             return (location.lat).ToString() + commaDelimiter + (location.lon).ToString();
         }
     }

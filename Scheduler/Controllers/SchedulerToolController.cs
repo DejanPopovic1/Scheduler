@@ -3,7 +3,9 @@ using Scheduler.Data;
 using Scheduler.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace Scheduler.Controllers
 {
@@ -21,85 +23,84 @@ namespace Scheduler.Controllers
         [HttpGet("getInfo")]
         public IActionResult GetInfo()
         {
-            //List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
-            //SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
-            //var schedulesForNextNDays = schedulesSplitter.ForecastedSchedules;
-            //foreach (List<Schedule> schedulesForDay in schedulesForNextNDays)
-            //{
-            //    foreach (Schedule schedule in schedulesForDay)
-            //    { 
-
-
-            //    }
-            //}
-
-
-
-
-
-            SchedulerToolViewModel result = new SchedulerToolViewModel()
+            List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
+            SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
+            var schedulesForNextNDays = schedulesSplitter.ForecastedSchedules;
+            List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
+            foreach (List<Schedule> schedulesForDay in schedulesForNextNDays)
             {
-                NumberOfSchedulingUsers = 4,
-                TotalKmTravelledForTheNextDay = 10000,
-                TotalHoursTravelledForTheNextDay = 2100,
-                GraphDataPoints = new List<DataPoint>()
-                {
-                        new DataPoint(){
-                            Date = new DateTime(2022, 5, 5),
-                            NumberOfResources = 5,
-                        },
-                        new DataPoint(){
-                            Date = new DateTime(2022, 6, 1),
-                            NumberOfResources = 7,
-                        },
-                        new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 6,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 2,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 4,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 4,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 8,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 9,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 1,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 1,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 2,
-                        },
-                            new DataPoint(){
-                            Date = new DateTime(2022, 7, 25),
-                            NumberOfResources = 2,
-                        },
-                },
-                HubLocation = new Coordinates()
-                {
-                    lat = 22.788,
-                    lon = 23.214
-                }
-            };
-            return Ok(result);
+                List<Location> destinationLocations = schedulesForDay.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
+                DistanceMatrix dailyDistanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, destinationLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
+                var test = 1;
+            }
+
+            return Ok(schedulesForNextNDays);
+
+
+
+            //SchedulerToolViewModel result = new SchedulerToolViewModel()
+            //{
+            //    NumberOfSchedulingUsers = 4,
+            //    TotalKmTravelledForTheNextDay = 10000,
+            //    TotalHoursTravelledForTheNextDay = 2100,
+            //    GraphDataPoints = new List<DataPoint>()
+            //    {
+            //            new DataPoint(){
+            //                Date = new DateTime(2022, 5, 5),
+            //                NumberOfResources = 5,
+            //            },
+            //            new DataPoint(){
+            //                Date = new DateTime(2022, 6, 1),
+            //                NumberOfResources = 7,
+            //            },
+            //            new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 6,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 2,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 4,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 4,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 8,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 9,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 1,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 1,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 2,
+            //            },
+            //                new DataPoint(){
+            //                Date = new DateTime(2022, 7, 25),
+            //                NumberOfResources = 2,
+            //            },
+            //    },
+            //    HubLocation = new Coordinates()
+            //    {
+            //        lat = 22.788,
+            //        lon = 23.214
+            //    }
+            //};
+            //return Ok(result);
         }
 
         [HttpPost("ChangeCentralLocation")]
