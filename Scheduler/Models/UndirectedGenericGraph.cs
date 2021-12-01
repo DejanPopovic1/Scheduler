@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 //See: https://codereview.stackexchange.com/questions/131583/generic-graph-implementation-in-c
 namespace Scheduler.Models
@@ -22,6 +23,14 @@ namespace Scheduler.Models
                 result /= 2;
                 return result; 
             } 
+        }
+
+        public int ColouringNumber
+        {
+            get
+            {
+                return Vertices.Select(x => x.Colour).Distinct().Count();
+            }
         }
 
         public UndirectedGenericGraph(int initialSize)

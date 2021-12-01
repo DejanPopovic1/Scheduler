@@ -60,5 +60,19 @@ namespace SchedulerTest
             Assert.AreEqual(graph.Vertices[5].Colour, 2);
             Assert.AreEqual(graph.Vertices[6].Colour, 1);
         }
+
+        [Test]
+        public void should_have_correct_number_of_colours()
+        {
+            graph.CreateEdgesUnoptimised();
+            graph.ColourGraph();
+            Assert.AreEqual(graph.Vertices[0].Colour, 1);
+            Assert.AreEqual(graph.Vertices[1].Colour, 1);
+            Assert.AreEqual(graph.Vertices[2].Colour, 2);
+            Assert.AreEqual(graph.Vertices[3].Colour, 1);
+            Assert.AreEqual(graph.Vertices[4].Colour, 3);
+            Assert.AreEqual(graph.Vertices[5].Colour, 2);
+            Assert.AreEqual(graph.Vertices[6].Colour, 1);
+        }
     }
 }
