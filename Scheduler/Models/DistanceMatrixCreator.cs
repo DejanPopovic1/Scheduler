@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -54,6 +55,20 @@ namespace Scheduler.Models
             OriginAddresses = originLocations;
             DestinationAddresses = destinationLocations;
             DistanceMatrixValues = distanceMatrixValues;
+        }
+
+        public List<TimeSpan> this[int key]
+        {
+            get 
+            {
+                TimeSpan[] arraySlice = DistanceMatrixValues.GetRow(key - 1);
+                return arraySlice.ToList();
+            }
+            set
+            {
+                TimeSpan[] valueList = value.ToArray();
+                DistanceMatrixValues.SetRow(key - 1, valueList);
+            }
         }
     }
 
