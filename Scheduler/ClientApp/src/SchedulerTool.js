@@ -10,7 +10,7 @@ import './styles.css';
 //Required Libraries for this component - remove all else
 import Container from 'react-bootstrap/Container';
 import { PureComponent } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Legend, Bar} from 'recharts';
 import CountUp from 'react-countup';
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -236,7 +236,7 @@ debugger;
                                 </div>
                             </Col>
                         </Row>
-                        <row>
+                        {/* <row>
                             <AreaChart
                                 width={800}
                                 height={400}
@@ -255,7 +255,24 @@ debugger;
                                 <Tooltip />
                                 <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
                                 </AreaChart>
+                        </row> */}
+
+                        <row>
+                            <BarChart width={730} height={250} data={dataSource}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="value" fill="#8884d8" />
+                            </BarChart>
                         </row>
+
+
+
+
+
+
                         {/* <XAxis dataKey="date" /> */}
                         {/* dataKey="uv"  */}
                         <Row>
