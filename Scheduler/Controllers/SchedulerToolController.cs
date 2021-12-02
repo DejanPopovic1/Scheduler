@@ -67,7 +67,7 @@ namespace Scheduler.Controllers
             }
             result.RequiredResourcesPerDay = requiredResourcesPerDay;
             var test = result.RequiredResourcesPerDay;
-                return Ok(schedulesForNextNDays);
+                return Ok(result.RequiredResourcesPerDay);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()
             //{
             //    NumberOfSchedulingUsers = 4,

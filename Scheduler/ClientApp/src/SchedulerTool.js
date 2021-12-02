@@ -27,14 +27,34 @@ class SchedulerTool extends PureComponent {
 
     afterStateUpdate = () => {
         var test = this.state;
-        //debugger;
+        debugger;
     }
 
     async componentDidMount() {
         var response = await this.GetAllSuperUserInformation();
-        var test = response.requiredResourcesPerDay;
-        //debugger;
-        this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay, requiredResourcesPerDay : response.requiredResourcesPerDay});
+        // var test = response.requiredResourcesPerDay;
+        // debugger;
+        var xAxis = this.GetRenderedDates();
+        function MakeDataSource(value, index, array) {
+            return {"name": xAxis[index], "value": response[index]};
+        };
+        var initialStateGraph = Array(12).fill();
+        initialStateGraph = initialStateGraph.map(MakeDataSource);
+debugger;
+       // var updatedRequiredResourcesPerDay = requiredResourcesPerDay.map();
+        function updateResource(value, index, array) {
+            //var elementRawDate = new Date();
+            var elementRawDate = new Date(new Date().getTime() + index * 86400000);
+            //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
+            //return elementStringDate;
+            var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
+            return result;
+        };
+        this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, 
+            totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, 
+            totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay, 
+            requiredResourcesPerDay: response.requiredResourcesPerDay}, 
+            this.afterStateUpdate);
         // this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
         // this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
         // this.setState({requiredResourcesPerDay : response.requiredResourcesPerDay});
@@ -86,13 +106,14 @@ class SchedulerTool extends PureComponent {
     }
 
     getInitialState = () => {
-        debugger;
+
         var xAxis = this.GetRenderedDates();
         function MakeDataSource(value, index, array) {
-            return {date: xAxis[index], uv: 0};
+            return {"name": xAxis[index], "value": 1};
         };
         var initialStateGraph = Array(12).fill();
         initialStateGraph = initialStateGraph.map(MakeDataSource);
+        debugger;
         return {
             numberOfSchedulingUsers: 0,
             totalKmTravelledForTheNextDay: 0,
@@ -113,16 +134,6 @@ class SchedulerTool extends PureComponent {
         this.setState({ isScheduleModalVisible: true });
     }
 
-    fetchSchedule = async () => {
-        var response = await fetch("schedule/getList", {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token") }
-        })
-            .then((resp) => resp.json())
-            .then((data) => data);
-        return response;
-    }
-
     closeModal = () => {
         this.setState({ isScheduleModalVisible: false });
     }
@@ -139,7 +150,41 @@ class SchedulerTool extends PureComponent {
         //dataSource = dataSource.map(MakeDataSource);
         
         //dataSource = [{date: "blah", uv: 5 }, {date: "blahhh", uv: 7 }, {date: "blahhhss", uv: 4 }, {date: "blahhhss", uv: 5 }, {date: "blahhhss", uv: 5 }];
-        const dataSource = [{"name": xAxis[0], "value": 5 }, {"name": xAxis[1], "value": 7 }, {"name": xAxis[2], "value": 4 }, {"name": xAxis[3], "value": 5 }, {"name": xAxis[4], "value": 5 }];
+    //     var dataSource = [
+    //     {"name": xAxis[0], "value": this.state.requiredResourcesPerDay[0] }, 
+    //     {"name": xAxis[1], "value": this.state.requiredResourcesPerDay[1] }, 
+    //     {"name": xAxis[2], "value": this.state.requiredResourcesPerDay[2] }, 
+    //     {"name": xAxis[3], "value": this.state.requiredResourcesPerDay[3] }, 
+    //     {"name": xAxis[4], "value": this.state.requiredResourcesPerDay[4] }, 
+    //     {"name": xAxis[5], "value": this.state.requiredResourcesPerDay[5] }, 
+    //     {"name": xAxis[6], "value": this.state.requiredResourcesPerDay[6] }, 
+    //     {"name": xAxis[7], "value": this.state.requiredResourcesPerDay[7] }, 
+    //     {"name": xAxis[8], "value": this.state.requiredResourcesPerDay[8] }, 
+    //     {"name": xAxis[9], "value": this.state.requiredResourcesPerDay[9] }, 
+    //     {"name": xAxis[10], "value": this.state.requiredResourcesPerDay[10] }, 
+    //     {"name": xAxis[11], "value": this.state.requiredResourcesPerDay[11] }
+    // ];
+    
+    // var dataSource = [
+    //     {"name": xAxis[0], "value": 1 }, 
+    //     {"name": xAxis[1], "value": 5 }, 
+    //     {"name": xAxis[2], "value": 5 }, 
+    //     {"name": xAxis[3], "value": 5 }, 
+    //     {"name": xAxis[4], "value": 2 }, 
+    //     {"name": xAxis[5], "value": 4 }, 
+    //     {"name": xAxis[6], "value": 3 }, 
+    //     {"name": xAxis[7], "value": 7 }, 
+    //     {"name": xAxis[8], "value": 6 }, 
+    //     {"name": xAxis[9], "value": 8 }, 
+    //     {"name": xAxis[10], "value": 8 }, 
+    //     {"name": xAxis[11], "value": 4 }
+    // ];
+
+    var test = this.state.requiredResourcesPerDay;
+    debugger;
+    var dataSource = this.state.requiredResourcesPerDay;
+
+
         //var data = dataSource;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
