@@ -25,18 +25,15 @@ namespace Scheduler.Controllers
         {
             SchedulerToolViewModel result = new SchedulerToolViewModel();
             List<int> requiredResourcesPerDay = new List<int>();
-            //DistanceMatrix that actually gets used
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
             List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
-            DistanceMatrix dailyDistanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
-            List<TimeSpan> bookingTravelTimes = dailyDistanceMatrix[1];
-            //Split DB bookings into day matrix and iterate through it
+            DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
+            List<TimeSpan> bookingTravelTimes = distanceMatrix[1];
             List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
             SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
             List<int>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedulesIds;
             for (int i = 0; i < schedulesForNextNDays.Length; i++)
             {
-                //Get List of booking Times
                 List<DateTime> bookingStartDateTimes = _dbContext.Schedules.Where(x => schedulesForNextNDays[i].Contains(x.Id)).Select(x => x.PickupDateTime).ToList();
                 List<TimeSpan> bookingStartTimes = new List<TimeSpan>();
                 foreach (DateTime bookingStartDateTime in bookingStartDateTimes)
@@ -44,22 +41,17 @@ namespace Scheduler.Controllers
                     TimeSpan bookingStartTime = bookingStartDateTime.TimeOfDay;
                     bookingStartTimes.Add(bookingStartTime);
                 }
-                //
                 List<ScheduleModel> daysSchedules = new List<ScheduleModel>();
                 foreach (var bookingStartTime in bookingStartTimes)
                 {
                     var bookingEndTime = bookingStartTime + bookingTravelTimes[i];
                     daysSchedules.Add(new ScheduleModel(bookingStartTime, bookingEndTime));
                 }
-                //===========================
-
                 List<Vertex> scheduleVertices = new List<Vertex>();
-
                 foreach (ScheduleModel daySchedule in daysSchedules)
                 {
                     scheduleVertices.Add(new ScheduleVertex(daySchedule));
                 }
-
                 UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
                 graph.CreateEdgesUnoptimised();
                 graph.ColourGraph();
@@ -67,7 +59,23 @@ namespace Scheduler.Controllers
             }
             result.RequiredResourcesPerDay = requiredResourcesPerDay;
             var test = result.RequiredResourcesPerDay;
-                return Ok(result.RequiredResourcesPerDay);
+
+            result.NumberOfSchedulingUsers = _dbContext.Users.Count();
+
+            var schedulesForNextDay = _dbContext.Schedules.ToList().Select((x, i) => new ScheduleIndexQueryResult()
+            {
+                Schedule = x,
+                Index = i
+            }).Where(x => x.Schedule.PickupDateTime > DateTime.Now && x.Schedule.PickupDateTime < DateTime.Now.AddDays(1));
+
+            var r = schedulesForNextDay.Select(x => bookingTravelTimes[x.Index].Ticks);
+            var r3 = r.Sum();
+            int firstDayTotalTravelHours = (int)(r.Sum()/10000000/60);
+            result.TotalMinutesTravelledForTheNextDay = firstDayTotalTravelHours;
+            //result.TotalKmTravelledForTheNextDay = 3;
+
+
+            return Ok(result);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()
             //{
             //    NumberOfSchedulingUsers = 4,
@@ -157,5 +165,11 @@ namespace Scheduler.Controllers
             _dbContext.SaveChanges();
             return Ok();
         }
+    }
+
+    public class ScheduleIndexQueryResult 
+    {
+        public Schedule Schedule { get; set; }
+        public int Index { get; set; }
     }
 }

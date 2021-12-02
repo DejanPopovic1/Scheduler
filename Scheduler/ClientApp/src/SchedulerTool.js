@@ -36,7 +36,7 @@ class SchedulerTool extends PureComponent {
         // debugger;
         var xAxis = this.GetRenderedDates();
         function MakeDataSource(value, index, array) {
-            return {"name": xAxis[index], "value": response[index]};
+            return {"name": xAxis[index], "value": response.requiredResourcesPerDay[index]};
         };
         var initialStateGraph = Array(12).fill();
         initialStateGraph = initialStateGraph.map(MakeDataSource);
@@ -52,12 +52,9 @@ debugger;
         // };
         this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, 
             totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, 
-            totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay, 
+            totalMinutesTravelledForTheNextDay: response.totalMinutesTravelledForTheNextDay, 
             requiredResourcesPerDay: initialStateGraph}, //requiredResourcesPerDay
             this.afterStateUpdate);
-        // this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
-        // this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
-        // this.setState({requiredResourcesPerDay : response.requiredResourcesPerDay});
     }
 
     AddChangeCentralHub = async() => {
@@ -79,7 +76,7 @@ debugger;
         })
             .then((resp) => resp.json())
             .then((data) => data);
-            //debugger;
+            debugger;
             return result;
     }
 
@@ -117,7 +114,7 @@ debugger;
         return {
             numberOfSchedulingUsers: 0,
             totalKmTravelledForTheNextDay: 0,
-            totalHoursTravelledForTheNextDay: 0,
+            totalMinutesTravelledForTheNextDay: 0,
             requiredResourcesPerDay: initialStateGraph,
             lat: 0,
             lng: 0,
@@ -188,7 +185,7 @@ debugger;
         //var data = dataSource;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
-        var hoursTotalTravelledNextDay = this.state.totalHoursTravelledForTheNextDay;
+        var hoursTotalTravelledNextDay = this.state.totalMinutesTravelledForTheNextDay;
         return (
             <div>
                 <div className="container mt-3 mb-3">
@@ -208,7 +205,7 @@ debugger;
                                 </div>
                             </Col>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Col>
                                 <Form.Group>
                                     <Form.Label>Total Km travelled for the next day</Form.Label>
@@ -221,11 +218,11 @@ debugger;
                                     </h1>
                                 </div>
                             </Col>
-                        </Row>
+                        </Row> */}
                         <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Total Hours travelled for the next day</Form.Label>
+                                    <Form.Label>Total planned hours travelled for current day</Form.Label>
                                 </Form.Group>
                             </Col>
                             <Col>
@@ -258,6 +255,7 @@ debugger;
                         </row> */}
 
                         <row>
+                            Required vehicle resources for the upcoming days:
                             <BarChart width={730} height={250} data={dataSource}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
