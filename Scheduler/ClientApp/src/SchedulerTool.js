@@ -22,22 +22,22 @@ class SchedulerTool extends PureComponent {
         super(props);
         this.state = this.getInitialState();
         this.getData = this.getData.bind(this);
-        debugger;
+       // debugger;
     }
 
     afterStateUpdate = () => {
         var test = this.state;
-        debugger;
+        //debugger;
     }
 
     async componentDidMount() {
         var response = await this.GetAllSuperUserInformation();
-        var test = response.graphDataPoints;
-        debugger;
-        this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers});
-        this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
-        this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
-        this.setState({graphDataPoints : response.graphDataPoints});
+        var test = response.requiredResourcesPerDay;
+        //debugger;
+        this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay, requiredResourcesPerDay : response.requiredResourcesPerDay});
+        // this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
+        // this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
+        // this.setState({requiredResourcesPerDay : response.requiredResourcesPerDay});
     }
 
     AddChangeCentralHub = async() => {
@@ -59,21 +59,34 @@ class SchedulerTool extends PureComponent {
         })
             .then((resp) => resp.json())
             .then((data) => data);
-            debugger;
+            //debugger;
             return result;
     }
 
     GetRenderedDates = () => {
-        var renderedDatesArray = Array(12).fill(new Date());
+        // var renderedDatesArray = Array(12).fill(new Date());
+        // function ForwardDate(value, index, array) {
+        //     var forwardDate = new Date(value.getFullYear(), value.getMonth() + index , value.getDate());
+        //     return monthNames[forwardDate.getMonth()] + " " + forwardDate.getFullYear();
+        // };
+        // renderedDatesArray = renderedDatesArray.map(ForwardDate);
+        // return renderedDatesArray;
+        var renderedDatesArray = Array(12).fill();
         function ForwardDate(value, index, array) {
-            var forwardDate = new Date(value.getFullYear(), value.getMonth() + index , value.getDate());
-            return monthNames[forwardDate.getMonth()] + " " + forwardDate.getFullYear();
+            //var elementRawDate = new Date();
+            var elementRawDate = new Date(new Date().getTime() + index * 86400000);
+            //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
+            //return elementStringDate;
+            var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
+            return result;
         };
         renderedDatesArray = renderedDatesArray.map(ForwardDate);
+
         return renderedDatesArray;
     }
 
     getInitialState = () => {
+        debugger;
         var xAxis = this.GetRenderedDates();
         function MakeDataSource(value, index, array) {
             return {date: xAxis[index], uv: 0};
@@ -84,7 +97,7 @@ class SchedulerTool extends PureComponent {
             numberOfSchedulingUsers: 0,
             totalKmTravelledForTheNextDay: 0,
             totalHoursTravelledForTheNextDay: 0,
-            graphDataPoints: initialStateGraph,
+            requiredResourcesPerDay: initialStateGraph,
             lat: 0,
             lng: 0,
         };
@@ -110,53 +123,24 @@ class SchedulerTool extends PureComponent {
         return response;
     }
 
-    handleAddSchedule = async () => {
-        const southAfricanTimeZoneOffset = 2;
-        var inputDate = new Date(this.state.date);
-        var inputTime = this.state.time;
-        var year = inputDate.getFullYear();
-        var month = inputDate.getMonth();
-        var date = inputDate.getDate();
-        var hour = parseInt(inputTime.substring(0, 2)) + southAfricanTimeZoneOffset;
-        var minute = inputTime.substring(3, 5);
-        var inputDateTime = new Date(year, month, date, hour, minute);
-        var test1 = this.state.lat;
-        var test2 = this.state.lon;
-        var postData = { pickupDate: inputDateTime, scheduleName: this.state.scheduleName, location: { lat: this.state.lat, lon: this.state.lng }, Id: 3 };
-        var response = await fetch("schedule/add", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', "Authorization": localStorage.getItem("token") },
-            body: JSON.stringify(postData)
-        })
-        window.location.reload(false);
-    }
-
-    addToItemArray = () => {
-        var scheduledDate = new Date();
-        scheduledDate = document.getElementById("datePicker").value;
-        var scheduledItem = document.getElementById("scheduleName").value;
-        var scheduledLat = this.state.lat;
-        var scheduledLng = this.state.lng;
-        var newObject = { scheduledDate, scheduledLat, scheduledLng, scheduledItem };
-        var joinedObjList = this.state.scheduledItemsArray.concat(newObject);
-        this.setState({ scheduledItemsArray: joinedObjList }, function () {
-            this.postData();
-        });
-    }
-
     closeModal = () => {
         this.setState({ isScheduleModalVisible: false });
     }
 
     render() {
-        var dataPoints = this.state.graphDataPoints;
+        var dataPoints = this.state.requiredResourcesPerDay;
+
         var xAxis = this.GetRenderedDates();
-        function MakeDataSource(value, index, array) {
-            return {date: xAxis[index], uv: dataPoints[index].numberOfResources};
-        };
-        var dataSource = Array(12).fill();
-        dataSource = dataSource.map(MakeDataSource);
-        var data = dataSource;
+        debugger;
+        // function MakeDataSource(value, index, array) {
+        //     return {date: xAxis[index], uv: dataPoints[index].numberOfResources};
+        // };
+        //var dataSource = Array(12).fill();/////////////////////////////uncomment
+        //dataSource = dataSource.map(MakeDataSource);
+        
+        //dataSource = [{date: "blah", uv: 5 }, {date: "blahhh", uv: 7 }, {date: "blahhhss", uv: 4 }, {date: "blahhhss", uv: 5 }, {date: "blahhhss", uv: 5 }];
+        const dataSource = [{"name": xAxis[0], "value": 5 }, {"name": xAxis[1], "value": 7 }, {"name": xAxis[2], "value": 4 }, {"name": xAxis[3], "value": 5 }, {"name": xAxis[4], "value": 5 }];
+        //var data = dataSource;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
         var hoursTotalTravelledNextDay = this.state.totalHoursTravelledForTheNextDay;
@@ -211,7 +195,7 @@ class SchedulerTool extends PureComponent {
                             <AreaChart
                                 width={800}
                                 height={400}
-                                data={data}
+                                data={dataSource}
                                 //data={this.state.graphDataPoints}
                                 margin={{
                                     top: 10,
@@ -221,12 +205,14 @@ class SchedulerTool extends PureComponent {
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" />
+                                <XAxis dataKey="name" />
                                 <YAxis />
                                 <Tooltip />
-                                <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#8884d8" />
+                                <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
                                 </AreaChart>
                         </row>
+                        {/* <XAxis dataKey="date" /> */}
+                        {/* dataKey="uv"  */}
                         <Row>
                             <p><button className="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add central logistics location</button></p>
                         </Row>
