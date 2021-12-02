@@ -42,18 +42,18 @@ class SchedulerTool extends PureComponent {
         initialStateGraph = initialStateGraph.map(MakeDataSource);
 debugger;
        // var updatedRequiredResourcesPerDay = requiredResourcesPerDay.map();
-        function updateResource(value, index, array) {
-            //var elementRawDate = new Date();
-            var elementRawDate = new Date(new Date().getTime() + index * 86400000);
-            //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
-            //return elementStringDate;
-            var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
-            return result;
-        };
+        // function updateResource(value, index, array) {
+        //     //var elementRawDate = new Date();
+        //     var elementRawDate = new Date(new Date().getTime() + index * 86400000);
+        //     //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
+        //     //return elementStringDate;
+        //     var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
+        //     return result;
+        // };
         this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, 
             totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, 
             totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay, 
-            requiredResourcesPerDay: response.requiredResourcesPerDay}, 
+            requiredResourcesPerDay: initialStateGraph}, //requiredResourcesPerDay
             this.afterStateUpdate);
         // this.setState({totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay});
         // this.setState({totalHoursTravelledForTheNextDay: response.totalHoursTravelledForTheNextDay});
