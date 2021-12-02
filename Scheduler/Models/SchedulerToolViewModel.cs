@@ -11,7 +11,7 @@ namespace Scheduler.Models
         public int TotalHoursTravelledForTheNextDay { get; set; }
         //public DataPoints GraphDataPoints { get; set; }
 
-        public List<DataPoint> GraphDataPoints { get; set; }
+        public List<int> RequiredResourcesPerDay { get; set; }
 
         public Coordinates HubLocation { get; set; }
 

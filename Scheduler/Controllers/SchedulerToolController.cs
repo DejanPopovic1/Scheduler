@@ -23,7 +23,8 @@ namespace Scheduler.Controllers
         [HttpGet("getInfo")]
         public IActionResult GetInfo()
         {
-            List<ScheduleModel>[] result = new List<ScheduleModel>[12];
+            SchedulerToolViewModel result = new SchedulerToolViewModel();
+            List<int> requiredResourcesPerDay = new List<int>();
             //DistanceMatrix that actually gets used
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
             List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
@@ -53,6 +54,7 @@ namespace Scheduler.Controllers
                 //===========================
 
                 List<Vertex> scheduleVertices = new List<Vertex>();
+
                 foreach (ScheduleModel daySchedule in daysSchedules)
                 {
                     scheduleVertices.Add(new ScheduleVertex(daySchedule));
@@ -61,8 +63,10 @@ namespace Scheduler.Controllers
                 UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
                 graph.CreateEdgesUnoptimised();
                 graph.ColourGraph();
-                var r = graph.ColouringNumber;
+                requiredResourcesPerDay.Add(graph.ColouringNumber);
             }
+            result.RequiredResourcesPerDay = requiredResourcesPerDay;
+            var test = result.RequiredResourcesPerDay;
                 return Ok(schedulesForNextNDays);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()
             //{
