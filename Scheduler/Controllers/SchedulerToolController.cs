@@ -25,14 +25,13 @@ namespace Scheduler.Controllers
         public IActionResult GetInfo()
         {
             SchedulerToolViewModel result = new SchedulerToolViewModel();
-            //BookingAssignment bookingAssignmentFirstDay = new BookingAssignment();
             List<Vertex> bookingAssignmentsFirstDay = new List<Vertex>();
-
             List<int> requiredResourcesPerDay = new List<int>();
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
             List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
             DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
             List<TimeSpan> bookingTravelTimes = distanceMatrix[1];
+            bookingTravelTimes = bookingTravelTimes.Select(x => x * 2).ToList();
             List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
             SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
             List<int>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedulesIds;
@@ -68,96 +67,19 @@ namespace Scheduler.Controllers
                         BookingAssignment bookingAssignmentFirstDayView = new BookingAssignment((ScheduleVertex)bookingAssignmentFirstDay);
                         result.BookingAssignments.Add(bookingAssignmentFirstDayView);
                     }
-                    //bookingAssignmentFirstDay.Add()
                 };
             }
             result.RequiredResourcesPerDay = requiredResourcesPerDay;
-            var test = result.RequiredResourcesPerDay;
-
             result.NumberOfSchedulingUsers = _dbContext.Users.Count();
-
             var schedulesForNextDay = _dbContext.Schedules.ToList().Select((x, i) => new ScheduleIndexQueryResult()
             {
                 Schedule = x,
                 Index = i
             }).Where(x => x.Schedule.PickupDateTime > DateTime.Now && x.Schedule.PickupDateTime < DateTime.Now.AddDays(1));
-
             var r = schedulesForNextDay.Select(x => bookingTravelTimes[x.Index].Ticks);
-            var r3 = r.Sum();
             int firstDayTotalTravelHours = (int)(r.Sum()/10000000/60);
             result.TotalMinutesTravelledForTheNextDay = firstDayTotalTravelHours;
-            //result.TotalKmTravelledForTheNextDay = 3;
-
-
-
-            //Calculating the assignment of resources
-            var r4 = bookingAssignmentsFirstDay;
-            var r5 = result;
-
             return Ok(result);
-            //SchedulerToolViewModel result = new SchedulerToolViewModel()
-            //{
-            //    NumberOfSchedulingUsers = 4,
-            //    TotalKmTravelledForTheNextDay = 10000,
-            //    TotalHoursTravelledForTheNextDay = 2100,
-            //    GraphDataPoints = new List<DataPoint>()
-            //    {
-            //            new DataPoint(){
-            //                Date = new DateTime(2022, 5, 5),
-            //                NumberOfResources = 5,
-            //            },
-            //            new DataPoint(){
-            //                Date = new DateTime(2022, 6, 1),
-            //                NumberOfResources = 7,
-            //            },
-            //            new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 6,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 2,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 4,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 4,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 8,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 9,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 1,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 1,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 2,
-            //            },
-            //                new DataPoint(){
-            //                Date = new DateTime(2022, 7, 25),
-            //                NumberOfResources = 2,
-            //            },
-            //    },
-            //    HubLocation = new Coordinates()
-            //    {
-            //        lat = 22.788,
-            //        lon = 23.214
-            //    }
-            //};
-            //return Ok(result);
         }
 
         [HttpPost("ChangeCentralLocation")]
