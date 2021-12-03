@@ -25,12 +25,12 @@ namespace Scheduler.Models
 
     public partial class BookingAssignment
     {
-        public int AssignedResourceNumber { get; set; }
+        public int ResourceNumber { get; set; }
         //TimeSpan DepartureTime { get; set; }
         //TimeSpan ReturnTime { get; set; }
 
-        public string DepartureTime { get; set; }
-        public string ReturnTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
 
         public BookingAssignment()
         {
@@ -39,13 +39,13 @@ namespace Scheduler.Models
 
         public BookingAssignment(ScheduleVertex scheduledVertex)
         {
-            AssignedResourceNumber = scheduledVertex.Colour;
+            ResourceNumber = scheduledVertex.Colour;
             //DepartureTime = scheduledVertex.scheduleModelValue.StartTime;
             //ReturnTime = scheduledVertex.scheduleModelValue.EndTime;
             var test1 = scheduledVertex.scheduleModelValue.StartTime.Ticks;
             var test2 = scheduledVertex.scheduleModelValue.EndTime.Ticks;
-            DepartureTime = new DateTime(scheduledVertex.scheduleModelValue.StartTime.Ticks).ToString("HH:mm");
-            ReturnTime = new DateTime(scheduledVertex.scheduleModelValue.EndTime.Ticks).ToString("HH:mm");
+            StartTime = new DateTime(scheduledVertex.scheduleModelValue.StartTime.Ticks).ToString("HH:mm");
+            EndTime = new DateTime(scheduledVertex.scheduleModelValue.EndTime.Ticks).ToString("HH:mm");
         }
     }
 }

@@ -224,6 +224,7 @@ debugger;
     var dataSource = this.state.requiredResourcesPerDay;
 
 
+
         //var data = dataSource;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
@@ -321,13 +322,13 @@ debugger;
                                 { title: "Start Time", field: "startTime" },
                                 { title: "End Time", field: "endTime"},
                             ]}
-                            data={[
-                                {
-                                resourceNumber: 1,
-                                startTime: "12:00",
-                                endTime: "15:00",
-                                },
-                            ]}
+                            // data={[
+                            //     {
+                            //     resourceNumber: 1,
+                            //     startTime: "12:00",
+                            //     endTime: "15:00",
+                            //     },
+                                data={this.state.bookingAssignmentsFirstDay}
                             title="Resource Assignments For The Day"
                         />
                         </Col>
