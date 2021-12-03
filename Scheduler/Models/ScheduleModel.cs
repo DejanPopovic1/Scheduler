@@ -4,8 +4,8 @@ namespace Scheduler.Models
 {
     public class ScheduleModel
     {
-        private TimeSpan StartTime;
-        private TimeSpan EndTime;
+        public TimeSpan StartTime { get; }
+        public TimeSpan EndTime { get; }
 
         public ScheduleModel(TimeSpan start, TimeSpan end)
         {

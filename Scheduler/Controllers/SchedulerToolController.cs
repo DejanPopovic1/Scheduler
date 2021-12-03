@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Scheduler.Data;
 using Scheduler.Models;
 using System;
@@ -24,6 +25,9 @@ namespace Scheduler.Controllers
         public IActionResult GetInfo()
         {
             SchedulerToolViewModel result = new SchedulerToolViewModel();
+            //BookingAssignment bookingAssignmentFirstDay = new BookingAssignment();
+            List<Vertex> bookingAssignmentsFirstDay = new List<Vertex>();
+
             List<int> requiredResourcesPerDay = new List<int>();
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
             List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
@@ -56,6 +60,16 @@ namespace Scheduler.Controllers
                 graph.CreateEdgesUnoptimised();
                 graph.ColourGraph();
                 requiredResourcesPerDay.Add(graph.ColouringNumber);
+                if (i == 1)
+                {
+                    bookingAssignmentsFirstDay = graph.Vertices;
+                    foreach (var bookingAssignmentFirstDay in bookingAssignmentsFirstDay)
+                    {
+                        BookingAssignment bookingAssignmentFirstDayView = new BookingAssignment((ScheduleVertex)bookingAssignmentFirstDay);
+                        result.BookingAssignments.Add(bookingAssignmentFirstDayView);
+                    }
+                    //bookingAssignmentFirstDay.Add()
+                };
             }
             result.RequiredResourcesPerDay = requiredResourcesPerDay;
             var test = result.RequiredResourcesPerDay;
@@ -74,6 +88,11 @@ namespace Scheduler.Controllers
             result.TotalMinutesTravelledForTheNextDay = firstDayTotalTravelHours;
             //result.TotalKmTravelledForTheNextDay = 3;
 
+
+
+            //Calculating the assignment of resources
+            var r4 = bookingAssignmentsFirstDay;
+            var r5 = result;
 
             return Ok(result);
             //SchedulerToolViewModel result = new SchedulerToolViewModel()

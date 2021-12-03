@@ -76,6 +76,7 @@ debugger;
         })
             .then((resp) => resp.json())
             .then((data) => data);
+            var r = result.bookingAssignments;
             debugger;
             return result;
     }
@@ -222,7 +223,7 @@ debugger;
                         <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Total planned hours travelled for current day</Form.Label>
+                                    <Form.Label>Remaining hours of travel for the day</Form.Label>
                                 </Form.Group>
                             </Col>
                             <Col>
