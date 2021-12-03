@@ -1,4 +1,4 @@
-﻿using Scheduler.Data;
+﻿using Scheduler.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ namespace Scheduler.Models
     public class SchedulesSplitter
     {
         const int NumberOfForecastDays = 12;
-        public List<Schedule>[] ForecastedSchedules { get; set; }
+        public List<Booking>[] ForecastedSchedules { get; set; }
 
         public List<int>[] ForecastedSchedulesIds { get; set; }
         //public SchedulesSplitter(DateTime startDate, List<Schedule> schedules)
@@ -29,7 +29,7 @@ namespace Scheduler.Models
         //    }
         //}
 
-        public SchedulesSplitter(DateTime startDate, List<Schedule> schedules)
+        public SchedulesSplitter(DateTime startDate, List<Booking> schedules)
         {
             ForecastedSchedulesIds = new List<int>[NumberOfForecastDays];
             for (int i = 0; i < ForecastedSchedulesIds.Length; i++)

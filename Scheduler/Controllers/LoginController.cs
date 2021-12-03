@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Scheduler.Models;
-using Scheduler.Data;
+using Scheduler.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Web;
 using WebApi.Services;
+using Scheduler.ViewModels;
 
 namespace Scheduler.Controllers
 {
@@ -57,7 +58,7 @@ namespace Scheduler.Controllers
         }
 
         [HttpPost("postSchedule")]
-        public int postSchedule([FromBody] IEnumerable<Models.ScheduleViewModel> s)
+        public int postSchedule([FromBody] IEnumerable<ScheduleViewModel> s)
         {
             //System.Environment.Exit(-1);
             int test = 7;

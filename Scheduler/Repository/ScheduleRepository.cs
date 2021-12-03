@@ -1,5 +1,6 @@
-﻿using Scheduler.Data;
+﻿using Scheduler.Entities;
 using Scheduler.Models;
+using Scheduler.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Scheduler.Repository
 
         public void Add(SchedulerEntities context, ScheduleViewModel s) 
         {
-            Schedule ret = new Schedule()
+            Booking ret = new Booking()
             {
                 Id = 1,
                 PickupDateTime = new DateTime(2000, 1, 1),
@@ -26,7 +27,7 @@ namespace Scheduler.Repository
                 Longitude = 74.78F
             };
             //context.Add(new Data.Schedule("test11", new DateTime(2000, 1, 1), "test2", 3.21, 3,44));
-            context.Schedules.Add(ret);
+            context.Bookings.Add(ret);
         }
     }
 }

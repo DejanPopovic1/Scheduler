@@ -1,10 +1,8 @@
-﻿using Scheduler.Data;
+﻿using Scheduler.Entities;
+using Scheduler.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Scheduler.Models
+namespace Scheduler.ViewModels
 {
     public partial class ScheduleViewModel
     {
@@ -18,7 +16,7 @@ namespace Scheduler.Models
 
         }
 
-        public ScheduleViewModel(Schedule s) 
+        public ScheduleViewModel(Booking s) 
         {
             Id = s.Id;
             scheduleName = s.ScheduleName;
@@ -27,14 +25,6 @@ namespace Scheduler.Models
                 lat = s.Latitude,
                 lon = s.Longitude
             };
-            //location.lat = s.Latitude;
-            //location.lon = s.Longitude;
         }
     }
-
-    //public class Location
-    //{
-    //    public double lat { get; set; }
-    //    public double lon { get; set; }
-    //}
 }

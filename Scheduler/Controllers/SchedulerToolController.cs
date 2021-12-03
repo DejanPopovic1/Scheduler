@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Scheduler.Data;
+using Scheduler.Entities;
 using Scheduler.Models;
+using Scheduler.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -28,16 +29,16 @@ namespace Scheduler.Controllers
             List<Vertex> bookingAssignmentsFirstDay = new List<Vertex>();
             List<int> requiredResourcesPerDay = new List<int>();
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
-            List<Location> bookingLocations = _dbContext.Schedules.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
+            List<Location> bookingLocations = _dbContext.Bookings.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
             DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
             List<TimeSpan> bookingTravelTimes = distanceMatrix[1];
             bookingTravelTimes = bookingTravelTimes.Select(x => x * 2).ToList();
-            List<Schedule> allSchedules = _dbContext.Schedules.Select(x => x).ToList();
+            List<Booking> allSchedules = _dbContext.Bookings.Select(x => x).ToList();
             SchedulesSplitter schedulesSplitter = new SchedulesSplitter(new DateTime(2021, 11, 28), allSchedules);
             List<int>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedulesIds;
             for (int i = 0; i < schedulesForNextNDays.Length; i++)
             {
-                List<DateTime> bookingStartDateTimes = _dbContext.Schedules.Where(x => schedulesForNextNDays[i].Contains(x.Id)).Select(x => x.PickupDateTime).ToList();
+                List<DateTime> bookingStartDateTimes = _dbContext.Bookings.Where(x => schedulesForNextNDays[i].Contains(x.Id)).Select(x => x.PickupDateTime).ToList();
                 List<TimeSpan> bookingStartTimes = new List<TimeSpan>();
                 foreach (DateTime bookingStartDateTime in bookingStartDateTimes)
                 {
@@ -71,7 +72,7 @@ namespace Scheduler.Controllers
             }
             result.RequiredResourcesPerDay = requiredResourcesPerDay;
             result.NumberOfSchedulingUsers = _dbContext.Users.Count();
-            var schedulesForNextDay = _dbContext.Schedules.ToList().Select((x, i) => new ScheduleIndexQueryResult()
+            var schedulesForNextDay = _dbContext.Bookings.ToList().Select((x, i) => new ScheduleIndexQueryResult()
             {
                 Schedule = x,
                 Index = i
@@ -110,7 +111,7 @@ namespace Scheduler.Controllers
 
     public class ScheduleIndexQueryResult 
     {
-        public Schedule Schedule { get; set; }
+        public Booking Schedule { get; set; }
         public int Index { get; set; }
     }
 }

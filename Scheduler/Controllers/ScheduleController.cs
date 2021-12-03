@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Scheduler.Data;
+using Scheduler.Entities;
 using Scheduler.Models;
 using Scheduler.Repository;
+using Scheduler.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Scheduler.Controllers
             //var test = this.User.Claims;
             //var test2 = test.ToList().FirstOrDefault().Value;
             var userId = User.Claims.ToList().ElementAt(0).Value;
-            Schedule ret = new Schedule()
+            Booking ret = new Booking()
             {
                 //Id = 1,
                 PickupDateTime = s.pickupDate,
@@ -42,7 +43,7 @@ namespace Scheduler.Controllers
                 Longitude = s.location.lon
             };
             ret.FK_schedule_user = _dbContext.Users.Where(x => x.Id == userId).First();
-            _dbContext.Schedules.Add(ret);
+            _dbContext.Bookings.Add(ret);
             _dbContext.SaveChanges();
             //var test1 = 1;
             //_scheduleRepo.Add(_dbContext, s);
@@ -62,11 +63,11 @@ namespace Scheduler.Controllers
             List<ScheduleViewModel> ret;
             if (userId == "4")
             {
-                ret = _dbContext.Schedules.Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+                ret = _dbContext.Bookings.Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
             }
             else
             {
-                ret = _dbContext.Schedules.Where(x => (x.FK_schedule_user.Id == userId)).Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
+                ret = _dbContext.Bookings.Where(x => (x.FK_schedule_user.Id == userId)).Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
             }
             return Ok(ret);
 
@@ -117,8 +118,8 @@ namespace Scheduler.Controllers
         [HttpPost("deleteItem")]
         public IActionResult deleteItem([FromBody] int i)
         {
-            var singleRec = _dbContext.Schedules.FirstOrDefault(x => x.Id == i);
-            _dbContext.Schedules.Remove(singleRec);
+            var singleRec = _dbContext.Bookings.FirstOrDefault(x => x.Id == i);
+            _dbContext.Bookings.Remove(singleRec);
             _dbContext.SaveChanges();
             return Ok();
         }

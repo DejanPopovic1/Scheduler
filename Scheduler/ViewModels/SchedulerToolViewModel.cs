@@ -1,8 +1,8 @@
-﻿using Scheduler.Data;
+﻿using Scheduler.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Scheduler.Models
+namespace Scheduler.ViewModels
 {
     public partial class SchedulerToolViewModel
     {
@@ -26,12 +26,8 @@ namespace Scheduler.Models
     public partial class BookingAssignment
     {
         public int ResourceNumber { get; set; }
-        //TimeSpan DepartureTime { get; set; }
-        //TimeSpan ReturnTime { get; set; }
-
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-
         public BookingAssignment()
         {
 
@@ -40,10 +36,6 @@ namespace Scheduler.Models
         public BookingAssignment(ScheduleVertex scheduledVertex)
         {
             ResourceNumber = scheduledVertex.Colour;
-            //DepartureTime = scheduledVertex.scheduleModelValue.StartTime;
-            //ReturnTime = scheduledVertex.scheduleModelValue.EndTime;
-            var test1 = scheduledVertex.scheduleModelValue.StartTime.Ticks;
-            var test2 = scheduledVertex.scheduleModelValue.EndTime.Ticks;
             StartTime = new DateTime(scheduledVertex.scheduleModelValue.StartTime.Ticks).ToString("HH:mm");
             EndTime = new DateTime(scheduledVertex.scheduleModelValue.EndTime.Ticks).ToString("HH:mm");
         }

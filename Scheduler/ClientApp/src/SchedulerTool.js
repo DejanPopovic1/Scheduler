@@ -7,13 +7,11 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import MainMap from './MainMap';
 import './styles.css';
 
-//Required Libraries for this component - remove all else
 import Container from 'react-bootstrap/Container';
 import { PureComponent } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Legend, Bar} from 'recharts';
 import CountUp from 'react-countup';
 import MaterialTable from "material-table";
-//import { AddBox, ArrowDownward } from "@material-ui/icons";
 
 import { forwardRef } from 'react';
 
@@ -62,7 +60,6 @@ class SchedulerTool extends PureComponent {
         super(props);
         this.state = this.getInitialState();
         this.getData = this.getData.bind(this);
-       // debugger;
     }
 
     afterStateUpdate = () => {
@@ -72,29 +69,17 @@ class SchedulerTool extends PureComponent {
 
     async componentDidMount() {
         var response = await this.GetAllSuperUserInformation();
-        // var test = response.requiredResourcesPerDay;
-        // debugger;
         var xAxis = this.GetRenderedDates();
         function MakeDataSource(value, index, array) {
             return {"name": xAxis[index], "value": response.requiredResourcesPerDay[index]};
         };
         var initialStateGraph = Array(12).fill();
         initialStateGraph = initialStateGraph.map(MakeDataSource);
-debugger;
-       // var updatedRequiredResourcesPerDay = requiredResourcesPerDay.map();
-        // function updateResource(value, index, array) {
-        //     //var elementRawDate = new Date();
-        //     var elementRawDate = new Date(new Date().getTime() + index * 86400000);
-        //     //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
-        //     //return elementStringDate;
-        //     var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
-        //     return result;
-        // };
         this.setState({numberOfSchedulingUsers: response.numberOfSchedulingUsers, 
             totalKmTravelledForTheNextDay: response.totalKmTravelledForTheNextDay, 
             totalMinutesTravelledForTheNextDay: response.totalMinutesTravelledForTheNextDay, 
             requiredResourcesPerDay: initialStateGraph,
-            bookingAssignmentsFirstDay: response.bookingAssignments}, //requiredResourcesPerDay
+            bookingAssignmentsFirstDay: response.bookingAssignments},
             this.afterStateUpdate);
     }
 
@@ -123,19 +108,9 @@ debugger;
     }
 
     GetRenderedDates = () => {
-        // var renderedDatesArray = Array(12).fill(new Date());
-        // function ForwardDate(value, index, array) {
-        //     var forwardDate = new Date(value.getFullYear(), value.getMonth() + index , value.getDate());
-        //     return monthNames[forwardDate.getMonth()] + " " + forwardDate.getFullYear();
-        // };
-        // renderedDatesArray = renderedDatesArray.map(ForwardDate);
-        // return renderedDatesArray;
         var renderedDatesArray = Array(12).fill();
         function ForwardDate(value, index, array) {
-            //var elementRawDate = new Date();
             var elementRawDate = new Date(new Date().getTime() + index * 86400000);
-            //var elementStringDate = elementRawDate.getDate() + " " + (elementRawDate.getMonth() + 1);
-            //return elementStringDate;
             var result = elementRawDate.getDate() + "/" + elementRawDate.getMonth();
             return result;
         };
@@ -179,53 +154,10 @@ debugger;
 
     render() {
         var dataPoints = this.state.requiredResourcesPerDay;
-
         var xAxis = this.GetRenderedDates();
-        debugger;
-        // function MakeDataSource(value, index, array) {
-        //     return {date: xAxis[index], uv: dataPoints[index].numberOfResources};
-        // };
-        //var dataSource = Array(12).fill();/////////////////////////////uncomment
-        //dataSource = dataSource.map(MakeDataSource);
-        
-        //dataSource = [{date: "blah", uv: 5 }, {date: "blahhh", uv: 7 }, {date: "blahhhss", uv: 4 }, {date: "blahhhss", uv: 5 }, {date: "blahhhss", uv: 5 }];
-    //     var dataSource = [
-    //     {"name": xAxis[0], "value": this.state.requiredResourcesPerDay[0] }, 
-    //     {"name": xAxis[1], "value": this.state.requiredResourcesPerDay[1] }, 
-    //     {"name": xAxis[2], "value": this.state.requiredResourcesPerDay[2] }, 
-    //     {"name": xAxis[3], "value": this.state.requiredResourcesPerDay[3] }, 
-    //     {"name": xAxis[4], "value": this.state.requiredResourcesPerDay[4] }, 
-    //     {"name": xAxis[5], "value": this.state.requiredResourcesPerDay[5] }, 
-    //     {"name": xAxis[6], "value": this.state.requiredResourcesPerDay[6] }, 
-    //     {"name": xAxis[7], "value": this.state.requiredResourcesPerDay[7] }, 
-    //     {"name": xAxis[8], "value": this.state.requiredResourcesPerDay[8] }, 
-    //     {"name": xAxis[9], "value": this.state.requiredResourcesPerDay[9] }, 
-    //     {"name": xAxis[10], "value": this.state.requiredResourcesPerDay[10] }, 
-    //     {"name": xAxis[11], "value": this.state.requiredResourcesPerDay[11] }
-    // ];
-    
-    // var dataSource = [
-    //     {"name": xAxis[0], "value": 1 }, 
-    //     {"name": xAxis[1], "value": 5 }, 
-    //     {"name": xAxis[2], "value": 5 }, 
-    //     {"name": xAxis[3], "value": 5 }, 
-    //     {"name": xAxis[4], "value": 2 }, 
-    //     {"name": xAxis[5], "value": 4 }, 
-    //     {"name": xAxis[6], "value": 3 }, 
-    //     {"name": xAxis[7], "value": 7 }, 
-    //     {"name": xAxis[8], "value": 6 }, 
-    //     {"name": xAxis[9], "value": 8 }, 
-    //     {"name": xAxis[10], "value": 8 }, 
-    //     {"name": xAxis[11], "value": 4 }
-    // ];
-
     var test = this.state.requiredResourcesPerDay;
     debugger;
     var dataSource = this.state.requiredResourcesPerDay;
-
-
-
-        //var data = dataSource;
         var numberOfSchedulingUsers = this.state.numberOfSchedulingUsers;
         var kmTotalTravelledNextDay = this.state.totalKmTravelledForTheNextDay;
         var hoursTotalTravelledNextDay = this.state.totalMinutesTravelledForTheNextDay;
@@ -248,20 +180,6 @@ debugger;
                                 </div>
                             </Col>
                         </Row>
-                        {/* <Row>
-                            <Col>
-                                <Form.Group>
-                                    <Form.Label>Total Km travelled for the next day</Form.Label>
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <div style={{ display: "inline-block" }}>
-                                    <h1>
-                                        <CountUp duration={0.5} end={kmTotalTravelledNextDay} delay={0.5} />
-                                    </h1>
-                                </div>
-                            </Col>
-                        </Row> */}
                         <Row>
                             <Col>
                                 <Form.Group>
@@ -276,27 +194,6 @@ debugger;
                                 </div>
                             </Col>
                         </Row>
-                        {/* <row>
-                            <AreaChart
-                                width={800}
-                                height={400}
-                                data={dataSource}
-                                //data={this.state.graphDataPoints}
-                                margin={{
-                                    top: 10,
-                                    right: 10,
-                                    left: 0,
-                                    bottom: 0
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
-                                </AreaChart>
-                        </row> */}
-
                         <Row>
                             <Col>
                             Required vehicle resources for the upcoming days:
@@ -310,9 +207,6 @@ debugger;
                             </BarChart>
                             </Col>
                         </Row>
-
-
-
                         <Row>
                             <Col>
                         <MaterialTable
@@ -322,21 +216,11 @@ debugger;
                                 { title: "Start Time", field: "startTime" },
                                 { title: "End Time", field: "endTime"},
                             ]}
-                            // data={[
-                            //     {
-                            //     resourceNumber: 1,
-                            //     startTime: "12:00",
-                            //     endTime: "15:00",
-                            //     },
                                 data={this.state.bookingAssignmentsFirstDay}
-                            title="Resource Assignments For The Day"
+                            title="Resource Assignments For Tomorrow"
                         />
                         </Col>
                         </Row>
-
-
-                        {/* <XAxis dataKey="date" /> */}
-                        {/* dataKey="uv"  */}
                         <Row>
                             <p><button className="btn btn-primary btn-block" onClick={this.addPickupPoint}>Add central logistics location</button></p>
                         </Row>

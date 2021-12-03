@@ -2,7 +2,7 @@
 using Scheduler.Models;
 using System.Collections.Generic;
 using System;
-using Scheduler.Data;
+using Scheduler.Entities;
 using System.Threading;
 using System.Globalization;
 

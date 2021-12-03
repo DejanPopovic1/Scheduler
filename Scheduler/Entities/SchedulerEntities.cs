@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Scheduler.Data
+namespace Scheduler.Entities
 {
     public class SchedulerEntities : DbContext
     {
@@ -16,8 +12,7 @@ namespace Scheduler.Data
             { }
 
             public DbSet<User> Users { get; set; }
-            public DbSet<Schedule> Schedules { get; set; }
+            public DbSet<Booking> Bookings { get; set; }
             public DbSet<CentralHub> CentralHubs { get; set; }
-
     }
 }

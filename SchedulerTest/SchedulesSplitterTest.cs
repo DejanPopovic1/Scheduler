@@ -2,36 +2,36 @@
 using Scheduler.Models;
 using System.Collections.Generic;
 using System;
-using Scheduler.Data;
+using Scheduler.Entities;
 
 namespace SchedulerTest
 {
     public class SchedulesSplitterTest
     {
-        List<Schedule> schedules;
+        List<Booking> schedules;
         SchedulesSplitter schedulesSplitter;
 
         [SetUp]
         public void Setup()
         {
-            schedules = new List<Schedule>() {
-                new Schedule(){ Id = 1, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//0
-                new Schedule(){ Id = 2, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//1
-                new Schedule(){ Id = 3, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//2
-                new Schedule(){ Id = 4, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//3
-                new Schedule(){ Id = 5, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//4
-                new Schedule(){ Id = 6, PickupDateTime = new DateTime(2021, 11, 30, 15, 0, 0) },//5
-                new Schedule(){ Id = 7, PickupDateTime = new DateTime(2021, 12, 1, 15, 0, 0) },//6
-                new Schedule(){ Id = 8, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//7
-                new Schedule(){ Id = 9, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//8
-                new Schedule(){ Id = 10, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//9
-                new Schedule(){ Id = 11, PickupDateTime = new DateTime(2021, 12, 5, 15, 0, 0) },//10
-                new Schedule(){ Id = 12, PickupDateTime = new DateTime(2021, 12, 9, 15, 0, 0) },//11
+            schedules = new List<Booking>() {
+                new Booking(){ Id = 1, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//0
+                new Booking(){ Id = 2, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//1
+                new Booking(){ Id = 3, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//2
+                new Booking(){ Id = 4, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//3
+                new Booking(){ Id = 5, PickupDateTime = new DateTime(2021, 11, 29, 15, 0, 0) },//4
+                new Booking(){ Id = 6, PickupDateTime = new DateTime(2021, 11, 30, 15, 0, 0) },//5
+                new Booking(){ Id = 7, PickupDateTime = new DateTime(2021, 12, 1, 15, 0, 0) },//6
+                new Booking(){ Id = 8, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//7
+                new Booking(){ Id = 9, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//8
+                new Booking(){ Id = 10, PickupDateTime = new DateTime(2021, 12, 2, 15, 0, 0) },//9
+                new Booking(){ Id = 11, PickupDateTime = new DateTime(2021, 12, 5, 15, 0, 0) },//10
+                new Booking(){ Id = 12, PickupDateTime = new DateTime(2021, 12, 9, 15, 0, 0) },//11
                 //=====Up to and including 9
-                new Schedule(){ Id = 13, PickupDateTime = new DateTime(2021, 12, 10, 15, 0, 0) },//12
-                new Schedule(){ Id = 14, PickupDateTime = new DateTime(2021, 12, 11, 15, 0, 0) },//13
-                new Schedule(){ Id = 15, PickupDateTime = new DateTime(2022, 1, 28, 15, 0, 0) },//14
-                new Schedule(){ Id = 16, PickupDateTime = new DateTime(2022, 1, 28, 15, 0, 0) }//15
+                new Booking(){ Id = 13, PickupDateTime = new DateTime(2021, 12, 10, 15, 0, 0) },//12
+                new Booking(){ Id = 14, PickupDateTime = new DateTime(2021, 12, 11, 15, 0, 0) },//13
+                new Booking(){ Id = 15, PickupDateTime = new DateTime(2022, 1, 28, 15, 0, 0) },//14
+                new Booking(){ Id = 16, PickupDateTime = new DateTime(2022, 1, 28, 15, 0, 0) }//15
             };
             DateTime startDate = new DateTime(2021, 11, 28);
             schedulesSplitter = new SchedulesSplitter(startDate, schedules);

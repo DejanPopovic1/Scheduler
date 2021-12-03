@@ -1,4 +1,4 @@
-﻿using Scheduler.Data;
+﻿using Scheduler.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
