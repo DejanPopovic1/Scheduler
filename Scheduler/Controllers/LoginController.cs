@@ -27,9 +27,9 @@ namespace Scheduler.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Example s)
+        public IActionResult Login([FromBody] LoginViewModel s)
         {
-            ExampleResponse ret = new ExampleResponse(s, "", 0);
+            LoginResponse ret = new LoginResponse(s, "", 0);
             //System.Web.HttpContext.Current.Session["name"] = "Any Name";
             //HttpContext context = HttpContext.Current.Session["ShoppingCart"];
             string hashedPassword = Cryptographic.CreateMD5Hash(s.password);

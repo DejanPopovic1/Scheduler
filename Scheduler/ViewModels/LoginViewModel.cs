@@ -1,6 +1,6 @@
-﻿namespace Scheduler.Models
+﻿namespace Scheduler.ViewModels
 {
-    public class Example
+    public class LoginViewModel
     {
         public string username { get; set; }
         public string password { get; set; }

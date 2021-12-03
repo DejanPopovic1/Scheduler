@@ -13,12 +13,13 @@ using System.Diagnostics;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using Scheduler.Models;
+using Scheduler.ViewModels;
 
 namespace WebApi.Services
 {
     public interface IUserService
     {
-        ExampleResponse Authenticate(Example model, int i);
+        LoginResponse Authenticate(LoginViewModel model, int i);
         IEnumerable<User> GetAll();
         User GetById(int id);
     }
@@ -38,7 +39,7 @@ namespace WebApi.Services
             _appSettings = appSettings.Value;
         }
 
-        public ExampleResponse Authenticate(Example model, int i)
+        public LoginResponse Authenticate(LoginViewModel model, int i)
         {
             //var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
@@ -51,7 +52,7 @@ namespace WebApi.Services
 
             var token = generateJwtToken(i);
 
-            return new ExampleResponse(model, token, i);
+            return new LoginResponse(model, token, i);
         }
 
         public IEnumerable<User> GetAll()
