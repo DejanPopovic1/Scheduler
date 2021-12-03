@@ -3,3 +3,4 @@ Scheduler/ClientApp/node_modules/
 Scheduler/ClientApp/src/SecurityKeys.js
 SchedulerTest/bin/
 SchedulerTest/obj/
+Scheduler/Models/ApiKeyHelper.cs

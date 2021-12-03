@@ -30,7 +30,7 @@ namespace Scheduler.Controllers
             List<int> requiredResourcesPerDay = new List<int>();
             List<Location> originLocations = _dbContext.CentralHubs.Select(x => new Location(x.Latitude, x.Longitude)).ToList();
             List<Location> bookingLocations = _dbContext.Bookings.Select(x => new Location { lat = x.Latitude, lon = x.Longitude }).ToList();
-            DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, "AIzaSyDc6llaTb4Zxg0whfiuluFdH7RG8z16Gko");
+            DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, ApiKeyHelper.GetApiKey());
             List<TimeSpan> bookingTravelTimes = distanceMatrix[1];
             bookingTravelTimes = bookingTravelTimes.Select(x => x * 2).ToList();
             List<Booking> allSchedules = _dbContext.Bookings.Select(x => x).ToList();
