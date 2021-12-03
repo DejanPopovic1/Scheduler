@@ -30,16 +30,8 @@ namespace Scheduler.Controllers
         public IActionResult Login([FromBody] LoginViewModel s)
         {
             LoginResponse ret = new LoginResponse(s, "", 0);
-            //System.Web.HttpContext.Current.Session["name"] = "Any Name";
-            //HttpContext context = HttpContext.Current.Session["ShoppingCart"];
             string hashedPassword = Cryptographic.CreateMD5Hash(s.password);
             bool isCredentialsValid = _dbContext.Users.Where(x => EF.Functions.Collate(x.UserName, "SQL_Latin1_General_CP1_CS_AS") == s.username && x.PasswordHash == hashedPassword).Select(x => x).ToList().Any();
-            //get user ID
-
-
-
-
-            //=======================
             int userId = 0;
             if (isCredentialsValid)
             {
@@ -53,16 +45,6 @@ namespace Scheduler.Controllers
             {
                 return BadRequest(new { message = "Username or password is incorrect"});
             }
-            //return userId;
-            
-        }
-
-        [HttpPost("postSchedule")]
-        public int postSchedule([FromBody] IEnumerable<ScheduleViewModel> s)
-        {
-            //System.Environment.Exit(-1);
-            int test = 7;
-            return 5;
         }
     }
 }

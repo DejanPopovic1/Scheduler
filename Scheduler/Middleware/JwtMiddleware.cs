@@ -34,7 +34,6 @@ namespace WebApi.Helpers
             token = test;
             if (token != null)
                 attachUserToContext(context, userService, token);
-
             await _next(context);
         }
 
@@ -53,23 +52,15 @@ namespace WebApi.Helpers
                     // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
-
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
                 // attach user to context on successful jwt validation
-
                 //context.Items["User"] = userService.GetById(userId);
                 context.Items["UserID"] = userId;
-
-
                 var claim = new Claim(ClaimTypes.Name, userId.ToString());
                 var identity = new ClaimsIdentity(new[] { claim }, "BasicAuthentication"); // this uses basic auth
                 var principal = new ClaimsPrincipal(identity);
                 context.User = principal;
-
-
-
                 var test0 = context;
                 int test = 6;
 

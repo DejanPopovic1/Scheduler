@@ -16,27 +16,17 @@ namespace Scheduler.Controllers
     public class ScheduleController : ControllerBase
     {
         private readonly SchedulerEntities _dbContext;
-        private readonly ScheduleRepository _scheduleRepo;
-        public ScheduleController(SchedulerEntities dbContext/*, ScheduleRepository scheduleRepository*/)
+        public ScheduleController(SchedulerEntities dbContext)
         {
             _dbContext = dbContext;
-            //_scheduleRepo = scheduleRepository;
         }
 
         [HttpPost("add")]
-        public IActionResult add([FromBody] ScheduleViewModel s/*, [FromHeader] string authorization*/)
+        public IActionResult add([FromBody] ScheduleViewModel s)
         {
-            //ClaimsPrincipal currentUser = this.User;
-            //var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //ApplicationUser user = await _userManager.FindByNameAsync(currentUserName);
-
-            //int.Parse(this.User.Claims.First(i => i.Type == "id").Value);
-            //var test = this.User.Claims;
-            //var test2 = test.ToList().FirstOrDefault().Value;
             var userId = User.Claims.ToList().ElementAt(0).Value;
             Booking ret = new Booking()
             {
-                //Id = 1,
                 PickupDateTime = s.pickupDate,
                 ScheduleName = s.scheduleName,
                 Latitude = s.location.lat,
@@ -45,13 +35,6 @@ namespace Scheduler.Controllers
             ret.FK_schedule_user = _dbContext.Users.Where(x => x.Id == userId).First();
             _dbContext.Bookings.Add(ret);
             _dbContext.SaveChanges();
-            //var test1 = 1;
-            //_scheduleRepo.Add(_dbContext, s);
-
-            //s.pickupDate.AddHours(2);
-            ////_dbContext.Schedules.Add(s);
-            ////var test = s.scheduleName;
-            ////var test2 = s.location;
             return Ok();
         }
 
@@ -70,49 +53,6 @@ namespace Scheduler.Controllers
                 ret = _dbContext.Bookings.Where(x => (x.FK_schedule_user.Id == userId)).Select(x => new ScheduleViewModel(x)).AsQueryable().ToList();
             }
             return Ok(ret);
-
-            //ScheduleViewModel ret1 = new ScheduleViewModel()
-            //{
-            //    pickupDate = new DateTime(2000, 1, 1),
-            //    scheduleName = "Testing 1 2 3",
-            //    location = new Location()
-            //    {
-            //        lat = 100,
-            //        lon = 200
-            //    }
-            //};
-            //ScheduleViewModel ret2 = new ScheduleViewModel()
-            //{
-            //    pickupDate = new DateTime(2000, 1, 1),
-            //    scheduleName = "Testing 1 2 3",
-            //    location = new Location()
-            //    {
-            //        lat = 100,
-            //        lon = 200
-            //    }
-            //};
-            //ScheduleViewModel ret3 = new ScheduleViewModel()
-            //{
-            //    pickupDate = new DateTime(2000, 1, 1),
-            //    scheduleName = "Testing 1 2 3",
-            //    location = new Location()
-            //    {
-            //        lat = 100,
-            //        lon = 200
-            //    }
-            //};
-            //List<ScheduleViewModel> ret = new List<ScheduleViewModel>();
-            //ret.Add(ret1);
-            //ret.Add(ret2);
-            //ret.Add(ret3);
-
-            //========================================================
-            //TestViewModel test = new TestViewModel() { Param = "hello" };
-            //List<TestViewModel> ret = new List<TestViewModel>();
-            //ret.Add(test);
-            //ret.Add(test);
-
-            //return Ok(ret);
         }
 
         [HttpPost("deleteItem")]
