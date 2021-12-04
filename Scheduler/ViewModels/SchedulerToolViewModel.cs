@@ -20,6 +20,7 @@ namespace Scheduler.ViewModels
         public SchedulerToolViewModel()
         {
             BookingAssignments = new List<BookingAssignment>();
+            RequiredResourcesPerDay = new List<int>();
         }
     }
 

@@ -26,7 +26,6 @@ namespace Scheduler.Controllers
         public IActionResult GetInfo()
         {
             var allBookings = _dbContext.Bookings.ToList();
-            //List<int> bookings = _dbContext.Bookings.Select(x => x.Id).ToList();
             SchedulerToolViewModel result = new SchedulerToolViewModel();
             List<Vertex> bookingAssignmentsFirstDay = new List<Vertex>();
             List<int> requiredResourcesPerDay = new List<int>();
@@ -35,63 +34,6 @@ namespace Scheduler.Controllers
             DistanceMatrix distanceMatrix = DistanceMatrixCreator.GenerateDistanceMatrix(originLocations, bookingLocations, ApiKeyHelper.GetApiKey());
             List<TimeSpan> bookingTravelTimes = distanceMatrix[1];
             bookingTravelTimes = bookingTravelTimes.Select(x => x * 2).ToList();
-            List<Booking> allSchedules = _dbContext.Bookings.Select(x => x).ToList();
-            //SchedulesSplitter schedulesSplitter = new SchedulesSplitter(DateTime.Now, allSchedules);
-            //List<int>[] schedulesForNextNDays = schedulesSplitter.ForecastedSchedulesIds;
-            //for (int i = 0; i < schedulesForNextNDays.Length; i++)
-            //{
-            //    List<DateTime> bookingStartDateTimes = _dbContext.Bookings.Where(x => schedulesForNextNDays[i].Contains(x.Id)).Select(x => x.PickupDateTime).ToList();
-            //    List<TimeSpan> bookingStartTimes = new List<TimeSpan>();
-            //    foreach (DateTime bookingStartDateTime in bookingStartDateTimes)
-            //    {
-            //        TimeSpan bookingStartTime = bookingStartDateTime.TimeOfDay;
-            //        bookingStartTimes.Add(bookingStartTime);
-            //    }
-            //    List<ScheduleModel> daysSchedules = new List<ScheduleModel>();
-            //    foreach (var bookingStartTime in bookingStartTimes)
-            //    {
-            //        var bookingEndTime = bookingStartTime + bookingTravelTimes[i];
-            //        daysSchedules.Add(new ScheduleModel(bookingStartTime, bookingEndTime));
-            //    }
-            //    List<Vertex> scheduleVertices = new List<Vertex>();
-            //    foreach (ScheduleModel daySchedule in daysSchedules)
-            //    {
-            //        scheduleVertices.Add(new ScheduleVertex(daySchedule));
-            //    }
-            //    UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(scheduleVertices);
-            //    graph.CreateEdgesUnoptimised();
-            //    graph.ColourGraph();
-            //    requiredResourcesPerDay.Add(graph.ColouringNumber);
-            //    if (i == 1)
-            //    {
-            //        bookingAssignmentsFirstDay = graph.Vertices;
-            //        foreach (var bookingAssignmentFirstDay in bookingAssignmentsFirstDay)
-            //        {
-            //            BookingAssignment bookingAssignmentFirstDayView = new BookingAssignment((ScheduleVertex)bookingAssignmentFirstDay);
-            //            result.BookingAssignments.Add(bookingAssignmentFirstDayView);
-            //        }
-            //    };
-            //}
-            //result.RequiredResourcesPerDay = requiredResourcesPerDay;
-
-
-            result.RequiredResourcesPerDay = BookingHelper.NumberOfResourcesPerDay(_dbContext.Bookings.ToList(), bookingTravelTimes);
-            result.NumberOfSchedulingUsers = _dbContext.Users.Count();
-            var schedulesForNextDay = _dbContext.Bookings.ToList().Select((x, i) => new ScheduleIndexQueryResult()
-            {
-                Schedule = x,
-                Index = i
-            }).Where(x => x.Schedule.PickupDateTime > DateTime.Now && x.Schedule.PickupDateTime < DateTime.Now.AddDays(1));
-            var r = schedulesForNextDay.Select(x => bookingTravelTimes[x.Index].Ticks);
-            int firstDayTotalTravelHours = (int)(r.Sum()/10000000/60);
-            result.TotalMinutesTravelledForTheNextDay = firstDayTotalTravelHours;
-
-
-
-            var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
-            result.TotalMinutesTravelledForTheNextDay = numberOfMinutesTravelInFirstDay;
-
-            //===================
             List<BookingDateAndDuration> bookingDateAndDuration = new List<BookingDateAndDuration>();
             int i = 0;
             foreach (var booking in allBookings)
@@ -99,6 +41,31 @@ namespace Scheduler.Controllers
                 bookingDateAndDuration.Add(new BookingDateAndDuration(booking.PickupDateTime, bookingTravelTimes[i]));
                 i++;
             }
+            //================================================
+            var all = SchedulesSplitter.GetSplitSchedules(DateTime.Now, bookingDateAndDuration);
+            foreach (var splitBookingDatesAndDurations in all)
+            {
+                List<Vertex> dailyVertices = new List<Vertex>();
+                foreach (var splitBookingDateAndDuration in splitBookingDatesAndDurations)
+                {
+                    ScheduleModel sm = new ScheduleModel(splitBookingDateAndDuration.BookingDate.TimeOfDay, splitBookingDateAndDuration.BookingDate.TimeOfDay + splitBookingDateAndDuration.BookingDuration);
+                    ScheduleVertex sv = new ScheduleVertex(sm);
+                    dailyVertices.Add(sv);
+                }
+                UndirectedGenericGraph<ScheduleModel> dailyGraph = new UndirectedGenericGraph<ScheduleModel>(dailyVertices);
+                dailyGraph.CreateEdgesUnoptimised();
+                dailyGraph.ColourGraph();
+                result.RequiredResourcesPerDay.Add(dailyGraph.ColouringNumber);
+            }
+            //================
+            result.NumberOfSchedulingUsers = _dbContext.Users.Count();
+
+
+
+            //=====================================================
+            var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
+            result.TotalMinutesTravelledForTheNextDay = numberOfMinutesTravelInFirstDay;
+            //================================================================
             List<BookingDateAndDuration> todayBookingDatesAndDurations = bookingDateAndDuration.Where(x => x.BookingDate.Date == DateTime.Now.Date).ToList();
             List<Vertex> todaysVertices = new List<Vertex>();
             foreach (var bookingDateDuration in todayBookingDatesAndDurations)
@@ -110,7 +77,7 @@ namespace Scheduler.Controllers
             UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(todaysVertices);
             graph.CreateEdgesUnoptimised();
             graph.ColourGraph();
-            var test = graph.Vertices.Cast<ScheduleVertex>().Select(x => {
+            var bookingAssignments = graph.Vertices.Cast<ScheduleVertex>().Select(x => {
                     return new BookingAssignment
                     {
                         ResourceNumber = x.Colour,
@@ -119,36 +86,7 @@ namespace Scheduler.Controllers
                     };
                 }
             ).ToList();
-
-            result.BookingAssignments = test;
-
-
-
-                            //        bookingAssignmentsFirstDay = graph.Vertices;
-                            //        foreach (var bookingAssignmentFirstDay in bookingAssignmentsFirstDay)
-                            //        {
-                            //            BookingAssignment bookingAssignmentFirstDayView = new BookingAssignment((ScheduleVertex)bookingAssignmentFirstDay);
-                            //            result.BookingAssignments.Add(bookingAssignmentFirstDayView);
-                            //        }
-
-
-
-
-            //List<Booking>[] splitBookings = SchedulesSplitter.GetSplitSchedules(DateTime.Now, _dbContext.Bookings.ToList());
-            //List<Booking> firstDayBookings = splitBookings[0];
-
-            //List<ScheduleModel> firstDaySchedules = new List<ScheduleModel>();
-            //foreach (var firstDayBooking in firstDayBookings)
-            //{
-            //    firstDaySchedules.Add(firstDayBooking.PickupDateTime.TimeOfDay, );
-
-
-            //}
-
-            //ScheduleModel sm = new 
-            //ScheduleVertex sv = new ScheduleVertex(sm);
-            //result.BookingAssignments
-
+            result.BookingAssignments = bookingAssignments;
             return Ok(result);
         }
 

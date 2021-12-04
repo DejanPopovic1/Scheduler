@@ -7,15 +7,15 @@ namespace Scheduler.Models
     public static class SchedulesSplitter
     {
         const int NumberOfForecastDays = 12;
-        public static List<Booking>[] GetSplitSchedules(DateTime startDate, List<Booking> bookings)
+        public static List<BookingDateAndDuration>[] GetSplitSchedules(DateTime startDate, List<BookingDateAndDuration> bookings)
         {
-            List<Booking>[] result = new List<Booking>[NumberOfForecastDays];
+            List<BookingDateAndDuration>[] result = new List<BookingDateAndDuration>[NumberOfForecastDays];
             for (int i = 0; i < NumberOfForecastDays; i++)
             {
-                List<Booking> dayBookings = new List<Booking>();
+                List<BookingDateAndDuration> dayBookings = new List<BookingDateAndDuration>();
                 foreach (var booking in bookings)
                 {
-                    if (IsInSameDate(booking.PickupDateTime, startDate.AddDays(i)))
+                    if (IsInSameDate(booking.BookingDate, startDate.AddDays(i)))
                     {
                         dayBookings.Add(booking);
                     }
