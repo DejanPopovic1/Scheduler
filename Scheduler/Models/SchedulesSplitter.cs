@@ -4,49 +4,28 @@ using System.Collections.Generic;
 
 namespace Scheduler.Models
 {
-    public class SchedulesSplitter
+    public static class SchedulesSplitter
     {
         const int NumberOfForecastDays = 12;
-        public List<Booking>[] ForecastedSchedules { get; set; }
-
-        public List<int>[] ForecastedSchedulesIds { get; set; }
-        //public SchedulesSplitter(DateTime startDate, List<Schedule> schedules)
-        //{
-        //    ForecastedSchedules = new List<Schedule>[NumberOfForecastDays];
-        //    for (int i = 0; i < ForecastedSchedules.Length; i++)
-        //    {
-        //        List<Schedule> schedulesForADay = new List<Schedule>();
-        //        foreach (var schedule in schedules)
-        //        {
-        //            var test1 = schedule.PickupDateTime;
-        //            var test2 = startDate;
-        //            if (IsSameYearMonthDate(schedule.PickupDateTime, startDate.AddDays(i)))
-        //            {
-        //                schedulesForADay.Add(schedule);
-        //            }
-        //        }
-        //        ForecastedSchedules[i] = schedulesForADay;
-        //    }
-        //}
-
-        public SchedulesSplitter(DateTime startDate, List<Booking> schedules)
+        public static List<Booking>[] GetSplitSchedules(DateTime startDate, List<Booking> bookings)
         {
-            ForecastedSchedulesIds = new List<int>[NumberOfForecastDays];
-            for (int i = 0; i < ForecastedSchedulesIds.Length; i++)
+            List<Booking>[] result = new List<Booking>[NumberOfForecastDays];
+            for (int i = 0; i < NumberOfForecastDays; i++)
             {
-                List<int> schedulesForADay = new List<int>();
-                foreach (var schedule in schedules)
+                List<Booking> dayBookings = new List<Booking>();
+                foreach (var booking in bookings)
                 {
-                    if (IsInSameDate(schedule.PickupDateTime, startDate.AddDays(i)))
+                    if (IsInSameDate(booking.PickupDateTime, startDate.AddDays(i)))
                     {
-                        schedulesForADay.Add(schedule.Id);
+                        dayBookings.Add(booking);
                     }
                 }
-                ForecastedSchedulesIds[i] = schedulesForADay;
+                result[i] = dayBookings;
             }
+            return result;
         }
 
-        private bool IsInSameDate(DateTime t1, DateTime t2)
+        private static bool IsInSameDate(DateTime t1, DateTime t2)
         {
             if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Date == t2.Date)
             {
