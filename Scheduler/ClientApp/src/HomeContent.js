@@ -7,15 +7,10 @@ const HomeContent = () => {
         <>
             <img class='bg' src={backgroundPic} />
             <div class='justify standardBackgroundColour'>
-                <h2 class="centeredRow whiteSpace">Pickup App Instructions</h2>
-                <p>To schedule a pickup, go to the 'Schedule' tab and provide the instructions for pickup</p>
-                <p>Within the schedule tab, multiple pickups may be arranged</p>
-                <p>Ensure you have the relevant information available, including:
-					<ul>
-                        <li>Date of pickup</li>
-                        <li>Pickup point - this may be input through a map pin drop</li>
-                    </ul>
-                </p>
+                <h2 class="centeredRow whiteSpace">Scheduler Instructions</h2>
+                <p>As a user requesting pickup, go to the 'Schedule' tab and complete the pickup instructions</p>
+                <p>As a super user wanting to see the resource requirements to fulfill all pickup requests, go to the 'Scheduler Tool' tab and complete the pickup instructions</p>
+                <p>A super user may also set the location for the central location hub through which resources are located</p>
                 <br />
             </div>
         </>
