@@ -183,7 +183,7 @@ class SchedulerTool extends PureComponent {
                         <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Minutes travelled for today</Form.Label>
+                                    <Form.Label>Hours travelled for the next 12 days</Form.Label>
                                 </Form.Group>
                             </Col>
                             <Col>
@@ -217,7 +217,7 @@ class SchedulerTool extends PureComponent {
                                 { title: "End Time", field: "endTime"},
                             ]}
                                 data={this.state.bookingAssignmentsFirstDay}
-                            title="Resource Assignments For Tomorrow"
+                            title="Resource Assignments For Today"
                         />
                         </Col>
                         </Row>

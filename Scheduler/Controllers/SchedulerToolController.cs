@@ -59,12 +59,13 @@ namespace Scheduler.Controllers
             }
             //================
             result.NumberOfSchedulingUsers = _dbContext.Users.Count();
-
-
-
             //=====================================================
-            var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
-            result.TotalMinutesTravelledForTheNextDay = numberOfMinutesTravelInFirstDay;
+            //var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
+            var numberOfMinutesTravelInFirstDay = bookingDateAndDuration.Sum(x => x.BookingDuration.Ticks);
+            numberOfMinutesTravelInFirstDay = numberOfMinutesTravelInFirstDay / 10000000 / 60 / 60;
+
+
+            result.TotalMinutesTravelledForTheNextDay = (int)numberOfMinutesTravelInFirstDay;
             //================================================================
             List<BookingDateAndDuration> todayBookingDatesAndDurations = bookingDateAndDuration.Where(x => x.BookingDate.Date == DateTime.Now.Date).ToList();
             List<Vertex> todaysVertices = new List<Vertex>();
