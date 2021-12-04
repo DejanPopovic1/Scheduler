@@ -75,8 +75,6 @@ namespace Scheduler.Controllers
 
 
             result.RequiredResourcesPerDay = BookingHelper.NumberOfResourcesPerDay(_dbContext.Bookings.ToList(), bookingTravelTimes);
-            var test = result.RequiredResourcesPerDay;
-
             result.NumberOfSchedulingUsers = _dbContext.Users.Count();
             var schedulesForNextDay = _dbContext.Bookings.ToList().Select((x, i) => new ScheduleIndexQueryResult()
             {
@@ -86,6 +84,11 @@ namespace Scheduler.Controllers
             var r = schedulesForNextDay.Select(x => bookingTravelTimes[x.Index].Ticks);
             int firstDayTotalTravelHours = (int)(r.Sum()/10000000/60);
             result.TotalMinutesTravelledForTheNextDay = firstDayTotalTravelHours;
+
+
+
+            var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
+            result.TotalMinutesTravelledForTheNextDay = numberOfMinutesTravelInFirstDay;
             return Ok(result);
         }
 
