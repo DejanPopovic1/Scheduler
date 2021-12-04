@@ -25,6 +25,7 @@ namespace Scheduler.Controllers
         [HttpGet("getInfo")]
         public IActionResult GetInfo()
         {
+            var allBookings = _dbContext.Bookings.ToList();
             //List<int> bookings = _dbContext.Bookings.Select(x => x.Id).ToList();
             SchedulerToolViewModel result = new SchedulerToolViewModel();
             List<Vertex> bookingAssignmentsFirstDay = new List<Vertex>();
@@ -89,6 +90,65 @@ namespace Scheduler.Controllers
 
             var numberOfMinutesTravelInFirstDay = BookingHelper.HoursOfTravelInADay(_dbContext.Bookings.ToList(), bookingTravelTimes);
             result.TotalMinutesTravelledForTheNextDay = numberOfMinutesTravelInFirstDay;
+
+            //===================
+            List<BookingDateAndDuration> bookingDateAndDuration = new List<BookingDateAndDuration>();
+            int i = 0;
+            foreach (var booking in allBookings)
+            {
+                bookingDateAndDuration.Add(new BookingDateAndDuration(booking.PickupDateTime, bookingTravelTimes[i]));
+                i++;
+            }
+            List<BookingDateAndDuration> todayBookingDatesAndDurations = bookingDateAndDuration.Where(x => x.BookingDate.Date == DateTime.Now.Date).ToList();
+            List<Vertex> todaysVertices = new List<Vertex>();
+            foreach (var bookingDateDuration in todayBookingDatesAndDurations)
+            {
+                ScheduleModel sm = new ScheduleModel(bookingDateDuration.BookingDate.TimeOfDay, bookingDateDuration.BookingDate.TimeOfDay + bookingDateDuration.BookingDuration);
+                ScheduleVertex sv = new ScheduleVertex(sm);
+                todaysVertices.Add(sv);
+            }
+            UndirectedGenericGraph<ScheduleModel> graph = new UndirectedGenericGraph<ScheduleModel>(todaysVertices);
+            graph.CreateEdgesUnoptimised();
+            graph.ColourGraph();
+            var test = graph.Vertices.Cast<ScheduleVertex>().Select(x => {
+                    return new BookingAssignment
+                    {
+                        ResourceNumber = x.Colour,
+                        StartTime = x.scheduleModelValue.StartTime.ToString(),
+                        EndTime = x.scheduleModelValue.EndTime.ToString(),
+                    };
+                }
+            ).ToList();
+
+            result.BookingAssignments = test;
+
+
+
+                            //        bookingAssignmentsFirstDay = graph.Vertices;
+                            //        foreach (var bookingAssignmentFirstDay in bookingAssignmentsFirstDay)
+                            //        {
+                            //            BookingAssignment bookingAssignmentFirstDayView = new BookingAssignment((ScheduleVertex)bookingAssignmentFirstDay);
+                            //            result.BookingAssignments.Add(bookingAssignmentFirstDayView);
+                            //        }
+
+
+
+
+            //List<Booking>[] splitBookings = SchedulesSplitter.GetSplitSchedules(DateTime.Now, _dbContext.Bookings.ToList());
+            //List<Booking> firstDayBookings = splitBookings[0];
+
+            //List<ScheduleModel> firstDaySchedules = new List<ScheduleModel>();
+            //foreach (var firstDayBooking in firstDayBookings)
+            //{
+            //    firstDaySchedules.Add(firstDayBooking.PickupDateTime.TimeOfDay, );
+
+
+            //}
+
+            //ScheduleModel sm = new 
+            //ScheduleVertex sv = new ScheduleVertex(sm);
+            //result.BookingAssignments
+
             return Ok(result);
         }
 

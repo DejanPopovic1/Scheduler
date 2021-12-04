@@ -183,7 +183,7 @@ class SchedulerTool extends PureComponent {
                         <Row>
                             <Col>
                                 <Form.Group>
-                                    <Form.Label>Remaining hours of travel for the day</Form.Label>
+                                    <Form.Label>Minutes travelled for today</Form.Label>
                                 </Form.Group>
                             </Col>
                             <Col>
